@@ -1,122 +1,186 @@
 [
     {
-        "merged": "app.yournewsontime.app-debug-45:/mipmap-hdpi_ic_launcher_round.webp.flat",
-        "source": "app.yournewsontime.app-main-47:/mipmap-hdpi/ic_launcher_round.webp"
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/drawable-xhdpi_ic_stat_name.png.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/drawable-xhdpi/ic_stat_name.png"
     },
     {
-        "merged": "app.yournewsontime.app-debug-45:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "app.yournewsontime.app-main-47:/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/mipmap-xhdpi_ic_launcher_background.webp.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/mipmap-xhdpi/ic_launcher_background.webp"
     },
     {
-        "merged": "app.yournewsontime.app-debug-45:/mipmap-xxhdpi_ic_launcher_foreground.webp.flat",
-        "source": "app.yournewsontime.app-main-47:/mipmap-xxhdpi/ic_launcher_foreground.webp"
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/mipmap-mdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "app.yournewsontime.app-debug-45:/mipmap-xhdpi_ic_launcher_round.webp.flat",
-        "source": "app.yournewsontime.app-main-47:/mipmap-xhdpi/ic_launcher_round.webp"
+        "merged": "app.yournewsontime.app-debug-49:/mipmap-mdpi_ic_launcher_foreground.webp.flat",
+        "source": "app.yournewsontime.app-main-51:/mipmap-mdpi/ic_launcher_foreground.webp"
     },
     {
-        "merged": "app.yournewsontime.app-debug-45:/drawable-xxxhdpi_ic_stat_name.png.flat",
-        "source": "app.yournewsontime.app-main-47:/drawable-xxxhdpi/ic_stat_name.png"
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/drawable-hdpi_ic_stat_name.png.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/drawable-hdpi/ic_stat_name.png"
     },
     {
-        "merged": "app.yournewsontime.app-debug-45:/font_inter_regular.ttf.flat",
-        "source": "app.yournewsontime.app-main-47:/font/inter_regular.ttf"
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/mipmap-xxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/mipmap-xxhdpi/ic_launcher_foreground.webp"
     },
     {
-        "merged": "app.yournewsontime.app-debug-45:/drawable-hdpi_ic_stat_name.png.flat",
-        "source": "app.yournewsontime.app-main-47:/drawable-hdpi/ic_stat_name.png"
+        "merged": "app.yournewsontime.app-debug-49:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "app.yournewsontime.app-main-51:/mipmap-hdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "app.yournewsontime.app-debug-45:/mipmap-xhdpi_ic_launcher.webp.flat",
-        "source": "app.yournewsontime.app-main-47:/mipmap-xhdpi/ic_launcher.webp"
+        "merged": "app.yournewsontime.app-debug-49:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "app.yournewsontime.app-main-51:/mipmap-mdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "app.yournewsontime.app-debug-45:/drawable-mdpi_ic_stat_name.png.flat",
-        "source": "app.yournewsontime.app-main-47:/drawable-mdpi/ic_stat_name.png"
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/mipmap-xhdpi_ic_launcher_foreground.webp.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/mipmap-xhdpi/ic_launcher_foreground.webp"
     },
     {
-        "merged": "app.yournewsontime.app-debug-45:/drawable-xxhdpi_ic_stat_name.png.flat",
-        "source": "app.yournewsontime.app-main-47:/drawable-xxhdpi/ic_stat_name.png"
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/mipmap-xxxhdpi/ic_launcher.webp"
     },
     {
-        "merged": "app.yournewsontime.app-debug-45:/xml_backup_rules.xml.flat",
-        "source": "app.yournewsontime.app-main-47:/xml/backup_rules.xml"
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
-        "merged": "app.yournewsontime.app-debug-45:/mipmap-mdpi_ic_launcher_background.webp.flat",
-        "source": "app.yournewsontime.app-main-47:/mipmap-mdpi/ic_launcher_background.webp"
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/font_inter_regular.ttf.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/font/inter_regular.ttf"
     },
     {
-        "merged": "app.yournewsontime.app-debug-45:/mipmap-hdpi_ic_launcher.webp.flat",
-        "source": "app.yournewsontime.app-main-47:/mipmap-hdpi/ic_launcher.webp"
+        "merged": "app.yournewsontime.app-debug-49:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "app.yournewsontime.app-main-51:/mipmap-xxhdpi/ic_launcher.webp"
     },
     {
-        "merged": "app.yournewsontime.app-debug-45:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
-        "source": "app.yournewsontime.app-main-47:/mipmap-xxhdpi/ic_launcher_round.webp"
+        "merged": "app.yournewsontime.app-debug-49:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "app.yournewsontime.app-main-51:/mipmap-mdpi/ic_launcher.webp"
     },
     {
-        "merged": "app.yournewsontime.app-debug-45:/xml_data_extraction_rules.xml.flat",
-        "source": "app.yournewsontime.app-main-47:/xml/data_extraction_rules.xml"
+        "merged": "app.yournewsontime.app-debug-49:/mipmap-xxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "app.yournewsontime.app-main-51:/mipmap-xxhdpi/ic_launcher_foreground.webp"
     },
     {
-        "merged": "app.yournewsontime.app-debug-45:/mipmap-hdpi_ic_launcher_background.webp.flat",
-        "source": "app.yournewsontime.app-main-47:/mipmap-hdpi/ic_launcher_background.webp"
+        "merged": "app.yournewsontime.app-debug-49:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "app.yournewsontime.app-main-51:/mipmap-xhdpi/ic_launcher.webp"
     },
     {
-        "merged": "app.yournewsontime.app-debug-45:/mipmap-xxhdpi_ic_launcher_background.webp.flat",
-        "source": "app.yournewsontime.app-main-47:/mipmap-xxhdpi/ic_launcher_background.webp"
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/mipmap-mdpi/ic_launcher.webp"
     },
     {
-        "merged": "app.yournewsontime.app-debug-45:/mipmap-xhdpi_ic_launcher_foreground.webp.flat",
-        "source": "app.yournewsontime.app-main-47:/mipmap-xhdpi/ic_launcher_foreground.webp"
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/drawable_start_page_icons.png.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/drawable/start_page_icons.png"
     },
     {
-        "merged": "app.yournewsontime.app-debug-45:/mipmap-xxxhdpi_ic_launcher_foreground.webp.flat",
-        "source": "app.yournewsontime.app-main-47:/mipmap-xxxhdpi/ic_launcher_foreground.webp"
+        "merged": "app.yournewsontime.app-debug-49:/mipmap-hdpi_ic_launcher_foreground.webp.flat",
+        "source": "app.yournewsontime.app-main-51:/mipmap-hdpi/ic_launcher_foreground.webp"
     },
     {
-        "merged": "app.yournewsontime.app-debug-45:/drawable-xhdpi_ic_stat_name.png.flat",
-        "source": "app.yournewsontime.app-main-47:/drawable-xhdpi/ic_stat_name.png"
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/drawable-mdpi_ic_stat_name.png.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/drawable-mdpi/ic_stat_name.png"
     },
     {
-        "merged": "app.yournewsontime.app-debug-45:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "app.yournewsontime.app-main-47:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "app.yournewsontime.app-debug-49:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "app.yournewsontime.app-main-51:/mipmap-xhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "app.yournewsontime.app-debug-45:/mipmap-xhdpi_ic_launcher_background.webp.flat",
-        "source": "app.yournewsontime.app-main-47:/mipmap-xhdpi/ic_launcher_background.webp"
+        "merged": "app.yournewsontime.app-debug-49:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "app.yournewsontime.app-main-51:/mipmap-xxhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "app.yournewsontime.app-debug-45:/mipmap-xxxhdpi_ic_launcher.webp.flat",
-        "source": "app.yournewsontime.app-main-47:/mipmap-xxxhdpi/ic_launcher.webp"
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/mipmap-xxhdpi_ic_launcher_background.webp.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/mipmap-xxhdpi/ic_launcher_background.webp"
     },
     {
-        "merged": "app.yournewsontime.app-debug-45:/mipmap-xxhdpi_ic_launcher.webp.flat",
-        "source": "app.yournewsontime.app-main-47:/mipmap-xxhdpi/ic_launcher.webp"
+        "merged": "app.yournewsontime.app-debug-49:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "app.yournewsontime.app-main-51:/mipmap-xxxhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "app.yournewsontime.app-debug-45:/mipmap-hdpi_ic_launcher_foreground.webp.flat",
-        "source": "app.yournewsontime.app-main-47:/mipmap-hdpi/ic_launcher_foreground.webp"
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/mipmap-xxxhdpi_ic_launcher_background.webp.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/mipmap-xxxhdpi/ic_launcher_background.webp"
     },
     {
-        "merged": "app.yournewsontime.app-debug-45:/mipmap-mdpi_ic_launcher_foreground.webp.flat",
-        "source": "app.yournewsontime.app-main-47:/mipmap-mdpi/ic_launcher_foreground.webp"
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/mipmap-xhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "app.yournewsontime.app-debug-45:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
-        "source": "app.yournewsontime.app-main-47:/mipmap-xxxhdpi/ic_launcher_round.webp"
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/mipmap-xxxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/mipmap-xxxhdpi/ic_launcher_foreground.webp"
     },
     {
-        "merged": "app.yournewsontime.app-debug-45:/mipmap-mdpi_ic_launcher_round.webp.flat",
-        "source": "app.yournewsontime.app-main-47:/mipmap-mdpi/ic_launcher_round.webp"
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/mipmap-mdpi_ic_launcher_foreground.webp.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/mipmap-mdpi/ic_launcher_foreground.webp"
     },
     {
-        "merged": "app.yournewsontime.app-debug-45:/mipmap-mdpi_ic_launcher.webp.flat",
-        "source": "app.yournewsontime.app-main-47:/mipmap-mdpi/ic_launcher.webp"
+        "merged": "app.yournewsontime.app-debug-49:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "app.yournewsontime.app-main-51:/mipmap-hdpi/ic_launcher.webp"
     },
     {
-        "merged": "app.yournewsontime.app-debug-45:/mipmap-xxxhdpi_ic_launcher_background.webp.flat",
-        "source": "app.yournewsontime.app-main-47:/mipmap-xxxhdpi/ic_launcher_background.webp"
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/mipmap-hdpi_ic_launcher_foreground.webp.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/mipmap-hdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/mipmap-mdpi_ic_launcher_background.webp.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/mipmap-mdpi/ic_launcher_background.webp"
+    },
+    {
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/drawable-xxxhdpi_ic_stat_name.png.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/drawable-xxxhdpi/ic_stat_name.png"
+    },
+    {
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/mipmap-hdpi_ic_launcher_background.webp.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/mipmap-hdpi/ic_launcher_background.webp"
+    },
+    {
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "app.yournewsontime.app-debug-49:/mipmap-xhdpi_ic_launcher_foreground.webp.flat",
+        "source": "app.yournewsontime.app-main-51:/mipmap-xhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/xml_data_extraction_rules.xml.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "app.yournewsontime.app-debug-49:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "app.yournewsontime.app-main-51:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "app.yournewsontime.app-debug-49:/mipmap-xxxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "app.yournewsontime.app-main-51:/mipmap-xxxhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/xml_backup_rules.xml.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/drawable-xxhdpi_ic_stat_name.png.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/drawable-xxhdpi/ic_stat_name.png"
+    },
+    {
+        "merged": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-debug-49:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "/Users/jcap/.gradle/daemon/8.9/app.yournewsontime.app-main-51:/mipmap-xxhdpi/ic_launcher.webp"
     }
 ]

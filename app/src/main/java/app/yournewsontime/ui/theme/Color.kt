@@ -10,4 +10,4 @@ val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
-val Red_YourNewsonTime = Color(0xFFB41E25)
+val Branding_YourNewsOnTime = Color(0xFF74A491)

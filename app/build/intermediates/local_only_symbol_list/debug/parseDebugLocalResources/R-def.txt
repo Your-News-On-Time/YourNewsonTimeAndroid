@@ -8,6 +8,7 @@ color teal_200
 color teal_700
 color white
 drawable ic_stat_name
+drawable start_page_icons
 font inter_regular
 mipmap ic_launcher
 mipmap ic_launcher_background

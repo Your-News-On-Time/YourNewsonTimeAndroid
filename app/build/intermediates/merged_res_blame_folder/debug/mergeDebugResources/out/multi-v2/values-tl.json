@@ -1,8 +1,25 @@
 {
     "logs": [
         {
-            "outputFile": "app.yournewsontime.app-mergeDebugResources-43:/values-tl/values-tl.xml",
+            "outputFile": "app.yournewsontime.app-mergeDebugResources-47:/values-tl/values-tl.xml",
             "map": [
+                {
+                    "source": "/Users/jcap/.gradle/caches/8.9/transforms/5679e8653f43b8ae997aa390b5bf160e/transformed/foundation-release/res/values-tl/values-tl.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,141",
+                        "endColumns": "85,91",
+                        "endOffsets": "136,228"
+                    },
+                    "to": {
+                        "startLines": "84,85",
+                        "startColumns": "4,4",
+                        "startOffsets": "8845,8931",
+                        "endColumns": "85,91",
+                        "endOffsets": "8926,9018"
+                    }
+                },
                 {
                     "source": "/Users/jcap/.gradle/caches/8.9/transforms/7ee4fefe153542c74e165df1d0bc7813/transformed/core-1.15.0/res/values-tl/values-tl.xml",
                     "from": {
@@ -13,45 +30,28 @@
                         "endOffsets": "147,249,350,447,554,662,784,885"
                     },
                     "to": {
-                        "startLines": "2,3,4,5,6,7,8,79",
+                        "startLines": "2,3,4,5,6,7,8,80",
                         "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "105,202,304,405,502,609,717,8377",
+                        "startOffsets": "105,202,304,405,502,609,717,8473",
                         "endColumns": "96,101,100,96,106,107,121,100",
-                        "endOffsets": "197,299,400,497,604,712,834,8473"
+                        "endOffsets": "197,299,400,497,604,712,834,8569"
                     }
                 },
                 {
-                    "source": "/Users/jcap/.gradle/caches/8.9/transforms/4dffeb0ef8be60f3b0f67aecf35a1eb6/transformed/ui-release/res/values-tl/values-tl.xml",
+                    "source": "/Users/jcap/.gradle/caches/8.9/transforms/1b52baf7736df0cfda6547a1d1f55263/transformed/ui-release/res/values-tl/values-tl.xml",
                     "from": {
-                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "105,204,290,387,489,579,661,753,845,929,999,1068,1155,1241,1312,1390,1456",
-                        "endColumns": "98,85,96,101,89,81,91,91,83,69,68,86,85,70,77,65,126",
-                        "endOffsets": "199,285,382,484,574,656,748,840,924,994,1063,1150,1236,1307,1385,1451,1578"
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,204,290,387,489,579,661,753,845,929,1016,1102,1173,1256,1333,1408,1486,1552",
+                        "endColumns": "98,85,96,101,89,81,91,91,83,86,85,70,82,76,74,77,65,126",
+                        "endOffsets": "199,285,382,484,574,656,748,840,924,1011,1097,1168,1251,1328,1403,1481,1547,1674"
                     },
                     "to": {
-                        "startLines": "9,10,11,12,13,14,15,72,73,74,75,76,77,78,80,81,82",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "839,938,1024,1121,1223,1313,1395,7818,7910,7994,8064,8133,8220,8306,8478,8556,8622",
-                        "endColumns": "98,85,96,101,89,81,91,91,83,69,68,86,85,70,77,65,126",
-                        "endOffsets": "933,1019,1116,1218,1308,1390,1482,7905,7989,8059,8128,8215,8301,8372,8551,8617,8744"
-                    }
-                },
-                {
-                    "source": "/Users/jcap/.gradle/caches/8.9/transforms/43bc1e8b3c58d47e355241d5f5ee09eb/transformed/foundation-release/res/values-tl/values-tl.xml",
-                    "from": {
-                        "startLines": "2,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,141",
-                        "endColumns": "85,91",
-                        "endOffsets": "136,228"
-                    },
-                    "to": {
-                        "startLines": "83,84",
-                        "startColumns": "4,4",
-                        "startOffsets": "8749,8835",
-                        "endColumns": "85,91",
-                        "endOffsets": "8830,8922"
+                        "startLines": "9,10,11,12,13,14,15,72,73,74,75,76,77,78,79,81,82,83",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "839,938,1024,1121,1223,1313,1395,7818,7910,7994,8081,8167,8238,8321,8398,8574,8652,8718",
+                        "endColumns": "98,85,96,101,89,81,91,91,83,86,85,70,82,76,74,77,65,126",
+                        "endOffsets": "933,1019,1116,1218,1308,1390,1482,7905,7989,8076,8162,8233,8316,8393,8468,8647,8713,8840"
                     }
                 },
                 {

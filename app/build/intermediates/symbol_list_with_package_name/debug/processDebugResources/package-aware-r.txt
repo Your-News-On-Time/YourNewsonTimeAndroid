@@ -54,6 +54,7 @@ dimen notification_small_icon_size_as_large
 dimen notification_subtext_size
 dimen notification_top_pad
 dimen notification_top_pad_large_text
+drawable abc_vector_test
 drawable ic_call_answer
 drawable ic_call_answer_low
 drawable ic_call_answer_video
@@ -74,6 +75,7 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
+drawable start_page_icons
 font inter_regular
 id accessibility_action_clickable_span
 id accessibility_custom_action_0
@@ -117,11 +119,13 @@ id androidx_compose_ui_view_composition_context
 id async
 id blocking
 id chronometer
+id coil3_request_manager
 id compose_view_saveable_id_tag
 id consume_window_insets_tag
 id dialog_button
 id edit_text_id
 id forever
+id hide_graphics_layer_in_inspector_tag
 id hide_ime_id
 id hide_in_inspector_tag
 id icon
@@ -250,11 +254,12 @@ string m3c_tooltip_long_press_label
 string m3c_tooltip_pane_description
 string navigation_menu
 string not_selected
-string off
-string on
 string range_end
 string range_start
 string selected
+string state_empty
+string state_off
+string state_on
 string status_bar_notification_info_overflow
 string switch_role
 string tab
@@ -272,11 +277,16 @@ style TextAppearance_Compat_Notification_Title
 style Theme_YourNewsOnTime
 style Widget_Compat_NotificationActionContainer
 style Widget_Compat_NotificationActionText
+styleable AnimatedStateListDrawableCompat android_dither android_visible android_variablePadding android_constantSize android_enterFadeDuration android_exitFadeDuration
+styleable AnimatedStateListDrawableItem android_id android_drawable
+styleable AnimatedStateListDrawableTransition android_drawable android_toId android_fromId android_reversible
 styleable Capability queryPatterns shortcutMatchRequired
 styleable ColorStateListItem android_color android_alpha android_lStar alpha lStar
 styleable FontFamily fontProviderAuthority fontProviderCerts fontProviderFallbackQuery fontProviderFetchStrategy fontProviderFetchTimeout fontProviderPackage fontProviderQuery fontProviderSystemFontFamily
 styleable FontFamilyFont android_font android_fontWeight android_fontStyle android_ttcIndex android_fontVariationSettings font fontStyle fontVariationSettings fontWeight ttcIndex
 styleable GradientColor android_startColor android_endColor android_type android_centerX android_centerY android_gradientRadius android_tileMode android_centerColor android_startX android_startY android_endX android_endY
 styleable GradientColorItem android_color android_offset
+styleable StateListDrawable android_dither android_visible android_variablePadding android_constantSize android_enterFadeDuration android_exitFadeDuration
+styleable StateListDrawableItem android_drawable
 xml backup_rules
 xml data_extraction_rules
