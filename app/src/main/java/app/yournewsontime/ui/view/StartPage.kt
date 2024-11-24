@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.sp
 import app.yournewsontime.R
 import app.yournewsontime.ui.components.Button
 import app.yournewsontime.ui.components.Title
-import app.yournewsontime.ui.theme.PurpleGrey80
+import app.yournewsontime.ui.theme.Branding_YourNewsOnTime_Background
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -32,7 +32,7 @@ fun StartPage() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(PurpleGrey80),
+            .background(Branding_YourNewsOnTime_Background),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {

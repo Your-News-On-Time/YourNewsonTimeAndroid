@@ -1,4 +1,4 @@
-#Sat Nov 23 17:40:54 WET 2024
+#Sun Nov 24 11:12:04 WET 2024
 base.0=/Users/jcap/Dev/AndroidStudioProjects/YourNewsonTime/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
 base.1=/Users/jcap/Dev/AndroidStudioProjects/YourNewsonTime/app/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
 base.2=/Users/jcap/Dev/AndroidStudioProjects/YourNewsonTime/app/build/intermediates/dex/debug/mergeProjectDexDebug/2/classes.dex
