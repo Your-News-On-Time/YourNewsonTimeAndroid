@@ -14,7 +14,8 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun BottomSheetContent(
     onDismiss: () -> Unit,
-    navigateToFeed: () -> Unit
+    navigateToFeed: () -> Unit,
+    navigateToRegister: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -41,7 +42,7 @@ fun BottomSheetContent(
         PrincipalButton(
             "Continue with Email",
             onClick = {
-                println("Email button clicked")
+                navigateToRegister()
             }
         )
 

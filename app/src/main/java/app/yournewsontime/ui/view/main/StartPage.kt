@@ -70,8 +70,14 @@ fun StartPage(navController: NavController) {
                     scope.launch {
                         sheetState.hide()
                         showBottomSheet = false
-
                         navController.navigate("feed")
+                    }
+                },
+                navigateToRegister = {
+                    scope.launch {
+                        sheetState.hide()
+                        showBottomSheet = false
+                        navController.navigate("register")
                     }
                 }
             )

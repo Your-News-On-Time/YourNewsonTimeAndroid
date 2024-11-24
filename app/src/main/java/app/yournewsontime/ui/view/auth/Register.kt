@@ -9,9 +9,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import app.yournewsontime.ui.components.PrincipalButton
 import app.yournewsontime.ui.theme.GoogleButtonColor
 import app.yournewsontime.ui.theme.interFontFamily
@@ -19,6 +19,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun RegisterView(
+    navController: NavController,
     onRegisterClick: (String, String) -> Unit = { _, _ -> },
     onAlreadyHaveAccountClick: () -> Unit = {}
 ) {
@@ -154,7 +155,9 @@ fun RegisterView(
             Spacer(modifier = Modifier.width(16.dp))
 
             Button(
-                onClick = { /* TODO Handle Anonymous Sign In */ },
+                onClick = {
+                    navController.navigate("feed")
+                },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Gray,
                     contentColor = Color.White
@@ -165,10 +168,4 @@ fun RegisterView(
             }
         }
     }
-}
-
-@Preview(showSystemUi = true)
-@Composable
-fun RegisterViewPreview() {
-    RegisterView()
 }

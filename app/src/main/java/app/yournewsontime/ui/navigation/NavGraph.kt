@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import app.yournewsontime.ui.view.auth.RegisterView
 import app.yournewsontime.ui.view.main.Feed
 import app.yournewsontime.ui.view.main.StartPage
 
@@ -15,5 +16,6 @@ fun NavGraph(navController: NavHostController) {
     ) {
         composable("startPage") { StartPage(navController) }
         composable("feed") { Feed() }
+        composable("register") { RegisterView(navController) }
     }
 }
