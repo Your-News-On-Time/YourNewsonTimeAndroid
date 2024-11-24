@@ -22,8 +22,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun RegisterView(
     navController: NavController,
-    authRepository: AuthRepository = AuthRepository(FirebaseAuth.getInstance()),
-    onAlreadyHaveAccountClick: () -> Unit = {}
+    authRepository: AuthRepository = AuthRepository(FirebaseAuth.getInstance())
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -125,7 +124,7 @@ fun RegisterView(
         )
 
         TextButton(
-            onClick = { onAlreadyHaveAccountClick() }
+            onClick = { navController.navigate("login") }
         ) {
             Text(
                 text = "Already have an account? Log in",
