@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "app.yournewsontime.test.app-mergeDebugAndroidTestResources-33:/values-v18/values-v18.xml",
+            "outputFile": "app.yournewsontime.test.app-mergeDebugAndroidTestResources-35:/values-v18/values-v18.xml",
             "map": [
                 {
-                    "source": "/Users/jcap/.gradle/caches/8.9/transforms/f338901b0c53697c18629b0cbe0b73eb/transformed/core-1.6.1/res/values-v18/values.xml",
+                    "source": "/Users/jcap/.gradle/caches/8.9/transforms/dc23cd68dd243a01766f83e9048c147d/transformed/core-1.6.1/res/values-v18/values.xml",
                     "from": {
                         "startLines": "4,12",
                         "startColumns": "0,0",

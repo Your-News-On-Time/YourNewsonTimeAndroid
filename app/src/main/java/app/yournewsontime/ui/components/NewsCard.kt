@@ -1,6 +1,5 @@
 package app.yournewsontime.ui.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,9 +14,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.yournewsontime.ui.theme.Branding_YourNewsOnTime
 import coil3.compose.AsyncImage
-import coil3.compose.LocalPlatformContext
-import coil3.compose.rememberAsyncImagePainter
-import coil3.request.ImageRequest
 
 @Composable
 fun NewsCard(
@@ -58,43 +54,48 @@ fun NewsCard(
     }
 }
 
+@Composable
+fun CardTest() {
+    Column(
+        modifier = Modifier
+            .padding(top = 80.dp)
+    ) {
+        NewsCard(
+            newspaper = "Newspaper",
+            title = "Title",
+            description = "Description",
+            imageUrl = "https://randomuser.me/api/portraits/med/men/64.jpg"
+        )
+        NewsCard(
+            newspaper = "Newspaper",
+            title = "Title",
+            description = "Description",
+            imageUrl = "https://randomuser.me/api/portraits/med/men/64.jpg"
+        )
+        NewsCard(
+            newspaper = "Newspaper",
+            title = "Title",
+            description = "Description",
+            imageUrl = "https://randomuser.me/api/portraits/med/men/64.jpg"
+        )
+        NewsCard(
+            newspaper = "Newspaper",
+            title = "Title",
+            description = "Description",
+            imageUrl = "https://randomuser.me/api/portraits/med/men/64.jpg"
+        )
+        NewsCard(
+            newspaper = "Newspaper",
+            title = "Title",
+            description = "Description",
+            imageUrl = "https://randomuser.me/api/portraits/med/men/64.jpg"
+        )
+    }
+}
+
 @Preview(showSystemUi = true)
 @Composable
 fun NewsCardPreview() {
     // NewsCard(news = News("Title", "Description", "Image URL"))
-    Column (
-        modifier = Modifier
-            .padding(top = 80.dp)
-    ) {
-    NewsCard(
-        newspaper = "Newspaper",
-        title = "Title",
-        description = "Description",
-        imageUrl = "https://randomuser.me/api/portraits/med/men/64.jpg"
-    )
-    NewsCard(
-        newspaper = "Newspaper",
-        title = "Title",
-        description = "Description",
-        imageUrl = "https://randomuser.me/api/portraits/med/men/64.jpg"
-    )
-    NewsCard(
-        newspaper = "Newspaper",
-        title = "Title",
-        description = "Description",
-        imageUrl = "https://randomuser.me/api/portraits/med/men/64.jpg"
-    )
-    NewsCard(
-        newspaper = "Newspaper",
-        title = "Title",
-        description = "Description",
-        imageUrl = "https://randomuser.me/api/portraits/med/men/64.jpg"
-    )
-    NewsCard(
-        newspaper = "Newspaper",
-        title = "Title",
-        description = "Description",
-        imageUrl = "https://randomuser.me/api/portraits/med/men/64.jpg"
-    )
-    }
+    CardTest()
 }
