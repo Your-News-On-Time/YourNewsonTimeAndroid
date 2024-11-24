@@ -12,3 +12,5 @@ val Pink40 = Color(0xFF7D5260)
 
 val Branding_YourNewsOnTime = Color(0xFF74A491)
 val Branding_YourNewsOnTime_Background = Color(0xFFC2DCD4)
+
+val GoogleButtonColor = Color(0xFF4285F4)

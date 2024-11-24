@@ -8,17 +8,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import app.yournewsontime.R
 import app.yournewsontime.ui.theme.Branding_YourNewsOnTime
 import app.yournewsontime.ui.theme.interFontFamily
 
 @Composable
-fun Button(text: String, onClick: () -> Unit) {
+fun PrincipalButton(text: String, onClick: () -> Unit ) {
     androidx.compose.material3.Button(
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(containerColor = Branding_YourNewsOnTime),

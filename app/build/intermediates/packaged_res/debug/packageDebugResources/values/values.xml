@@ -8,5 +8,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="white">#FFFFFFFF</color>
     <string name="app_name">Your News on Time</string>
+    <string name="gcm_defaultSenderId" translatable="false">111111944454</string>
+    <string name="google_api_key" translatable="false">AIzaSyCb9jQcfQzy9DINEJkA1IEqp4iIskqMDgI</string>
+    <string name="google_app_id" translatable="false">1:111111944454:android:3c6cabc2e5ae775644c687</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCb9jQcfQzy9DINEJkA1IEqp4iIskqMDgI</string>
+    <string name="google_storage_bucket" translatable="false">yournewsontime-dd461.firebasestorage.app</string>
+    <string name="project_id" translatable="false">yournewsontime-dd461</string>
     <style name="Theme.YourNewsOnTime" parent="android:Theme.Material.Light.NoActionBar"/>
 </resources>

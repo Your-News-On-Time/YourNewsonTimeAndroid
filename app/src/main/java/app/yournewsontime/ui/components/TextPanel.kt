@@ -44,7 +44,7 @@ fun TextPanel(onGetStartedClick: () -> Unit) {
             modifier = Modifier.padding(top = 20.dp, bottom = 40.dp)
         )
 
-        Button(
+        PrincipalButton(
             "Get started",
             onClick = onGetStartedClick
         )

@@ -1,4 +1,4 @@
-package app.yournewsontime.ui.view
+package app.yournewsontime.ui.view.main
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

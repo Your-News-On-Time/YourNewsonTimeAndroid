@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import app.yournewsontime.ui.view.Feed
-import app.yournewsontime.ui.view.StartPage
+import app.yournewsontime.ui.view.main.Feed
+import app.yournewsontime.ui.view.main.StartPage
 
 @Composable
 fun NavGraph(navController: NavHostController) {

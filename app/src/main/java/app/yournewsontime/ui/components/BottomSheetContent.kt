@@ -23,7 +23,7 @@ fun BottomSheetContent(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Log in / Sign up",
+            text = "Sign up",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
@@ -38,14 +38,14 @@ fun BottomSheetContent(
             modifier = Modifier.padding(bottom = 24.dp)
         )
 
-        Button(
+        PrincipalButton(
             "Continue with Email",
             onClick = {
                 println("Email button clicked")
             }
         )
 
-        Button(
+        PrincipalButton(
             "Continue with Google",
             onClick = {
                 println("Google button clicked")
