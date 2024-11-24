@@ -12,15 +12,17 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import app.yournewsontime.data.repository.AuthRepository
 import app.yournewsontime.ui.components.PrincipalButton
 import app.yournewsontime.ui.theme.GoogleButtonColor
 import app.yournewsontime.ui.theme.interFontFamily
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
 @Composable
 fun RegisterView(
     navController: NavController,
-    onRegisterClick: (String, String) -> Unit = { _, _ -> },
+    authRepository: AuthRepository = AuthRepository(FirebaseAuth.getInstance()),
     onAlreadyHaveAccountClick: () -> Unit = {}
 ) {
     var email by remember { mutableStateOf("") }
@@ -94,9 +96,18 @@ fun RegisterView(
         PrincipalButton(
             "Sign up",
             onClick = {
+                if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+                    errorMessage = "Please fill in all fields"
+                    return@PrincipalButton
+                }
                 if (password == confirmPassword) {
                     scope.launch {
-                        onRegisterClick(email, password)
+                        val result = authRepository.registerWithEmailAndPassword(email, password)
+                        if (result.isSuccess) {
+                            navController.navigate("feed") // Navegar a Feed en éxito
+                        } else {
+                            errorMessage = result.exceptionOrNull()?.message
+                        }
                     }
                 } else {
                     errorMessage = "Passwords do not match"

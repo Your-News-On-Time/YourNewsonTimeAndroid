@@ -9,10 +9,13 @@ import app.yournewsontime.ui.view.main.Feed
 import app.yournewsontime.ui.view.main.StartPage
 
 @Composable
-fun NavGraph(navController: NavHostController) {
+fun NavGraph(
+    navController: NavHostController,
+    startDestination: String
+) {
     NavHost(
         navController = navController,
-        startDestination = "startPage"
+        startDestination = startDestination
     ) {
         composable("startPage") { StartPage(navController) }
         composable("feed") { Feed() }
