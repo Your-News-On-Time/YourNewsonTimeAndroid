@@ -1,6 +1,5 @@
 package app.yournewsontime.ui.view.auth
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -13,6 +12,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import app.yournewsontime.data.repository.AuthRepository
 import app.yournewsontime.ui.components.PrincipalButton
+import app.yournewsontime.ui.components.Splitter
 import app.yournewsontime.ui.components.auth.AnonymouslyButton
 import app.yournewsontime.ui.components.auth.GoogleButton
 import app.yournewsontime.ui.theme.interFontFamily
@@ -117,13 +117,7 @@ fun LoginView(
             modifier = Modifier.height(32.dp)
         )
 
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(1.dp)
-                .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f))
-                .padding(vertical = 16.dp)
-        )
+        Splitter(orText = true)
 
         Row(
             modifier = Modifier

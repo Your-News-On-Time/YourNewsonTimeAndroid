@@ -17,6 +17,6 @@ fun AnonymouslyButton(onclick: () -> Unit, modifier: Modifier = Modifier) {
         ),
         modifier = modifier
     ) {
-        Text("Anonymous Sign In")
+        Text("Anonymous")
     }
 }

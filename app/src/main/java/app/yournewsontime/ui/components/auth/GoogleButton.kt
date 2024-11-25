@@ -18,6 +18,6 @@ fun GoogleButton(onclick: () -> Unit, modifier: Modifier = Modifier) {
         ),
         modifier = modifier
     ) {
-        Text("Google Sign In")
+        Text("Google")
     }
 }
