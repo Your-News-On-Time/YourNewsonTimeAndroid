@@ -6,8 +6,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import app.yournewsontime.ui.view.auth.LoginView
 import app.yournewsontime.ui.view.auth.RegisterView
-import app.yournewsontime.ui.view.main.Feed
-import app.yournewsontime.ui.view.main.StartPage
+import app.yournewsontime.ui.view.main.FeedView
+import app.yournewsontime.ui.view.main.StartPageView
 
 @Composable
 fun NavGraph(
@@ -18,8 +18,8 @@ fun NavGraph(
         navController = navController,
         startDestination = startDestination
     ) {
-        composable("startPage") { StartPage(navController) }
-        composable("feed") { Feed(navController) }
+        composable("startPage") { StartPageView(navController) }
+        composable("feed") { FeedView(navController) }
         composable("register") { RegisterView(navController) }
         composable("login") { LoginView(navController = navController) }
     }

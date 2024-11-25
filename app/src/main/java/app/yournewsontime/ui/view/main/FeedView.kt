@@ -10,7 +10,7 @@ import app.yournewsontime.ui.components.auth.LogoutButton
 import com.google.firebase.auth.FirebaseAuth
 
 @Composable
-fun Feed(navController: NavController) {
+fun FeedView(navController: NavController) {
     val authRepository = AuthRepository(FirebaseAuth.getInstance())
 
     Column {

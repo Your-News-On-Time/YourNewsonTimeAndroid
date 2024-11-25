@@ -25,11 +25,15 @@ fun LogoutButton(navController: NavController, authRepository: AuthRepository) {
                 println("Logout failed: ${result.exceptionOrNull()?.message}")
             }
         },
-        enabled = authRepository.isUserLoggedIn(),
+        //enabled = authRepository.isUserLoggedIn(),
         modifier = Modifier
             .padding(16.dp)
             .fillMaxWidth()
     ) {
-        Text(text = "Logout")
+        if (authRepository.isUserLoggedIn()) {
+            Text(text = "Logout")
+        } else {
+            Text(text = "Login")
+        }
     }
 }
