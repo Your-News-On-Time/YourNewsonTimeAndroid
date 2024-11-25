@@ -22,8 +22,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun LoginView(
     navController: NavController,
-    authRepository: AuthRepository = AuthRepository(FirebaseAuth.getInstance()),
-    onRegisterClick: () -> Unit = {}
+    authRepository: AuthRepository = AuthRepository(FirebaseAuth.getInstance())
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
