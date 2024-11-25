@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import app.yournewsontime.data.repository.AuthRepository
 import app.yournewsontime.ui.components.CardTest
-import app.yournewsontime.ui.components.LogoutButton
+import app.yournewsontime.ui.components.auth.LogoutButton
 import com.google.firebase.auth.FirebaseAuth
 
 @Composable

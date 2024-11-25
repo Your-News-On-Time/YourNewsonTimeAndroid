@@ -6,7 +6,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
@@ -14,7 +13,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import app.yournewsontime.data.repository.AuthRepository
 import app.yournewsontime.ui.components.PrincipalButton
-import app.yournewsontime.ui.theme.GoogleButtonColor
+import app.yournewsontime.ui.components.auth.AnonymouslyButton
+import app.yournewsontime.ui.components.auth.GoogleButton
 import app.yournewsontime.ui.theme.interFontFamily
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
@@ -132,31 +132,22 @@ fun LoginView(
                 .padding(top = 16.dp),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            Button(
-                onClick = { /* TODO Handle Google Sign In */ },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = GoogleButtonColor,
-                    contentColor = Color.White
-                ),
+            GoogleButton(
+                onclick = {
+                    // TODO Handle Google Sign In
+                    println("Google button clicked")
+                },
                 modifier = Modifier.weight(1f)
-            ) {
-                Text("Google Sign In")
-            }
+            )
 
             Spacer(modifier = Modifier.width(16.dp))
 
-            Button(
-                onClick = {
+            AnonymouslyButton(
+                onclick = {
                     navController.navigate("feed")
                 },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Gray,
-                    contentColor = Color.White
-                ),
                 modifier = Modifier.weight(1f)
-            ) {
-                Text("Anonymous Sign In")
-            }
+            )
         }
     }
 }

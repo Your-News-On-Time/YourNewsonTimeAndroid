@@ -1,4 +1,4 @@
-package app.yournewsontime.ui.components
+package app.yournewsontime.ui.components.auth
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,7 +16,7 @@ fun LogoutButton(navController: NavController, authRepository: AuthRepository) {
         onClick = {
             val result = authRepository.logout()
             if (result.isSuccess) {
-                navController.navigate("login") {
+                navController.navigate("startPage") {
                     popUpTo("feed") {
                         inclusive = true
                     }
