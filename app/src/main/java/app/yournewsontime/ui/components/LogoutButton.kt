@@ -8,20 +8,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.google.firebase.auth.FirebaseAuth
+import app.yournewsontime.data.repository.AuthRepository
 
 @Composable
-fun LogoutButton(navController: NavController, auth: FirebaseAuth) {
+fun LogoutButton(navController: NavController, authRepository: AuthRepository) {
     Button(
         onClick = {
-            auth.signOut()
-            navController.navigate("login") {
-                popUpTo("feed") {
-                    inclusive = true
+            val result = authRepository.logout()
+            if (result.isSuccess) {
+                navController.navigate("login") {
+                    popUpTo("feed") {
+                        inclusive = true
+                    }
                 }
+            } else {
+                println("Logout failed: ${result.exceptionOrNull()?.message}")
             }
         },
-        enabled = auth.currentUser != null,
+        enabled = authRepository.isUserLoggedIn(),
         modifier = Modifier
             .padding(16.dp)
             .fillMaxWidth()
