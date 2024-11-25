@@ -9,18 +9,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import app.yournewsontime.ui.components.CardTest
+import app.yournewsontime.viewModel.NYTimesViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 @Composable
-fun Feed(navController: NavController) {
+fun Feed(
+    navController: NavController,
+    viewModel: NYTimesViewModel,
+    apiKey: String
+) {
     val auth = FirebaseAuth.getInstance()
 
     Column {
         // TODO Header
 
         Column {
-            CardTest()
+            // Puedes usar ArticlesScreen aquí
+            ArticlesScreen(viewModel = viewModel, apiKey = apiKey)
         }
 
         Button(
