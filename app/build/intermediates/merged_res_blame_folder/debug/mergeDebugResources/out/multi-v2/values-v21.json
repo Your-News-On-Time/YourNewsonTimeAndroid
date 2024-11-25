@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "app.yournewsontime.app-mergeDebugResources-67:/values-v21/values-v21.xml",
+            "outputFile": "app.yournewsontime.app-mergeDebugResources-66:/values-v21/values-v21.xml",
             "map": [
                 {
-                    "source": "/Users/jcap/.gradle/caches/8.9/transforms/3efd9ba53867326d9374e180ae8afb6e/transformed/core-1.15.0/res/values-v21/values-v21.xml",
+                    "source": "/Users/jcap/.gradle/caches/8.9/transforms/f9d50268a6844f7327626a164ecc0f35/transformed/core-1.15.0/res/values-v21/values-v21.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,13",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "/Users/jcap/.gradle/caches/8.9/transforms/c42af2667e2bebb5900d061c8d2cb7d8/transformed/credentials-play-services-auth-1.2.0-rc01/res/values-v21/values-v21.xml",
+                    "source": "/Users/jcap/.gradle/caches/8.9/transforms/0790d417d021704c5112327588706b2e/transformed/credentials-play-services-auth-1.2.0-rc01/res/values-v21/values-v21.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

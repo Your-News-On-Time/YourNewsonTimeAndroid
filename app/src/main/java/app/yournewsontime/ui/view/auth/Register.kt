@@ -103,7 +103,7 @@ fun RegisterView(
                     scope.launch {
                         val result = authRepository.registerWithEmailAndPassword(email, password)
                         if (result.isSuccess) {
-                            navController.navigate("feed") // Navegar a Feed en éxito
+                            navController.navigate("feed")
                         } else {
                             errorMessage = result.exceptionOrNull()?.message
                         }
