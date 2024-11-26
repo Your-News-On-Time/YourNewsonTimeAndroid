@@ -15,7 +15,8 @@ import androidx.compose.ui.unit.sp
 fun BottomSheetContent(
     onDismiss: () -> Unit,
     navigateToFeed: () -> Unit,
-    navigateToRegister: () -> Unit
+    navigateToRegister: () -> Unit,
+    googleSignUp: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -49,8 +50,7 @@ fun BottomSheetContent(
         PrincipalButton(
             "Continue with Google",
             onClick = {
-                println("Google button clicked")
-                // TODO Handle Google register
+                googleSignUp()
             }
         )
 
