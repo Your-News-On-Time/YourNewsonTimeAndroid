@@ -313,6 +313,7 @@ string common_signin_button_text_long
 string copy_toast_msg
 string default_error_message
 string default_popup_window_title
+string default_web_client_id
 string dropdown_menu
 string fallback_menu_item_copy_link
 string fallback_menu_item_open_in_browser
@@ -383,6 +384,7 @@ string m3c_tooltip_long_press_label
 string m3c_tooltip_pane_description
 string navigation_menu
 string not_selected
+string prefs_file
 string project_id
 string range_end
 string range_start
