@@ -50,6 +50,7 @@ fun BottomSheetContent(
             "Continue with Google",
             onClick = {
                 println("Google button clicked")
+                // TODO Handle Google register
             }
         )
 

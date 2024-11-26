@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Your News on Time</string>
+    <string name="prefs_file">app.yournewsontime.PREFERENCE_FILE_KEY</string>
+    <string name="default_web_client_id">2c:8a:ee:d6:a3:7a:3c:68:71:9b:a8:1b:c5:f5:c6:8e:0e:6d:fb:d3</string>
 </resources>
