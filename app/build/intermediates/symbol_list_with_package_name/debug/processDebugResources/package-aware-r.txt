@@ -388,7 +388,9 @@ string prefs_file
 string project_id
 string range_end
 string range_start
+string revoke_access_item
 string selected
+string sign_out_item
 string state_empty
 string state_off
 string state_on
@@ -398,6 +400,7 @@ string tab
 string template_percent
 string tooltip_description
 string tooltip_label
+string web_client_id
 style DialogWindowTheme
 style EdgeToEdgeFloatingDialogTheme
 style EdgeToEdgeFloatingDialogWindowTheme
@@ -438,5 +441,4 @@ styleable StateListDrawable android_dither android_visible android_variablePaddi
 styleable StateListDrawableItem android_drawable
 xml backup_rules
 xml data_extraction_rules
-xml ga_ad_services_config
 xml image_share_filepaths

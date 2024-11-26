@@ -23,6 +23,9 @@ string google_crash_reporting_api_key
 string google_storage_bucket
 string prefs_file
 string project_id
+string revoke_access_item
+string sign_out_item
+string web_client_id
 style Theme.YourNewsOnTime
 xml backup_rules
 xml data_extraction_rules
