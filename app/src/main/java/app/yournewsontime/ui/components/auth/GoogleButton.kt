@@ -9,12 +9,9 @@ import androidx.compose.ui.graphics.Color
 import app.yournewsontime.ui.theme.GoogleButtonColor
 
 @Composable
-fun GoogleButton(modifier: Modifier = Modifier) {
+fun GoogleButton(onclick: () -> Unit = {}, modifier: Modifier = Modifier) {
     Button(
-        onClick = {
-            // TODO Handle Google Sign In
-            println("Google button clicked")
-        },
+        onClick = onclick,
         colors = ButtonDefaults.buttonColors(
             containerColor = GoogleButtonColor,
             contentColor = Color.White

@@ -1,8 +1,26 @@
-package app.yournewsontime.ui.view.auth
+package app.yournewsontime.screens
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -10,25 +28,31 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import app.yournewsontime.data.repository.AuthRepository
+import app.yournewsontime.navigation.AppScreens
+import app.yournewsontime.ui.components.AlertDialog
 import app.yournewsontime.ui.components.PrincipalButton
 import app.yournewsontime.ui.components.Splitter
 import app.yournewsontime.ui.components.auth.AnonymouslyButton
 import app.yournewsontime.ui.components.auth.GoogleButton
 import app.yournewsontime.ui.theme.interFontFamily
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun RegisterView(
-    navController: NavController,
-    authRepository: AuthRepository = AuthRepository(FirebaseAuth.getInstance())
-) {
+fun RegisterScreen(navController: NavController) {
+    Scaffold {
+        RegisterBodyContent(navController)
+    }
+}
+
+@Composable
+fun RegisterBodyContent(navController: NavController) {
+    val scope = rememberCoroutineScope()
+
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf<String?>(null) }
-    val scope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
@@ -95,28 +119,31 @@ fun RegisterView(
         PrincipalButton(
             "Sign up",
             onClick = {
-                if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-                    errorMessage = "Please fill in all fields"
-                    return@PrincipalButton
-                }
-                if (password == confirmPassword) {
-                    scope.launch {
-                        val result = authRepository.registerWithEmailAndPassword(email, password)
-                        if (result.isSuccess) {
-                            navController.navigate("feed")
-                        } else {
-                            errorMessage = result.exceptionOrNull()?.message
-                        }
+                scope.launch {
+                    if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+                        errorMessage = "Please fill in all fields"
+                        return@launch
                     }
-                } else {
-                    errorMessage = "Passwords do not match"
+
+                    if (password != confirmPassword) {
+                        errorMessage = "Passwords do not match"
+                        return@launch
+                    }
+                    try {
+                        // TODO: Implement Firebase email/password sign up
+                        navController.navigate(route = AppScreens.FeedScreen.route)
+                    } catch (e: Exception) {
+                        errorMessage = e.message
+                    }
                 }
             }
         )
 
         errorMessage?.let {
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(it, color = MaterialTheme.colorScheme.error, fontSize = 14.sp)
+            AlertDialog(
+                message = it,
+            )
+            errorMessage = null
         }
 
         Spacer(
@@ -124,7 +151,11 @@ fun RegisterView(
         )
 
         TextButton(
-            onClick = { navController.navigate("login") }
+            onClick = {
+                scope.launch {
+                    navController.navigate(route = AppScreens.LoginScreen.route)
+                }
+            }
         ) {
             Text(
                 text = "Already have an account? Log in",
@@ -146,6 +177,12 @@ fun RegisterView(
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             GoogleButton(
+                onclick = {
+                    scope.launch {
+                        // TODO: Implement Google Sign-In
+                        navController.navigate(route = AppScreens.FeedScreen.route)
+                    }
+                },
                 modifier = Modifier.weight(1f)
             )
 
@@ -153,7 +190,9 @@ fun RegisterView(
 
             AnonymouslyButton(
                 onclick = {
-                    navController.navigate("feed")
+                    scope.launch {
+                        navController.navigate(route = AppScreens.FeedScreen.route)
+                    }
                 },
                 modifier = Modifier.weight(1f)
             )
