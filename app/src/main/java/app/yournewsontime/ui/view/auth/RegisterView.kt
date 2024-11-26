@@ -146,10 +146,6 @@ fun RegisterView(
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             GoogleButton(
-                onclick = {
-                    // TODO Handle Google Sign In
-                    println("Google button clicked")
-                },
                 modifier = Modifier.weight(1f)
             )
 

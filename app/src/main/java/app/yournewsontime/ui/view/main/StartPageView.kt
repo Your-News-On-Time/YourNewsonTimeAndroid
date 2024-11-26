@@ -79,6 +79,9 @@ fun StartPageView(navController: NavController) {
                         showBottomSheet = false
                         navController.navigate("register")
                     }
+                },
+                googleSignUp = {
+                    // TODO Handle Google Sign In
                 }
             )
         }
