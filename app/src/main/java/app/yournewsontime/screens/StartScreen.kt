@@ -47,10 +47,11 @@ import kotlinx.coroutines.launch
 @Composable
 fun StartScreen(
     navController: NavController,
-    onGoogleSignIn: () -> Unit
+    onGoogleSignIn: () -> Unit,
+    onFinishStartScreen: () -> Unit
 ) {
     Scaffold {
-        StartBodyContent(navController, onGoogleSignIn)
+        StartBodyContent(navController, onGoogleSignIn, onFinishStartScreen)
     }
 }
 
@@ -59,6 +60,7 @@ fun StartScreen(
 fun StartBodyContent(
     navController: NavController,
     onGoogleSignIn: () -> Unit,
+    onFinishStartScreen: () -> Unit
 ) {
     val scope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -113,16 +115,25 @@ fun StartBodyContent(
                     scope.launch {
                         sheetState.hide()
                         showBottomSheet = false
+                        onFinishStartScreen()
                         navController.navigate(route = AppScreens.RegisterScreen.route)
                     }
                 },
-                signWithGoogle = onGoogleSignIn,
+                signWithGoogle = {
+                    scope.launch {
+                        sheetState.hide()
+                        showBottomSheet = false
+                        onFinishStartScreen()
+                        onGoogleSignIn()
+                    }
+                },
                 navigateToFeedAsGuest = {
                     scope.launch {
                         val result = authRepository.loginAnonymously()
                         if (result.isSuccess) {
                             sheetState.hide()
                             showBottomSheet = false
+                            onFinishStartScreen()
                             navController.navigate(AppScreens.FeedScreen.route) {
                                 popUpTo(AppScreens.StartScreen.route) { inclusive = true }
                             }

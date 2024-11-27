@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import app.yournewsontime.data.repository.AppPreferencesRepository
 import app.yournewsontime.data.repository.FirebaseAuthRepository
 import app.yournewsontime.screens.FeedScreen
 import app.yournewsontime.screens.LoginScreen
@@ -16,20 +17,29 @@ fun AppNavigation(
     navController: NavHostController,
     googleLoginState: GoogleLoginState,
     onGoogleSignIn: () -> Unit,
-    authRepository: FirebaseAuthRepository
+    authRepository: FirebaseAuthRepository,
+    appPreferencesRepository: AppPreferencesRepository,
+    startDestination: String
 ) {
+    if (googleLoginState is GoogleLoginState.Success) {
+        navController.navigate(AppScreens.FeedScreen.route) {
+            popUpTo(startDestination) {
+                inclusive = true
+            }
+        }
+    }
+
     NavHost(
         navController = navController,
-        startDestination = if (googleLoginState is GoogleLoginState.Success) {
-            AppScreens.FeedScreen.route
-        } else {
-            AppScreens.StartScreen.route
-        }
+        startDestination = startDestination
     ) {
         composable(route = AppScreens.StartScreen.route) {
             StartScreen(
                 navController = navController,
-                onGoogleSignIn = onGoogleSignIn
+                onGoogleSignIn = onGoogleSignIn,
+                onFinishStartScreen = {
+                    appPreferencesRepository.setFirstLaunch(false)
+                }
             )
         }
 
