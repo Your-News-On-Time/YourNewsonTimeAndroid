@@ -11,18 +11,19 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun LogoutButton(
     onClick: () -> Unit,
-    isLoggedIn: Boolean
+    isAnonymous: Boolean
 ) {
+    val text = if (isAnonymous) {
+        "Login"
+    } else {
+        "Logout"
+    }
     Button(
         onClick = onClick,
         modifier = Modifier
             .padding(16.dp)
             .fillMaxWidth()
     ) {
-        if (isLoggedIn) {
-            Text(text = "Logout")
-        } else {
-            Text(text = "Login")
-        }
+        Text(text = text)
     }
 }
