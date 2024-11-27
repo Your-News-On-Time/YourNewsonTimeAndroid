@@ -1,14 +1,9 @@
 package app.yournewsontime.screens
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Card
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,7 +12,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -25,23 +19,34 @@ import app.yournewsontime.data.repository.FirebaseAuthRepository
 import app.yournewsontime.navigation.AppScreens
 import app.yournewsontime.ui.components.AlertDialog
 import app.yournewsontime.ui.components.auth.LogoutButton
+import app.yournewsontime.ui.view.main.ArticlesScreen
+import app.yournewsontime.viewModel.NYTimesViewModel
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun FeedScreen(
     navController: NavController,
-    authRepository: FirebaseAuthRepository
+    authRepository: FirebaseAuthRepository,
+    viewmodel: NYTimesViewModel,
+    apiKey: String
 ) {
     Scaffold {
-        FeedBodyContent(navController, authRepository)
+        FeedBodyContent(
+            navController,
+            authRepository,
+            viewmodel,
+            apiKey
+        )
     }
 }
 
 @Composable
 fun FeedBodyContent(
     navController: NavController,
-    authRepository: FirebaseAuthRepository
+    authRepository: FirebaseAuthRepository,
+    viewmodel: NYTimesViewModel,
+    apiKey: String
 ) {
     val scope = rememberCoroutineScope()
     val currentUser = authRepository.getCurrentUser()
@@ -54,13 +59,7 @@ fun FeedBodyContent(
 
     var errorMessage by remember { mutableStateOf<String?>(null) }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+    Column {
         // TODO Header
 
         Text(text = "Welcome, $userEmail!")
@@ -68,17 +67,10 @@ fun FeedBodyContent(
         Spacer(modifier = Modifier.height(16.dp))
 
         Column {
-            // TODO: Implement The New York Times API to get the news
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp)
-                /*.clickable(onClick = {
-                    scope.launch {
-                        navController.navigate(route = AppScreens.ArticleScreen.route)
-                    }
-                })*/
-            ) { }
+            ArticlesScreen(
+                viewmodel = viewmodel,
+                apiKey = apiKey
+            )
         }
 
         LogoutButton(
