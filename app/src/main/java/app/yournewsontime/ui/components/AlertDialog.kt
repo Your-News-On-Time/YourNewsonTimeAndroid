@@ -8,7 +8,7 @@ import androidx.compose.ui.platform.LocalContext
 fun AlertDialog(
     title: String = "Error",
     message: String,
-    positiveButton: String = "OK",
+    positiveButton: String = "Close",
 ) {
     val context = LocalContext.current
     val builder = AlertDialog.Builder(context)
