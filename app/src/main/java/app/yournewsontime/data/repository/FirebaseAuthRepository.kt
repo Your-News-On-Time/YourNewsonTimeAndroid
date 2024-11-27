@@ -79,6 +79,10 @@ class FirebaseAuthRepository(
         return auth.currentUser != null
     }
 
+    fun isUserAnonymous(): Boolean {
+        return auth.currentUser?.isAnonymous == true
+    }
+
     fun logout(): Result<Unit> {
         return try {
             auth.signOut()
