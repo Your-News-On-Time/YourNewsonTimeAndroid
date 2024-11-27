@@ -10,13 +10,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.yournewsontime.ui.theme.Branding_YourNewsOnTime
 import coil3.compose.AsyncImage
 
 @Composable
-fun NewsCard(
+fun ArticleCard(
     newspaper: String,
     title: String,
     description: String,
@@ -52,50 +51,4 @@ fun NewsCard(
                 .clip(shape = RoundedCornerShape(8.dp)))
         )*/
     }
-}
-
-@Composable
-fun CardTest() {
-    Column(
-        modifier = Modifier
-            .padding(top = 80.dp)
-    ) {
-        NewsCard(
-            newspaper = "Newspaper",
-            title = "Title",
-            description = "Description",
-            imageUrl = "https://randomuser.me/api/portraits/med/men/64.jpg"
-        )
-        NewsCard(
-            newspaper = "Newspaper",
-            title = "Title",
-            description = "Description",
-            imageUrl = "https://randomuser.me/api/portraits/med/men/64.jpg"
-        )
-        NewsCard(
-            newspaper = "Newspaper",
-            title = "Title",
-            description = "Description",
-            imageUrl = "https://randomuser.me/api/portraits/med/men/64.jpg"
-        )
-        NewsCard(
-            newspaper = "Newspaper",
-            title = "Title",
-            description = "Description",
-            imageUrl = "https://randomuser.me/api/portraits/med/men/64.jpg"
-        )
-        NewsCard(
-            newspaper = "Newspaper",
-            title = "Title",
-            description = "Description",
-            imageUrl = "https://randomuser.me/api/portraits/med/men/64.jpg"
-        )
-    }
-}
-
-@Preview(showSystemUi = true)
-@Composable
-fun NewsCardPreview() {
-    // NewsCard(news = News("Title", "Description", "Image URL"))
-    CardTest()
 }

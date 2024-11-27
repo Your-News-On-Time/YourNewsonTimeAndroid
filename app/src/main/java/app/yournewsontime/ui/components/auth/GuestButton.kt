@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
 @Composable
-fun AnonymouslyButton(onclick: () -> Unit = {}, modifier: Modifier = Modifier) {
+fun GuestButton(onclick: () -> Unit = {}, modifier: Modifier = Modifier) {
     Button(
         onClick = onclick,
         colors = ButtonDefaults.buttonColors(
@@ -17,6 +17,6 @@ fun AnonymouslyButton(onclick: () -> Unit = {}, modifier: Modifier = Modifier) {
         ),
         modifier = modifier
     ) {
-        Text("Anonymous")
+        Text("Guest")
     }
 }
