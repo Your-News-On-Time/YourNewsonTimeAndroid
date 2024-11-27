@@ -46,6 +46,12 @@ fun FeedBodyContent(
     val scope = rememberCoroutineScope()
     val currentUser = authRepository.getCurrentUser()
 
+    val userEmail = if (currentUser?.isAnonymous == false) {
+        currentUser.email ?: "Unknown"
+    } else {
+        "Guest"
+    }
+
     var errorMessage by remember { mutableStateOf<String?>(null) }
 
     Column(
@@ -57,7 +63,7 @@ fun FeedBodyContent(
     ) {
         // TODO Header
 
-        Text(text = "Welcome, ${currentUser?.email ?: "Guest"}!")
+        Text(text = "Welcome, $userEmail!")
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -88,7 +94,7 @@ fun FeedBodyContent(
                     }
                 }
             },
-            isLoggedIn = authRepository.isUserLoggedIn()
+            isAnonymous = authRepository.isUserAnonymous()
         )
 
         errorMessage?.let {
