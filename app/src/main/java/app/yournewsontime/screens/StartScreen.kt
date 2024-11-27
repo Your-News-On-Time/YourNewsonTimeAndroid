@@ -43,15 +43,15 @@ import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun StartPageScreen(navController: NavController) {
+fun StartScreen(navController: NavController) {
     Scaffold {
-        StartPageBodyContent(navController)
+        StartBodyContent(navController)
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun StartPageBodyContent(navController: NavController) {
+fun StartBodyContent(navController: NavController) {
     val scope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
@@ -219,4 +219,3 @@ fun BottomSheetContent(
         }
     }
 }
-
