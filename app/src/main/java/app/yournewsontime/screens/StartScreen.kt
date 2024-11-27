@@ -45,7 +45,10 @@ import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun StartScreen(navController: NavController, onGoogleSignIn: () -> Unit) {
+fun StartScreen(
+    navController: NavController,
+    onGoogleSignIn: () -> Unit
+) {
     Scaffold {
         StartBodyContent(navController, onGoogleSignIn)
     }
@@ -55,7 +58,7 @@ fun StartScreen(navController: NavController, onGoogleSignIn: () -> Unit) {
 @Composable
 fun StartBodyContent(
     navController: NavController,
-    onGoogleSignIn: () -> Unit
+    onGoogleSignIn: () -> Unit,
 ) {
     val scope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)

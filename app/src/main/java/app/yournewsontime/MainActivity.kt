@@ -5,11 +5,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.material3.Surface
-import androidx.lifecycle.lifecycleScope
+import androidx.compose.runtime.collectAsState
+import androidx.navigation.compose.rememberNavController
 import app.yournewsontime.data.repository.FirebaseAuthRepository
 import app.yournewsontime.navigation.AppNavigation
 import app.yournewsontime.ui.theme.YourNewsOnTimeTheme
-import kotlinx.coroutines.launch
+import app.yournewsontime.viewmodel.GoogleLoginViewModel
 
 class MainActivity : ComponentActivity() {
     private lateinit var authRepository: FirebaseAuthRepository
@@ -18,28 +19,27 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         authRepository = FirebaseAuthRepository(context = this)
 
+        val googleLoginViewModel = GoogleLoginViewModel(authRepository)
         val googleSignInLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
-            lifecycleScope.launch {
-                val loginResult = authRepository.loginWithGoogle(result.data)
-                if (loginResult.isSuccess) {
-                    println("Google Sign-In Success")
-                    // TODO: Navigate to the FeedScreen
-                } else {
-                    println("Google Sign-In Failed: ${loginResult.exceptionOrNull()?.message}")
-                }
-            }
+            googleLoginViewModel.loginWithGoogle(result.data)
         }
 
         setContent {
+            val navController = rememberNavController()
+            val googleLoginState = googleLoginViewModel.googleLoginState.collectAsState()
+
             YourNewsOnTimeTheme {
                 Surface() {
                     AppNavigation(
+                        navController = navController,
+                        googleLoginState = googleLoginState.value,
                         onGoogleSignIn = {
-                            val intent = authRepository.getGoogleSignInIntent()
+                            val intent = googleLoginViewModel.getGoogleSignInIntent(this)
                             googleSignInLauncher.launch(intent)
-                        }
+                        },
+                        authRepository = authRepository,
                     )
                 }
             }
