@@ -23,31 +23,38 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import app.yournewsontime.data.repository.FirebaseAuthRepository
 import app.yournewsontime.navigation.AppScreens
 import app.yournewsontime.ui.components.AlertDialog
 import app.yournewsontime.ui.components.PrincipalButton
 import app.yournewsontime.ui.components.Splitter
-import app.yournewsontime.ui.components.auth.AnonymouslyButton
 import app.yournewsontime.ui.components.auth.GoogleButton
+import app.yournewsontime.ui.components.auth.GuestButton
 import app.yournewsontime.ui.theme.interFontFamily
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun RegisterScreen(navController: NavController) {
+fun RegisterScreen(
+    navController: NavController,
+    onGoogleSignIn: () -> Unit
+) {
     Scaffold {
-        RegisterBodyContent(navController)
+        RegisterBodyContent(navController, onGoogleSignIn)
     }
 }
 
 @Composable
-fun RegisterBodyContent(navController: NavController) {
+fun RegisterBodyContent(navController: NavController, onGoogleSignIn: () -> Unit) {
     val scope = rememberCoroutineScope()
+    val context = LocalContext.current
+    val authRepository = remember { FirebaseAuthRepository(context) }
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -130,7 +137,11 @@ fun RegisterBodyContent(navController: NavController) {
                         return@launch
                     }
                     try {
-                        // TODO: Implement Firebase email/password sign up
+                        val result = authRepository.registerWithEmail(email, password)
+                        if (result.isFailure) {
+                            errorMessage = result.exceptionOrNull()?.message
+                            return@launch
+                        }
                         navController.navigate(route = AppScreens.FeedScreen.route)
                     } catch (e: Exception) {
                         errorMessage = e.message
@@ -140,9 +151,7 @@ fun RegisterBodyContent(navController: NavController) {
         )
 
         errorMessage?.let {
-            AlertDialog(
-                message = it,
-            )
+            AlertDialog(message = it)
             errorMessage = null
         }
 
@@ -177,21 +186,21 @@ fun RegisterBodyContent(navController: NavController) {
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             GoogleButton(
-                onclick = {
-                    scope.launch {
-                        // TODO: Implement Google Sign-In
-                        navController.navigate(route = AppScreens.FeedScreen.route)
-                    }
-                },
+                onclick = onGoogleSignIn,
                 modifier = Modifier.weight(1f)
             )
 
             Spacer(modifier = Modifier.width(16.dp))
 
-            AnonymouslyButton(
+            GuestButton(
                 onclick = {
                     scope.launch {
-                        navController.navigate(route = AppScreens.FeedScreen.route)
+                        val result = authRepository.loginAnonymously()
+                        if (result.isSuccess) {
+                            navController.navigate(AppScreens.FeedScreen.route) {
+                                popUpTo(AppScreens.StartScreen.route) { inclusive = true }
+                            }
+                        }
                     }
                 },
                 modifier = Modifier.weight(1f)

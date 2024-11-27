@@ -9,14 +9,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun LogoutButton(onClick: () -> Unit) {
+fun LogoutButton(
+    onClick: () -> Unit,
+    isLoggedIn: Boolean
+) {
     Button(
         onClick = onClick,
         modifier = Modifier
             .padding(16.dp)
             .fillMaxWidth()
     ) {
-        if (true) { // TODO: Check if user is logged in or not
+        if (isLoggedIn) {
             Text(text = "Logout")
         } else {
             Text(text = "Login")

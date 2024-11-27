@@ -27,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -35,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import app.yournewsontime.R
+import app.yournewsontime.data.repository.FirebaseAuthRepository
 import app.yournewsontime.navigation.AppScreens
 import app.yournewsontime.ui.components.PrincipalButton
 import app.yournewsontime.ui.components.Title
@@ -43,17 +45,22 @@ import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun StartScreen(navController: NavController) {
+fun StartScreen(navController: NavController, onGoogleSignIn: () -> Unit) {
     Scaffold {
-        StartBodyContent(navController)
+        StartBodyContent(navController, onGoogleSignIn)
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun StartBodyContent(navController: NavController) {
+fun StartBodyContent(
+    navController: NavController,
+    onGoogleSignIn: () -> Unit
+) {
     val scope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val context = LocalContext.current
+    val authRepository = remember { FirebaseAuthRepository(context) }
 
     var showBottomSheet by remember { mutableStateOf(false) }
 
@@ -106,19 +113,17 @@ fun StartBodyContent(navController: NavController) {
                         navController.navigate(route = AppScreens.RegisterScreen.route)
                     }
                 },
-                signWithGoogle = {
+                signWithGoogle = onGoogleSignIn,
+                navigateToFeedAsGuest = {
                     scope.launch {
-                        sheetState.hide()
-                        showBottomSheet = false
-                        // TODO: Implement Google Sign-In
-                        navController.navigate(route = AppScreens.FeedScreen.route)
-                    }
-                },
-                navigateToFeedAsAnonymous = {
-                    scope.launch {
-                        sheetState.hide()
-                        showBottomSheet = false
-                        navController.navigate(route = AppScreens.FeedScreen.route)
+                        val result = authRepository.loginAnonymously()
+                        if (result.isSuccess) {
+                            sheetState.hide()
+                            showBottomSheet = false
+                            navController.navigate(AppScreens.FeedScreen.route) {
+                                popUpTo(AppScreens.StartScreen.route) { inclusive = true }
+                            }
+                        }
                     }
                 }
             )
@@ -167,7 +172,7 @@ fun BottomSheetContent(
     onDismiss: () -> Unit = {},
     navigateToRegister: () -> Unit = {},
     signWithGoogle: () -> Unit = {},
-    navigateToFeedAsAnonymous: () -> Unit = {},
+    navigateToFeedAsGuest: () -> Unit = {},
 ) {
     Column(
         modifier = Modifier
@@ -202,7 +207,7 @@ fun BottomSheetContent(
         )
 
         Button(
-            onClick = navigateToFeedAsAnonymous,
+            onClick = navigateToFeedAsGuest,
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Transparent,
                 contentColor = Color.Transparent
@@ -211,7 +216,7 @@ fun BottomSheetContent(
                 .padding(top = 8.dp, bottom = 30.dp)
         ) {
             Text(
-                text = "Continue anonymously",
+                text = "Continue as Guest",
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Normal,
                 color = Color.Gray
