@@ -10,15 +10,15 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import app.yournewsontime.data.repository.AppPreferencesRepository
 import app.yournewsontime.data.repository.FirebaseAuthRepository
-import app.yournewsontime.data.repository.NYTimesRepository
+import app.yournewsontime.data.repository.NewYorkTimesRepository
 import app.yournewsontime.data.repository.api.ApiClient
-import app.yournewsontime.data.repository.api.NYTimesApiService
+import app.yournewsontime.data.repository.api.NewYorkTimesApiService
 import app.yournewsontime.navigation.AppNavigation
 import app.yournewsontime.navigation.AppScreens
 import app.yournewsontime.ui.theme.YourNewsOnTimeTheme
-import app.yournewsontime.viewModel.NYTimesViewModel
-import app.yournewsontime.viewModel.NYTimesViewModelFactory
 import app.yournewsontime.viewmodel.GoogleLoginViewModel
+import app.yournewsontime.viewmodel.NewYorkTimesViewModel
+import app.yournewsontime.viewmodel.NewYorkTimesViewModelFactory
 
 class MainActivity : ComponentActivity() {
     private lateinit var authRepository: FirebaseAuthRepository
@@ -30,8 +30,7 @@ class MainActivity : ComponentActivity() {
         authRepository = FirebaseAuthRepository(context = this)
         appPreferencesRepository = AppPreferencesRepository(context = this)
 
-        // TODO: Remove API key from code and load from secure location
-        val newYorkTimesApiKey = getString(R.string.ny_times_api_key)
+        val newYorkTimesApiKey = getString(R.string.new_york_times_api_key)
 
         val startDestination = if (appPreferencesRepository.isFirstLaunch()) {
             AppScreens.StartScreen.route
@@ -52,9 +51,9 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             val googleLoginState = googleLoginViewModel.googleLoginState.collectAsState()
             val newYorkTimesRepository =
-                NYTimesRepository(ApiClient.retrofit.create(NYTimesApiService::class.java))
-            val newYorkTimesViewModel: NYTimesViewModel =
-                viewModel(factory = NYTimesViewModelFactory(newYorkTimesRepository))
+                NewYorkTimesRepository(ApiClient.retrofit.create(NewYorkTimesApiService::class.java))
+            val newYorkTimesViewModel: NewYorkTimesViewModel =
+                viewModel(factory = NewYorkTimesViewModelFactory(newYorkTimesRepository))
 
             YourNewsOnTimeTheme {
                 Surface() {
@@ -68,7 +67,7 @@ class MainActivity : ComponentActivity() {
                         authRepository = authRepository,
                         startDestination = startDestination,
                         appPreferencesRepository = appPreferencesRepository,
-                        viewmodel = newYorkTimesViewModel,
+                        viewModel = newYorkTimesViewModel,
                         apiKey = newYorkTimesApiKey
                     )
                 }

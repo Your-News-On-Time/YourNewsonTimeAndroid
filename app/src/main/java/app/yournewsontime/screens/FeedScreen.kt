@@ -1,42 +1,74 @@
 package app.yournewsontime.screens
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import app.yournewsontime.data.model.Article
 import app.yournewsontime.data.repository.FirebaseAuthRepository
 import app.yournewsontime.navigation.AppScreens
 import app.yournewsontime.ui.components.AlertDialog
 import app.yournewsontime.ui.components.auth.LogoutButton
-import app.yournewsontime.ui.view.main.ArticlesScreen
-import app.yournewsontime.viewModel.NYTimesViewModel
+import app.yournewsontime.viewmodel.NewYorkTimesViewModel
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun FeedScreen(
     navController: NavController,
     authRepository: FirebaseAuthRepository,
-    viewmodel: NYTimesViewModel,
+    viewModel: NewYorkTimesViewModel,
     apiKey: String
 ) {
-    Scaffold {
+    val currentUser = authRepository.getCurrentUser()
+
+    val userNickname = if (currentUser?.isAnonymous == false) {
+        currentUser.email?.split("@")?.get(0) ?: "Unknown"
+    } else {
+        "Guest"
+    }
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Hello, $userNickname!") },
+                colors = TopAppBarColors(
+                    titleContentColor = Color.Black,
+                    containerColor = Color.Transparent,
+                    scrolledContainerColor = Color.Transparent,
+                    navigationIconContentColor = Color.Transparent,
+                    actionIconContentColor = Color.Transparent,
+                )
+            )
+        },
+    ) { padding ->
         FeedBodyContent(
             navController,
             authRepository,
-            viewmodel,
-            apiKey
+            viewModel,
+            apiKey,
+            padding
         )
     }
 }
@@ -45,33 +77,21 @@ fun FeedScreen(
 fun FeedBodyContent(
     navController: NavController,
     authRepository: FirebaseAuthRepository,
-    viewmodel: NYTimesViewModel,
-    apiKey: String
+    viewModel: NewYorkTimesViewModel,
+    apiKey: String,
+    padding: PaddingValues
 ) {
     val scope = rememberCoroutineScope()
-    val currentUser = authRepository.getCurrentUser()
+    var errorMessage by remember { mutableStateOf<String?>(null) }
+    val articles by viewModel.articles
+    val error by viewModel.errorMessage
 
-    val userEmail = if (currentUser?.isAnonymous == false) {
-        currentUser.email ?: "Unknown"
-    } else {
-        "Guest"
+    LaunchedEffect(Unit) {
+        viewModel.fetchArticles("technology", apiKey)
     }
 
-    var errorMessage by remember { mutableStateOf<String?>(null) }
-
     Column {
-        // TODO Header
-
-        Text(text = "Welcome, $userEmail!")
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Column {
-            ArticlesScreen(
-                viewmodel = viewmodel,
-                apiKey = apiKey
-            )
-        }
+        Spacer(modifier = Modifier.padding(30.dp))
 
         LogoutButton(
             onClick = {
@@ -89,11 +109,33 @@ fun FeedBodyContent(
             isAnonymous = authRepository.isUserAnonymous()
         )
 
+        Column {
+            Box(modifier = Modifier.padding(padding)) {
+                if (error != null) {
+                    Text("Error: $error", color = MaterialTheme.colorScheme.error)
+                } else {
+                    LazyColumn {
+                        items(articles) { article ->
+                            ArticleItem(article)
+                        }
+                    }
+                }
+            }
+        }
+
         errorMessage?.let {
             AlertDialog(message = it)
             errorMessage = null
         }
 
         // TODO Footer
+    }
+}
+
+@Composable
+fun ArticleItem(article: Article) {
+    Column(modifier = Modifier.padding(8.dp)) {
+        Text(text = article.headline.main, style = MaterialTheme.typography.titleMedium)
+        Text(text = article.snippet, style = MaterialTheme.typography.bodySmall)
     }
 }
