@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "111111944454-b0601dbeklruk0f8jakadqb7cjjg3c8m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.yournewsontime",
+            "certificate_hash": "ff94f3bd3c3bdc5c0bba45b5db25f9630247532e"
+          }
+        },
+        {
           "client_id": "111111944454-8o99i8gl7h17iou85p5vb9mrm8ihj5s9.apps.googleusercontent.com",
           "client_type": 3
         }
