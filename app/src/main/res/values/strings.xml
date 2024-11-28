@@ -2,7 +2,5 @@
     <string name="app_name">Your News on Time</string>
     <string name="app_prefs">app.yournewsontime.PREFERENCE_FILE_KEY</string>
     <string name="web_client_id">111111944454-6l851phm8rko91thnrm9t7fnpkie8l3j.apps.googleusercontent.com</string>
-    <string name="revoke_access_item">Revoke Access</string>
-    <string name="sign_out_item">Sign-out</string>
-    <string name="ny_times_api_key">6HuzoqV94bqKb08TZGAD65Jg2NkVJ0Cg</string>
+    <string name="new_york_times_api_key">6HuzoqV94bqKb08TZGAD65Jg2NkVJ0Cg</string>
 </resources>
