@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
         authRepository = FirebaseAuthRepository(context = this)
         appPreferencesRepository = AppPreferencesRepository(context = this)
 
-        val newYorkTimesApiKey = getString(R.string.new_york_times_api_key)
+        val newYorkTimesApiKey = BuildConfig.NEW_YORK_TIMES_API_KEY
 
         val startDestination = if (appPreferencesRepository.isFirstLaunch()) {
             AppScreens.StartScreen.route

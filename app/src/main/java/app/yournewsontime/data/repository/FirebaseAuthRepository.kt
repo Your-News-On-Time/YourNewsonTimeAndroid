@@ -2,7 +2,7 @@ package app.yournewsontime.data.repository
 
 import android.content.Context
 import android.content.Intent
-import app.yournewsontime.R
+import app.yournewsontime.BuildConfig
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -21,7 +21,7 @@ class FirebaseAuthRepository(
 
     init {
         val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(context.getString(R.string.default_web_client_id))
+            .requestIdToken(BuildConfig.WEB_CLIENT_ID)
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(context, googleSignInOptions)
