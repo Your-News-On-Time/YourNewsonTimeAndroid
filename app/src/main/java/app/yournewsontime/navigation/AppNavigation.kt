@@ -11,6 +11,7 @@ import app.yournewsontime.screens.LoginScreen
 import app.yournewsontime.screens.RegisterScreen
 import app.yournewsontime.screens.StartScreen
 import app.yournewsontime.viewmodel.GoogleLoginState
+import app.yournewsontime.viewmodel.NewYorkTimesViewModel
 
 @Composable
 fun AppNavigation(
@@ -19,7 +20,9 @@ fun AppNavigation(
     onGoogleSignIn: () -> Unit,
     authRepository: FirebaseAuthRepository,
     appPreferencesRepository: AppPreferencesRepository,
-    startDestination: String
+    startDestination: String,
+    viewModel: NewYorkTimesViewModel,
+    apiKey: String
 ) {
     if (googleLoginState is GoogleLoginState.Success) {
         navController.navigate(AppScreens.FeedScreen.route) {
@@ -60,17 +63,10 @@ fun AppNavigation(
         composable(route = AppScreens.FeedScreen.route) {
             FeedScreen(
                 navController = navController,
-                authRepository = authRepository
+                authRepository = authRepository,
+                viewModel = viewModel,
+                apiKey = apiKey
             )
         }
-
-        /*composable(
-            route = AppScreens.ArticleScreen.route + "/{articleId}",
-            arguments = listOf(navArgument(name = "articleId") {
-                type = NavType.StringType
-            })
-        ) {
-            val articleId = it.arguments?.getString("articleId")
-        }*/
     }
 }

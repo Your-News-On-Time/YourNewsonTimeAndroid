@@ -1,22 +1,10 @@
 package app.yournewsontime.screens
 
-import android.annotation.SuppressLint
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.navigation.NavController
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ArticleScreen(navController: NavController) {
-    Scaffold {
-        ArticleBodyContent(navController)
-    }
-}
-
-
-@Composable
-fun ArticleBodyContent(navController: NavController) {
-    val scope = rememberCoroutineScope()
-
+fun ArticleScreen() {
+    // TODO: Implement ArticleScreen composable where the user can read the whole article
 }

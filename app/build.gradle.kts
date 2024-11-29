@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     id("com.google.gms.google-services")
 
@@ -10,12 +13,27 @@ android {
     namespace = "app.yournewsontime"
     compileSdk = 35
 
+    val file = rootProject.file("local.properties")
+    val properties = Properties()
+    properties.load(FileInputStream(file))
+
     defaultConfig {
         applicationId = "app.yournewsontime"
         minSdk = 23
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+
+        buildConfigField(
+            "String",
+            "WEB_CLIENT_ID",
+            properties.getProperty("WEB_CLIENT_ID")
+        )
+        buildConfigField(
+            "String",
+            "NEW_YORK_TIMES_API_KEY",
+            properties.getProperty("NEW_YORK_TIMES_API_KEY")
+        )
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -38,6 +56,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     buildToolsVersion = "35"
 }
@@ -56,7 +75,8 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
     implementation(libs.play.services.auth)
-    implementation(libs.androidx.datastore.preferences.core)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 
     testImplementation(libs.junit)
 
