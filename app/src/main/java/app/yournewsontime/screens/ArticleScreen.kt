@@ -24,35 +24,5 @@ import java.time.format.DateTimeFormatter
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ArticleScreen(viewModel: NewYorkTimesViewModel, apiKey: String) {
-    val articles by viewModel.articles
-    val error by viewModel.errorMessage
 
-    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-    val beginDate = LocalDate.now().minusDays(1).format(formatter)
-    val endDate = LocalDate.now().format(formatter)
-    val currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-
-
-    // Fetch articles when the composable is launched
-    LaunchedEffect(Unit) {
-        viewModel.fetchArticles("War", apiKey, beginDate, endDate)
-    }
-
-    Scaffold(
-        topBar = {
-            TopAppBar(title = { Text("$currentDate") })
-        }
-    ) { padding ->
-        Box(modifier = Modifier.padding(padding)) {
-            if (error != null) {
-                Text("Error: $error", color = MaterialTheme.colorScheme.error)
-            } else {
-                LazyColumn {
-                    items(articles) { article ->
-                        ArticleItem(article)
-                    }
-                }
-            }
-        }
-    }
 }

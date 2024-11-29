@@ -1,6 +1,8 @@
 package app.yournewsontime.screens
 
 import android.annotation.SuppressLint
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -33,7 +35,10 @@ import app.yournewsontime.ui.components.auth.LogoutButton
 import app.yournewsontime.ui.view.main.ArticleItem
 import app.yournewsontime.viewmodel.NewYorkTimesViewModel
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -50,6 +55,7 @@ fun FeedScreen(
     } else {
         "Guest"
     }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -62,7 +68,9 @@ fun FeedScreen(
                     actionIconContentColor = Color.Transparent,
                 )
             )
-        },
+        }
+
+        ,
     ) { padding ->
         FeedBodyContent(
             navController,
@@ -72,8 +80,10 @@ fun FeedScreen(
             padding
         )
     }
+
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun FeedBodyContent(
     navController: NavController,
@@ -82,13 +92,16 @@ fun FeedBodyContent(
     apiKey: String,
     padding: PaddingValues
 ) {
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+    val beginDate = LocalDate.now().minusDays(1).format(formatter)
+    val endDate = LocalDate.now().format(formatter)
     val scope = rememberCoroutineScope()
     var errorMessage by remember { mutableStateOf<String?>(null) }
     val articles by viewModel.articles
     val error by viewModel.errorMessage
 
     LaunchedEffect(Unit) {
-        viewModel.fetchArticles("technology", apiKey)
+        viewModel.fetchArticles("technology", apiKey, beginDate, endDate)
     }
 
     Column {
@@ -110,15 +123,13 @@ fun FeedBodyContent(
             isAnonymous = authRepository.isUserAnonymous()
         )
 
-        Column {
-            Box(modifier = Modifier.padding(padding)) {
-                if (error != null) {
-                    Text("Error: $error", color = MaterialTheme.colorScheme.error)
-                } else {
-                    LazyColumn {
-                        items(articles) { article ->
-                            ArticleItem(article)
-                        }
+        Box(modifier = Modifier.padding(padding)) {
+            if (error != null) {
+                Text("Error: $error", color = MaterialTheme.colorScheme.error)
+            } else {
+                LazyColumn {
+                    items(articles) { article ->
+                        ArticleItem(article)
                     }
                 }
             }
@@ -131,5 +142,6 @@ fun FeedBodyContent(
 
         // TODO Footer
     }
+
 }
 
