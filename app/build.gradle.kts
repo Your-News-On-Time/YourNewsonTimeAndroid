@@ -27,12 +27,12 @@ android {
         buildConfigField(
             "String",
             "WEB_CLIENT_ID",
-            properties.getProperty("WEB_CLIENT_ID")
+            "\"${properties.getProperty("WEB_CLIENT_ID") ?: ""}\""
         )
         buildConfigField(
             "String",
             "NEW_YORK_TIMES_API_KEY",
-            properties.getProperty("NEW_YORK_TIMES_API_KEY")
+            "\"${properties.getProperty("NEW_YORK_TIMES_API_KEY") ?: ""}\""
         )
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
