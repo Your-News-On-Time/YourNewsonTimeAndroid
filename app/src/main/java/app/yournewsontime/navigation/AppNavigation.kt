@@ -8,7 +8,9 @@ import app.yournewsontime.data.repository.AppPreferencesRepository
 import app.yournewsontime.data.repository.FirebaseAuthRepository
 import app.yournewsontime.screens.FeedScreen
 import app.yournewsontime.screens.LoginScreen
+import app.yournewsontime.screens.ProfileScreen
 import app.yournewsontime.screens.RegisterScreen
+import app.yournewsontime.screens.SavedScreen
 import app.yournewsontime.screens.StartScreen
 import app.yournewsontime.viewmodel.GoogleLoginState
 import app.yournewsontime.viewmodel.NewYorkTimesViewModel
@@ -67,6 +69,23 @@ fun AppNavigation(
                 viewModel = viewModel,
                 apiKey = apiKey
             )
+        }
+
+        /*composable(route = AppScreens.ArticleScreen.route) {
+            ArticleScreen(
+                navController = navController,
+                authRepository = authRepository,
+                viewModel = viewModel,
+                apiKey = apiKey
+            )
+        }*/
+
+        composable(route = AppScreens.ProfileScreen.route) {
+            ProfileScreen()
+        }
+
+        composable(route = AppScreens.SavedScreen.route) {
+            SavedScreen()
         }
     }
 }
