@@ -1,10 +1,12 @@
 package app.yournewsontime.screens
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -19,19 +21,17 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import app.yournewsontime.data.model.Article
 import app.yournewsontime.data.repository.FirebaseAuthRepository
-import app.yournewsontime.navigation.AppScreens
 import app.yournewsontime.ui.components.AlertDialog
-import app.yournewsontime.ui.components.auth.LogoutButton
+import app.yournewsontime.ui.components.Footer
 import app.yournewsontime.viewmodel.NewYorkTimesViewModel
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -81,7 +81,6 @@ fun FeedBodyContent(
     apiKey: String,
     padding: PaddingValues
 ) {
-    val scope = rememberCoroutineScope()
     var errorMessage by remember { mutableStateOf<String?>(null) }
     val articles by viewModel.articles
     val error by viewModel.errorMessage
@@ -90,45 +89,39 @@ fun FeedBodyContent(
         viewModel.fetchArticles("technology", apiKey)
     }
 
-    Column {
-        Spacer(modifier = Modifier.padding(30.dp))
-
-        LogoutButton(
-            onClick = {
-                scope.launch {
-                    val result = authRepository.logout()
-                    if (result.isSuccess) {
-                        navController.navigate(route = AppScreens.LoginScreen.route) {
-                            popUpTo(AppScreens.FeedScreen.route) { inclusive = true }
-                        }
-                    } else {
-                        errorMessage = "Failed to log out: ${result.exceptionOrNull()?.message}"
-                    }
-                }
-            },
-            isAnonymous = authRepository.isUserAnonymous()
-        )
-
-        Column {
-            Box(modifier = Modifier.padding(padding)) {
-                if (error != null) {
-                    Text("Error: $error", color = MaterialTheme.colorScheme.error)
-                } else {
-                    LazyColumn {
-                        items(articles) { article ->
-                            ArticleItem(article)
-                        }
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(padding),
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
+        Box(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            if (error != null) {
+                Text("Error: $error", color = MaterialTheme.colorScheme.error)
+            } else {
+                LazyColumn(
+                    contentPadding = PaddingValues(8.dp)
+                ) {
+                    items(articles) { article ->
+                        ArticleItem(article)
                     }
                 }
             }
+
+            Footer(
+                navController = navController,
+                authRepository = authRepository,
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+            )
         }
 
         errorMessage?.let {
             AlertDialog(message = it)
             errorMessage = null
         }
-
-        // TODO Footer
     }
 }
 
