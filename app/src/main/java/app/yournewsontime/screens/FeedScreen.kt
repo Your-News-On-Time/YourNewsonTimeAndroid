@@ -30,6 +30,7 @@ import app.yournewsontime.data.repository.FirebaseAuthRepository
 import app.yournewsontime.navigation.AppScreens
 import app.yournewsontime.ui.components.AlertDialog
 import app.yournewsontime.ui.components.auth.LogoutButton
+import app.yournewsontime.ui.view.main.ArticleItem
 import app.yournewsontime.viewmodel.NewYorkTimesViewModel
 import kotlinx.coroutines.launch
 
@@ -132,10 +133,3 @@ fun FeedBodyContent(
     }
 }
 
-@Composable
-fun ArticleItem(article: Article) {
-    Column(modifier = Modifier.padding(8.dp)) {
-        Text(text = article.headline.main, style = MaterialTheme.typography.titleMedium)
-        Text(text = article.snippet, style = MaterialTheme.typography.bodySmall)
-    }
-}
