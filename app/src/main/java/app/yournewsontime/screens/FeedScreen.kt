@@ -1,9 +1,9 @@
 package app.yournewsontime.screens
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Arrangement
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -32,7 +32,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import app.yournewsontime.data.model.Article
 import app.yournewsontime.data.repository.FirebaseAuthRepository
 import app.yournewsontime.ui.components.AlertDialog
 import app.yournewsontime.ui.components.DrawerContent
@@ -53,15 +52,10 @@ fun FeedScreen(
     viewModel: NewYorkTimesViewModel,
     apiKey: String
 ) {
-    val currentUser = authRepository.getCurrentUser()
-    val userNickname = if (currentUser?.isAnonymous == false) {
-        currentUser.email?.split("@")?.get(0) ?: "Unknown"
-    } else {
-        "Guest"
-    }
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
-    
+    var dateNow = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
@@ -72,7 +66,12 @@ fun FeedScreen(
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text("Hello, $userNickname!") },
+                    title = {
+                        Text(
+                            text = "$dateNow",
+                            color = Color.Gray.copy(alpha = 0.9f)
+                        )
+                    },
                     colors = TopAppBarColors(
                         titleContentColor = Color.Black,
                         containerColor = Color.Transparent,
