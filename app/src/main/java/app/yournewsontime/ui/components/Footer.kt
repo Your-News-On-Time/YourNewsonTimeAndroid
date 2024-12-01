@@ -90,7 +90,7 @@ fun Footer(
                     }
                     .clip(CircleShape)
                     .background(color = Color.Gray)
-                    .size(40.dp)
+                    .size(30.dp)
             )
         } else {
             Image(
