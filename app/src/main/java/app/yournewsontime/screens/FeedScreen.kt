@@ -139,7 +139,7 @@ fun FeedBodyContent(
     val error by viewModel.errorMessage
 
     LaunchedEffect(Unit) {
-        viewModel.fetchArticles("technology", apiKey, beginDate, endDate)
+        viewModel.fetchArticles("War", apiKey, beginDate, endDate)
     }
 
     Column(

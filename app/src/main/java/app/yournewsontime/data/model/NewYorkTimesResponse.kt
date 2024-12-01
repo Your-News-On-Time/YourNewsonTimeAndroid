@@ -14,7 +14,8 @@ data class Article(
     val lead_paragraph: String,
     val pub_date: String,
     val multimedia: List<Multimedia>,
-    val web_url: String
+    val web_url: String,
+    val section_name: String?
 )
 
 data class Headline(val main: String)
