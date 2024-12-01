@@ -1,9 +1,9 @@
 package app.yournewsontime.screens
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Arrangement
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -32,13 +32,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import app.yournewsontime.data.model.Article
 import app.yournewsontime.data.repository.FirebaseAuthRepository
 import app.yournewsontime.ui.components.AlertDialog
 import app.yournewsontime.ui.components.DrawerContent
 import app.yournewsontime.ui.components.Footer
 import app.yournewsontime.ui.view.main.ArticleItem
 import app.yournewsontime.viewmodel.NewYorkTimesViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -53,15 +53,24 @@ fun FeedScreen(
     viewModel: NewYorkTimesViewModel,
     apiKey: String
 ) {
-    val currentUser = authRepository.getCurrentUser()
-    val userNickname = if (currentUser?.isAnonymous == false) {
-        currentUser.email?.split("@")?.get(0) ?: "Unknown"
-    } else {
-        "Guest"
-    }
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
-    
+    var dateNow by remember {
+        mutableStateOf(
+            LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+        )
+    }
+
+    LaunchedEffect(Unit) {
+        while (true) {
+            val newDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+            if (dateNow != newDate) {
+                dateNow = newDate
+            }
+            delay(60 * 1000L)
+        }
+    }
+
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
@@ -72,7 +81,12 @@ fun FeedScreen(
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text("Hello, $userNickname!") },
+                    title = {
+                        Text(
+                            text = "$dateNow",
+                            color = Color.Gray.copy(alpha = 0.9f)
+                        )
+                    },
                     colors = TopAppBarColors(
                         titleContentColor = Color.Black,
                         containerColor = Color.Transparent,
