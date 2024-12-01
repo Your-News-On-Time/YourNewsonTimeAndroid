@@ -5,6 +5,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -20,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import app.yournewsontime.R
+import app.yournewsontime.data.model.CategoryProvider
 import app.yournewsontime.data.repository.FirebaseAuthRepository
 import app.yournewsontime.navigation.AppScreens
 import app.yournewsontime.ui.theme.Branding_YourNewsOnTime
@@ -38,6 +41,9 @@ fun DrawerContent(
     } else {
         "Guest"
     }
+    val categories = CategoryProvider.categories
+    val followingCategories = remember { categories.filter { it.isFollowed } }
+    val suggestedCategories = remember { categories.filter { !it.isFollowed } }
 
     Box(
         modifier = Modifier
@@ -63,10 +69,12 @@ fun DrawerContent(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp),
-            horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.SpaceBetween
+            horizontalAlignment = Alignment.Start
         ) {
-            Column {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+            ) {
                 Text(
                     text = "Hello, $userNickname!",
                     fontSize = 20.sp,
@@ -117,7 +125,24 @@ fun DrawerContent(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                // TODO: Get the list of followed topics from the user's profile
+                Column(
+                    Modifier
+                        .verticalScroll(rememberScrollState())
+                        .fillMaxWidth()
+                        .padding(8.dp)
+                ) {
+                    followingCategories.forEach { category ->
+                        Text(
+                            text = category.name,
+                            fontSize = 14.sp,
+                            color = Color.Gray,
+                            modifier = Modifier.clickable {
+                                // TODO: Implement click logic for followed categories
+                                category.isFollowed = false
+                            }
+                        )
+                    }
+                }
 
                 Spacer(modifier = Modifier.height(16.dp))
 
@@ -130,7 +155,24 @@ fun DrawerContent(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                // TODO: Get the list of suggested topics from the categories list
+                Column(
+                    Modifier
+                        .verticalScroll(rememberScrollState())
+                        .fillMaxWidth()
+                        .padding(8.dp)
+                ) {
+                    suggestedCategories.forEach { category ->
+                        Text(
+                            text = category.name,
+                            fontSize = 14.sp,
+                            color = Color.Gray,
+                            modifier = Modifier.clickable {
+                                // TODO: Implement logic to follow this category
+                                category.isFollowed = true
+                            }
+                        )
+                    }
+                }
             }
 
             if (!authRepository.isUserAnonymous()) {
@@ -146,8 +188,8 @@ fun DrawerContent(
                         }
                         .padding(vertical = 16.dp),
                     fontSize = 14.sp,
-                    color = Color.Gray,
-                    textAlign = TextAlign.Start
+                    color = Color.Red.copy(alpha = 0.8f),
+                    textAlign = TextAlign.Start,
                 )
             } else {
                 Text(
@@ -161,7 +203,7 @@ fun DrawerContent(
                         }
                         .padding(vertical = 16.dp),
                     fontSize = 14.sp,
-                    color = Color.Gray,
+                    color = Branding_YourNewsOnTime.copy(alpha = 0.8f),
                     textAlign = TextAlign.Start
                 )
             }
