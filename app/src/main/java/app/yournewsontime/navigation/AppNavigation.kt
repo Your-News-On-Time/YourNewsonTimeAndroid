@@ -85,7 +85,7 @@ fun AppNavigation(
         }*/
 
         composable(route = "article_screen") {
-            ArticleScreen(navController)
+            ArticleScreen(navController, authRepository, apiKey)
         }
 
 
