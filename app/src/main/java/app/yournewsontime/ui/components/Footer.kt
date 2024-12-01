@@ -7,11 +7,15 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -19,6 +23,7 @@ import app.yournewsontime.R
 import app.yournewsontime.data.repository.FirebaseAuthRepository
 import app.yournewsontime.navigation.AppScreens
 import app.yournewsontime.ui.theme.Branding_YourNewsOnTime_Background
+import coil3.compose.AsyncImage
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -73,21 +78,32 @@ fun Footer(
             }
         )
 
-        Image(
-            painter = painterResource(
-                id = if (authRepository.isUserLoggedIn()) {
-                    R.drawable.account_icon
-                    // TODO: Placeholder if user does not have a Google profile picture
-                } else {
-                    R.drawable.account_icon
+        if (authRepository.isUserLoggedIn() && !authRepository.isUserAnonymous()) {
+            AsyncImage(
+                model = authRepository.getCurrentUser()?.photoUrl,
+                contentDescription = authRepository.getCurrentUser()?.displayName,
+                modifier = Modifier
+                    .clickable {
+                        scope.launch {
+                            navController.navigate(AppScreens.ProfileScreen.route)
+                        }
+                    }
+                    .clip(CircleShape)
+                    .background(color = Color.Gray)
+                    .size(30.dp)
+            )
+        } else {
+            Image(
+                painter = painterResource(
+                    id = R.drawable.account_icon
+                ),
+                contentDescription = "Profile",
+                modifier = Modifier.clickable {
+                    scope.launch {
+                        navController.navigate(AppScreens.ProfileScreen.route)
+                    }
                 }
-            ),
-            contentDescription = "Profile",
-            modifier = Modifier.clickable {
-                scope.launch {
-                    navController.navigate(AppScreens.ProfileScreen.route)
-                }
-            }
-        )
+            )
+        }
     }
 }
