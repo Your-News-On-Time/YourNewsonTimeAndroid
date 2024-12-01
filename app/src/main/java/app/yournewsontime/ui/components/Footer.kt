@@ -18,6 +18,7 @@ import androidx.navigation.NavController
 import app.yournewsontime.R
 import app.yournewsontime.data.repository.FirebaseAuthRepository
 import app.yournewsontime.navigation.AppScreens
+import app.yournewsontime.ui.theme.Branding_YourNewsOnTime_Background
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -25,7 +26,8 @@ import kotlinx.coroutines.launch
 fun Footer(
     navController: NavController,
     authRepository: FirebaseAuthRepository,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onMenuClick: () -> Unit
 ) {
     val scope = rememberCoroutineScope()
 
@@ -33,18 +35,15 @@ fun Footer(
         modifier = modifier
             .fillMaxWidth()
             .height(56.dp)
-            .background(color = androidx.compose.ui.graphics.Color.White),
-        horizontalArrangement = Arrangement.SpaceEvenly,
+            .background(Branding_YourNewsOnTime_Background),
+        horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
             painter = painterResource(id = R.drawable.menu_icon),
             contentDescription = "Menu",
             modifier = Modifier.clickable {
-                scope.launch {
-                    println("Menu clicked")
-                    // TODO: Implement logic to open a left-side menu
-                }
+                onMenuClick()
             }
         )
 
@@ -77,7 +76,8 @@ fun Footer(
         Image(
             painter = painterResource(
                 id = if (authRepository.isUserLoggedIn()) {
-                    R.drawable.account_icon // Placeholder if user does not have a Google profile picture
+                    R.drawable.account_icon
+                    // TODO: Placeholder if user does not have a Google profile picture
                 } else {
                     R.drawable.account_icon
                 }
