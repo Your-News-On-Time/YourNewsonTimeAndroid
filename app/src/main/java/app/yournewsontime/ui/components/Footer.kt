@@ -78,7 +78,11 @@ fun Footer(
             }
         )
 
-        if (authRepository.isUserLoggedIn() && !authRepository.isUserAnonymous()) {
+        if (
+            authRepository.isUserLoggedIn() &&
+            !authRepository.isUserAnonymous() &&
+            authRepository.getCurrentUser()?.photoUrl != null
+        ) {
             AsyncImage(
                 model = authRepository.getCurrentUser()?.photoUrl,
                 contentDescription = authRepository.getCurrentUser()?.displayName,
