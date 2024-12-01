@@ -1,14 +1,18 @@
 package app.yournewsontime.ui.view.main
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,14 +27,14 @@ import coil3.compose.rememberAsyncImagePainter
 
 
 @Composable
-fun ArticleItem(article: Article) {
+fun ArticleItem(article: Article,onClick: () -> Unit) {
     Card(
         modifier = Modifier
+            .fillMaxWidth()
             .padding(8.dp)
-            .fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp)
-        //TODO: Agregar elevación a la tarjeta
-        // elevation = CardElevation(8.dp)
+            .clickable { onClick() },
+        shape = MaterialTheme.shapes.medium.copy(CornerSize(16.dp)),
+        elevation = CardDefaults.elevatedCardElevation(8.dp)
     ) {
         Row(
             modifier = Modifier
@@ -60,6 +64,7 @@ fun ArticleItem(article: Article) {
                 color = Color.White
             )*/
                 val imageUrl = article.multimedia.firstOrNull()?.url?.let { "https://static01.nyt.com$it" }
+                Log.d("ArticleItem", "imageUrl: $imageUrl")
 
                 if (imageUrl != null) {
                     Image(

@@ -121,7 +121,7 @@ fun FeedScreen(
 
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
+@SuppressLint("NewApi")
 @Composable
 fun FeedBodyContent(
     navController: NavController,
@@ -133,7 +133,6 @@ fun FeedBodyContent(
     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
     val beginDate = LocalDate.now().minusDays(1).format(formatter)
     val endDate = LocalDate.now().format(formatter)
-    val scope = rememberCoroutineScope()
     var errorMessage by remember { mutableStateOf<String?>(null) }
     val articles by viewModel.articles
     val error by viewModel.errorMessage
@@ -159,7 +158,13 @@ fun FeedBodyContent(
                     contentPadding = PaddingValues(bottom = 10.dp)
                 ) {
                     items(articles) { article ->
-                        ArticleItem(article)
+                        // Pasamos la función de navegación al onClick
+                        ArticleItem(
+                            article = article,
+                            onClick = {
+                                navController.navigate("article_screen")
+                            }
+                        )
                     }
                 }
             }
@@ -170,6 +175,5 @@ fun FeedBodyContent(
             errorMessage = null
         }
     }
-
 }
 

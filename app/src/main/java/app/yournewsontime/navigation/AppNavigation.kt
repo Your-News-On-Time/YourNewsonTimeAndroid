@@ -1,11 +1,13 @@
 package app.yournewsontime.navigation
 
+import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import app.yournewsontime.data.model.Article
 import app.yournewsontime.data.repository.AppPreferencesRepository
 import app.yournewsontime.data.repository.FirebaseAuthRepository
+import app.yournewsontime.screens.ArticleScreen
 import app.yournewsontime.screens.FeedScreen
 import app.yournewsontime.screens.LoginScreen
 import app.yournewsontime.screens.ProfileScreen
@@ -14,7 +16,9 @@ import app.yournewsontime.screens.SavedScreen
 import app.yournewsontime.screens.StartScreen
 import app.yournewsontime.viewmodel.GoogleLoginState
 import app.yournewsontime.viewmodel.NewYorkTimesViewModel
+import androidx.navigation.compose.NavHost as NavHost
 
+@SuppressLint("NewApi")
 @Composable
 fun AppNavigation(
     navController: NavHostController,
@@ -80,6 +84,11 @@ fun AppNavigation(
             )
         }*/
 
+        composable(route = "article_screen") {
+            ArticleScreen(navController)
+        }
+
+
         composable(route = AppScreens.ProfileScreen.route) {
             ProfileScreen()
         }
@@ -87,5 +96,7 @@ fun AppNavigation(
         composable(route = AppScreens.SavedScreen.route) {
             SavedScreen()
         }
+
+
     }
 }

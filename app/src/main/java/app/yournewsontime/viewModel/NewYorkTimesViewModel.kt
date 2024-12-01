@@ -26,4 +26,8 @@ class NewYorkTimesViewModel(private val repository: NewYorkTimesRepository) : Vi
             }
         }
     }
+
+    fun getArticleById(articleId: String): Any {
+        TODO("Not yet implemented")
+    }
 }
