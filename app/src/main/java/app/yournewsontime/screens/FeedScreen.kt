@@ -159,7 +159,10 @@ fun FeedBodyContent(
                     contentPadding = PaddingValues(bottom = 10.dp)
                 ) {
                     items(articles) { article ->
-                        ArticleItem(article)
+                        ArticleItem(
+                            article,
+                            navController
+                        )
                     }
                 }
             }
