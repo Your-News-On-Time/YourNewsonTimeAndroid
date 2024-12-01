@@ -8,8 +8,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class NewYorkTimesRepository(private val apiService: NewYorkTimesApiService) {
-    fun searchArticles(query: String, apiKey: String, callback: (List<Article>?, String?) -> Unit) {
-        apiService.searchArticles(query, apiKey).enqueue(object : Callback<NewYorkTimesResponse> {
+    fun searchArticles(category: String, apiKey: String, beginDate:String, endDate:String, callback: (List<Article>?, String?) -> Unit) {
+        apiService.searchArticles(category, apiKey,beginDate,endDate).enqueue(object : Callback<NewYorkTimesResponse> {
             override fun onResponse(
                 call: Call<NewYorkTimesResponse>,
                 response: Response<NewYorkTimesResponse>

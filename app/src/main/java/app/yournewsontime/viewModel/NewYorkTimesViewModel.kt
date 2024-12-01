@@ -12,13 +12,16 @@ class NewYorkTimesViewModel(private val repository: NewYorkTimesRepository) : Vi
     val articles = mutableStateOf<List<Article>>(emptyList())
     val errorMessage = mutableStateOf<String?>(null)
 
-    fun fetchArticles(query: String, apiKey: String) {
+    fun fetchArticles(category: String, apiKey: String, beginDate: String? = null, endDate: String? = null) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.searchArticles(query, apiKey) { result, error ->
-                if (error != null) {
-                    errorMessage.value = error
-                } else {
-                    articles.value = result ?: emptyList()
+            if (beginDate != null && endDate != null) {
+                repository.searchArticles(category, apiKey, beginDate, endDate) { result, error ->
+                    println("Aqui estoy: $category $apiKey $beginDate $endDate")
+                    if (error != null) {
+                        errorMessage.value = error
+                    } else {
+                        articles.value = result ?: emptyList()
+                    }
                 }
             }
         }

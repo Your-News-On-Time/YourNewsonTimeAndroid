@@ -2,6 +2,8 @@ package app.yournewsontime.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -35,9 +37,13 @@ import app.yournewsontime.data.repository.FirebaseAuthRepository
 import app.yournewsontime.ui.components.AlertDialog
 import app.yournewsontime.ui.components.DrawerContent
 import app.yournewsontime.ui.components.Footer
+import app.yournewsontime.ui.view.main.ArticleItem
 import app.yournewsontime.viewmodel.NewYorkTimesViewModel
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -55,7 +61,7 @@ fun FeedScreen(
     }
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
-
+    
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
@@ -98,8 +104,10 @@ fun FeedScreen(
             )
         }
     }
+
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun FeedBodyContent(
     navController: NavController,
@@ -108,12 +116,16 @@ fun FeedBodyContent(
     apiKey: String,
     padding: PaddingValues
 ) {
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+    val beginDate = LocalDate.now().minusDays(1).format(formatter)
+    val endDate = LocalDate.now().format(formatter)
+    val scope = rememberCoroutineScope()
     var errorMessage by remember { mutableStateOf<String?>(null) }
     val articles by viewModel.articles
     val error by viewModel.errorMessage
 
     LaunchedEffect(Unit) {
-        viewModel.fetchArticles("technology", apiKey)
+        viewModel.fetchArticles("technology", apiKey, beginDate, endDate)
     }
 
     Column(
@@ -144,12 +156,6 @@ fun FeedBodyContent(
             errorMessage = null
         }
     }
+
 }
 
-@Composable
-fun ArticleItem(article: Article) {
-    Column(modifier = Modifier.padding(8.dp)) {
-        Text(text = article.headline.main, style = MaterialTheme.typography.titleMedium)
-        Text(text = article.snippet, style = MaterialTheme.typography.bodySmall)
-    }
-}
