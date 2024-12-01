@@ -38,6 +38,7 @@ import app.yournewsontime.ui.components.DrawerContent
 import app.yournewsontime.ui.components.Footer
 import app.yournewsontime.ui.view.main.ArticleItem
 import app.yournewsontime.viewmodel.NewYorkTimesViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -54,7 +55,21 @@ fun FeedScreen(
 ) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
-    var dateNow = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+    var dateNow by remember {
+        mutableStateOf(
+            LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+        )
+    }
+
+    LaunchedEffect(Unit) {
+        while (true) {
+            val newDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+            if (dateNow != newDate) {
+                dateNow = newDate
+            }
+            delay(60 * 1000L)
+        }
+    }
 
     ModalNavigationDrawer(
         drawerState = drawerState,
