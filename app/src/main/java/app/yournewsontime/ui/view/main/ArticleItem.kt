@@ -1,7 +1,8 @@
 package app.yournewsontime.ui.view.main
-import androidx.compose.foundation.Image
+
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,15 +16,27 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import app.yournewsontime.data.model.Article
-import coil3.compose.rememberAsyncImagePainter
+import coil3.compose.AsyncImage
+import java.time.format.DateTimeFormatter
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun ArticleItem(article: Article) {
+fun ArticleItem(
+    article: Article,
+    navController: androidx.navigation.NavController,
+) {
+    val imageUrl =
+        article.multimedia.firstOrNull()?.url?.let { "https://static01.nyt.com/$it" }
+    val formatedDate = article.pub_date.split("T").firstOrNull()?.let {
+        DateTimeFormatter.ofPattern("dd/MM/yyyy").format(
+            DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(it)
+        )
+    } ?: "Unknown"
+
     Card(
         modifier = Modifier
             .padding(8.dp)
@@ -37,7 +50,6 @@ fun ArticleItem(article: Article) {
                 .background(Color(0xFF5E877A))
                 .padding(16.dp)
         ) {
-            // Contenido textual
             Column(
                 modifier = Modifier.weight(1f)
             ) {
@@ -49,7 +61,7 @@ fun ArticleItem(article: Article) {
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = article.pub_date ?: "Date & Hour of the article",
+                    text = formatedDate,
                     style = MaterialTheme.typography.bodySmall,
                     color = Color.LightGray
                 )
@@ -59,19 +71,15 @@ fun ArticleItem(article: Article) {
                 style = MaterialTheme.typography.labelSmall,
                 color = Color.White
             )*/
-                val imageUrl = article.multimedia.firstOrNull()?.url?.let { "https://static01.nyt.com$it" }
 
                 if (imageUrl != null) {
-                    Image(
-                        painter = rememberAsyncImagePainter(imageUrl),
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
+                    AsyncImage(
+                        model = imageUrl,
+                        contentDescription = article.headline.main,
                         modifier = Modifier
                             .size(150.dp)
-                            .clip(RoundedCornerShape(8.dp)))
-
-                } else {
-                    Box(modifier = Modifier.size(150.dp).background(Color.White))
+                            .clip(RoundedCornerShape(8.dp))
+                    )
                 }
             }
         }
