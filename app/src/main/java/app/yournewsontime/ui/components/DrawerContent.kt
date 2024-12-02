@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import app.yournewsontime.R
-import app.yournewsontime.data.model.CategoryProvider
+import app.yournewsontime.data.repository.CategoryProvider
 import app.yournewsontime.data.repository.FirebaseAuthRepository
 import app.yournewsontime.navigation.AppScreens
 import app.yournewsontime.ui.theme.Branding_YourNewsOnTime
@@ -77,7 +77,7 @@ fun DrawerContent(
             ) {
                 Text(
                     text = "Hello, $userNickname!",
-                    fontSize = 20.sp,
+                    fontSize = 18.sp,
                     fontFamily = interFontFamily,
                     fontWeight = FontWeight.Bold,
                     color = Branding_YourNewsOnTime,
@@ -91,6 +91,7 @@ fun DrawerContent(
                         Image(
                             painter = painterResource(id = R.drawable.today_icon),
                             contentDescription = "Today",
+                            modifier = Modifier.size(20.dp)
                         )
                     },
                     onClick = {
@@ -106,6 +107,7 @@ fun DrawerContent(
                         Image(
                             painter = painterResource(id = R.drawable.bookmark_icon),
                             contentDescription = "Saved",
+                            modifier = Modifier.size(20.dp)
                         )
                     },
                     onClick = {
