@@ -34,7 +34,6 @@ fun DrawerContent(
     authRepository: FirebaseAuthRepository,
     footerHeight: Dp = 56.dp,
 ) {
-    var showLogoutDialog by remember { mutableStateOf(false) }
     val currentUser = authRepository.getCurrentUser()
     val userNickname = if (currentUser?.isAnonymous == false) {
         currentUser.email?.split("@")?.get(0) ?: "Unknown"
