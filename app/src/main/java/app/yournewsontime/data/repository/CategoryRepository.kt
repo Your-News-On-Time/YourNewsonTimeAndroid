@@ -1,4 +1,9 @@
-package app.yournewsontime.data.model
+package app.yournewsontime.data.repository
+
+data class Category(
+    val name: String,
+    var isFollowed: Boolean = false
+)
 
 object CategoryProvider {
     val categories = listOf(
