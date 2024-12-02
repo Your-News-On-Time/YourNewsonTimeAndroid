@@ -1,9 +1,8 @@
-package app.yournewsontime.ui.view.main
-import android.util.Log
+package app.yournewsontime.ui.components
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,7 +26,7 @@ import coil3.compose.rememberAsyncImagePainter
 
 
 @Composable
-fun ArticleItem(article: Article,onClick: () -> Unit) {
+fun ArticleCard(article: Article, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -41,7 +40,6 @@ fun ArticleItem(article: Article,onClick: () -> Unit) {
                 .background(Color(0xFF5E877A))
                 .padding(16.dp)
         ) {
-            // Contenido textual
             Column(
                 modifier = Modifier.weight(1f)
             ) {
@@ -57,14 +55,8 @@ fun ArticleItem(article: Article,onClick: () -> Unit) {
                     style = MaterialTheme.typography.bodySmall,
                     color = Color.LightGray
                 )
-                //TODO: EStá es la información de las noticias para poder leerlas
-                /*Text(
-                text = article.snippet ?: "Newspaper",
-                style = MaterialTheme.typography.labelSmall,
-                color = Color.White
-            )*/
-                val imageUrl = article.multimedia.firstOrNull()?.url?.let { "https://static01.nyt.com$it" }
-                Log.d("ArticleItem", "imageUrl: $imageUrl")
+                val imageUrl =
+                    article.multimedia.firstOrNull()?.url?.let { "https://static01.nyt.com$it" }
 
                 if (imageUrl != null) {
                     Image(
@@ -73,10 +65,9 @@ fun ArticleItem(article: Article,onClick: () -> Unit) {
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
                             .size(150.dp)
-                            .clip(RoundedCornerShape(8.dp)))
+                            .clip(RoundedCornerShape(8.dp))
+                    )
 
-                } else {
-                    Box(modifier = Modifier.size(150.dp).background(Color.White))
                 }
             }
         }

@@ -33,10 +33,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import app.yournewsontime.data.repository.FirebaseAuthRepository
+import app.yournewsontime.navigation.AppScreens
 import app.yournewsontime.ui.components.AlertDialog
+import app.yournewsontime.ui.components.ArticleCard
 import app.yournewsontime.ui.components.DrawerContent
 import app.yournewsontime.ui.components.Footer
-import app.yournewsontime.ui.view.main.ArticleItem
 import app.yournewsontime.viewmodel.NewYorkTimesViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -158,11 +159,17 @@ fun FeedBodyContent(
                     contentPadding = PaddingValues(bottom = 10.dp)
                 ) {
                     items(articles) { article ->
-                        // Pasamos la función de navegación al onClick
-                        ArticleItem(
+                        ArticleCard(
                             article = article,
                             onClick = {
-                                navController.navigate("article_screen")
+                                println(article._id.split("/").last())
+                                navController.navigate(
+                                    AppScreens.ArticleScreen.route + "/${
+                                        article._id.split(
+                                            "/"
+                                        ).last()
+                                    }"
+                                )
                             }
                         )
                     }

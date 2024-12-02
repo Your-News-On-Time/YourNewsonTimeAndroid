@@ -15,14 +15,14 @@ data class Article(
     val pub_date: String,
     val multimedia: List<Multimedia>,
     val web_url: String,
-    val uri: String
+    val _id: String
 )
 
 data class Headline(val main: String)
 
 data class Multimedia(
     val url: String,
-    val type: String,  // Podría ser "image" o "photo"
+    val type: String,
     val height: Int?,
     val width: Int?
 )
