@@ -71,21 +71,15 @@ fun AppNavigation(
             )
         }
 
-        /*composable(route = AppScreens.ArticleScreen.route) {
-            ArticleScreen(
-                navController = navController,
-                authRepository = authRepository,
-                viewModel = viewModel,
-                apiKey = apiKey
-            )
-        }*/
-
         composable(route = AppScreens.ProfileScreen.route) {
             ProfileScreen()
         }
 
         composable(route = AppScreens.SavedScreen.route) {
-            SavedScreen()
+            SavedScreen(
+                navController = navController,
+                authRepository = authRepository
+            )
         }
     }
 }
