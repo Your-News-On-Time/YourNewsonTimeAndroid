@@ -15,7 +15,11 @@ data class Article(
     val pub_date: String,
     val multimedia: List<Multimedia>,
     val web_url: String,
+<<<<<<< HEAD
     val _id: String
+=======
+    val section_name: String?
+>>>>>>> 5737b26ae114ec3645233d11927246318341c102
 )
 
 data class Headline(val main: String)

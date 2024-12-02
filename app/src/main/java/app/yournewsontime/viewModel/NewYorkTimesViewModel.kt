@@ -18,7 +18,10 @@ class NewYorkTimesViewModel(private val repository: NewYorkTimesRepository) : Vi
         beginDate: String? = null,
         endDate: String? = null
     ) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5737b26ae114ec3645233d11927246318341c102
         viewModelScope.launch(Dispatchers.IO) {
             if (beginDate != null && endDate != null) {
                 repository.searchArticles(category, apiKey, beginDate, endDate) { result, error ->

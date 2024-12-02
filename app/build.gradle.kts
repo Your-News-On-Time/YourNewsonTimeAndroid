@@ -77,6 +77,8 @@ dependencies {
     implementation(libs.play.services.auth)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+    implementation(libs.coil.compose.v304)
+    implementation(libs.coil.network.okhttp)
 
     testImplementation(libs.junit)
 
