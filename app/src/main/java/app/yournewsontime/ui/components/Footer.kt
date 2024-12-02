@@ -28,7 +28,8 @@ fun Footer(
     navController: NavController,
     authRepository: FirebaseAuthRepository,
     modifier: Modifier = Modifier,
-    onMenuClick: () -> Unit
+    onMenuClick: () -> Unit,
+    isMenuOpen: Boolean
 ) {
     val scope = rememberCoroutineScope()
 
@@ -41,8 +42,10 @@ fun Footer(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
-            painter = painterResource(id = R.drawable.menu_icon),
-            contentDescription = "Menu",
+            painter = painterResource(
+                id = if (isMenuOpen) R.drawable.close_menu_icon else R.drawable.menu_icon
+            ),
+            contentDescription = if (isMenuOpen) "Close Menu" else "Menu",
             modifier = Modifier
                 .clickable {
                     onMenuClick()

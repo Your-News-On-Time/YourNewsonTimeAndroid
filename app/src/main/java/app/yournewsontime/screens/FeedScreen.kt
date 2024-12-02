@@ -61,6 +61,12 @@ fun FeedScreen(
         )
     }
 
+    var isMenuOpen by remember { mutableStateOf(false) }
+
+    LaunchedEffect(drawerState.isOpen) {
+        isMenuOpen = drawerState.isOpen
+    }
+
     LaunchedEffect(Unit) {
         while (true) {
             val newDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
@@ -74,7 +80,10 @@ fun FeedScreen(
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
-            DrawerContent(navController, authRepository)
+            DrawerContent(
+                navController,
+                authRepository
+            )
         },
         scrimColor = Color.Transparent
     ) {
@@ -93,7 +102,7 @@ fun FeedScreen(
                         scrolledContainerColor = Color.Transparent,
                         navigationIconContentColor = Color.Transparent,
                         actionIconContentColor = Color.Transparent
-                    ),
+                    )
                 )
             },
             bottomBar = {
@@ -103,9 +112,15 @@ fun FeedScreen(
                     modifier = Modifier.fillMaxWidth(),
                     onMenuClick = {
                         scope.launch {
+                            if (drawerState.isClosed) {
+                                drawerState.open()
+                            } else {
+                                drawerState.close()
+                            }
                             drawerState.open()
                         }
-                    }
+                    },
+                    isMenuOpen = isMenuOpen
                 )
             }
         ) { padding ->
