@@ -88,7 +88,13 @@ fun DrawerContent(
                     text = "Feed",
                     icon = {
                         Image(
-                            painter = painterResource(id = R.drawable.today_icon),
+                            painter = painterResource(
+                                id = if (navController.currentDestination?.route == "feed_screen") {
+                                    R.drawable.today_icon
+                                } else {
+                                    R.drawable.calendar_icon
+                                }
+                            ),
                             contentDescription = "Today",
                             modifier = Modifier.size(20.dp)
                         )
@@ -104,7 +110,13 @@ fun DrawerContent(
                     text = "Saved Articles",
                     icon = {
                         Image(
-                            painter = painterResource(id = R.drawable.bookmark_icon),
+                            painter = painterResource(
+                                id = if (navController.currentDestination?.route == AppScreens.SavedScreen.route) {
+                                    R.drawable.filled_bookmark_icon
+                                } else {
+                                    R.drawable.bookmark_icon
+                                }
+                            ),
                             contentDescription = "Saved",
                             modifier = Modifier.size(20.dp)
                         )
