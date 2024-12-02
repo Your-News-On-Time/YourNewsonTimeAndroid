@@ -159,7 +159,7 @@ fun FeedBodyContent(
                     contentPadding = PaddingValues(bottom = 10.dp)
                 ) {
                     items(articles) { article ->
-<<<<<<< HEAD
+
                         ArticleCard(
                             article = article,
                             onClick = {
@@ -172,12 +172,8 @@ fun FeedBodyContent(
                                     }"
                                 )
                             }
-=======
-                        ArticleItem(
-                            article,
-                            navController
->>>>>>> 5737b26ae114ec3645233d11927246318341c102
                         )
+
                     }
                 }
             }
