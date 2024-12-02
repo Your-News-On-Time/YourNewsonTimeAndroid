@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -42,35 +43,41 @@ fun Footer(
         Image(
             painter = painterResource(id = R.drawable.menu_icon),
             contentDescription = "Menu",
-            modifier = Modifier.clickable {
-                onMenuClick()
-            }
+            modifier = Modifier
+                .clickable {
+                    onMenuClick()
+                }
+                .size(24.dp)
         )
 
         Image(
             painter = painterResource(id = R.drawable.today_icon),
             contentDescription = "Today",
-            modifier = Modifier.clickable {
-                scope.launch {
-                    if (navController.currentDestination?.route == "feed_screen") {
-                        // TODO: Implement logic to refresh the feed
-                    } else {
-                        navController.navigate(AppScreens.FeedScreen.route) {
-                            popUpTo(AppScreens.FeedScreen.route) { inclusive = true }
+            modifier = Modifier
+                .clickable {
+                    scope.launch {
+                        if (navController.currentDestination?.route == "feed_screen") {
+                            // TODO: Implement logic to refresh the feed
+                        } else {
+                            navController.navigate(AppScreens.FeedScreen.route) {
+                                popUpTo(AppScreens.FeedScreen.route) { inclusive = true }
+                            }
                         }
                     }
                 }
-            }
+                .size(24.dp)
         )
 
         Image(
             painter = painterResource(id = R.drawable.bookmark_icon),
             contentDescription = "Saved",
-            modifier = Modifier.clickable {
-                scope.launch {
-                    navController.navigate(AppScreens.SavedScreen.route)
+            modifier = Modifier
+                .clickable {
+                    scope.launch {
+                        navController.navigate(AppScreens.SavedScreen.route)
+                    }
                 }
-            }
+                .size(24.dp)
         )
 
         Image(
@@ -83,11 +90,13 @@ fun Footer(
                 }
             ),
             contentDescription = "Profile",
-            modifier = Modifier.clickable {
-                scope.launch {
-                    navController.navigate(AppScreens.ProfileScreen.route)
+            modifier = Modifier
+                .clickable {
+                    scope.launch {
+                        navController.navigate(AppScreens.ProfileScreen.route)
+                    }
                 }
-            }
+                .size(24.dp)
         )
     }
 }
