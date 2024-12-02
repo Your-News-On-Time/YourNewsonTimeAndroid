@@ -49,7 +49,7 @@ fun Footer(
             painter = painterResource(
                 id = if (isMenuOpen) R.drawable.close_menu_icon else R.drawable.menu_icon
             ),
-            contentDescription = if (isMenuOpen) "Close Menu" else "Menu",
+            contentDescription = if (isMenuOpen) "Close Menu" else "Open Menu",
             modifier = Modifier
                 .clickable {
                     onMenuClick()
@@ -58,12 +58,18 @@ fun Footer(
         )
 
         Image(
-            painter = painterResource(id = R.drawable.today_icon),
-            contentDescription = "Today",
+            painter = painterResource(
+                id = if (navController.currentDestination?.route == "feed_screen") {
+                    R.drawable.today_icon
+                } else {
+                    R.drawable.calendar_icon
+                }
+            ),
+            contentDescription = "Feed Icon",
             modifier = Modifier
                 .clickable {
                     scope.launch {
-                        if (navController.currentDestination?.route == "feed_screen") {
+                        if (navController.currentDestination?.route == AppScreens.FeedScreen.route) {
                             // TODO: Implement logic to refresh the feed
                         } else {
                             navController.navigate(AppScreens.FeedScreen.route) {
@@ -76,8 +82,14 @@ fun Footer(
         )
 
         Image(
-            painter = painterResource(id = R.drawable.bookmark_icon),
-            contentDescription = "Saved",
+            painter = painterResource(
+                id = if (navController.currentDestination?.route == AppScreens.SavedScreen.route) {
+                    R.drawable.filled_bookmark_icon
+                } else {
+                    R.drawable.bookmark_icon
+                }
+            ),
+            contentDescription = "Saved Articles Icon",
             modifier = Modifier
                 .clickable {
                     scope.launch {
@@ -110,7 +122,7 @@ fun Footer(
                 painter = painterResource(
                     id = R.drawable.account_icon
                 ),
-                contentDescription = "Profile",
+                contentDescription = "Profile Icon",
                 modifier = Modifier
                     .clickable {
                         scope.launch {
