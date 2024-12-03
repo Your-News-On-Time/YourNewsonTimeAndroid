@@ -179,9 +179,7 @@ fun ArticleScreen(
                             style = MaterialTheme.typography.bodySmall,
                             color = Color.Black
                         )
-                        Spacer(
-                            modifier = Modifier.height(40.dp)
-                        )
+                        
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
