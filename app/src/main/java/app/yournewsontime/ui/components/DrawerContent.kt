@@ -1,5 +1,6 @@
 package app.yournewsontime.ui.components
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -22,27 +24,30 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import app.yournewsontime.R
+import app.yournewsontime.data.repository.Category
 import app.yournewsontime.data.repository.CategoryProvider
 import app.yournewsontime.data.repository.FirebaseAuthRepository
 import app.yournewsontime.navigation.AppScreens
 import app.yournewsontime.ui.theme.Branding_YourNewsOnTime
 import app.yournewsontime.ui.theme.interFontFamily
 
+@SuppressLint("MutableCollectionMutableState")
 @Composable
 fun DrawerContent(
     navController: NavController,
     authRepository: FirebaseAuthRepository,
     footerHeight: Dp = 56.dp,
 ) {
+    val context = LocalContext.current
     val currentUser = authRepository.getCurrentUser()
     val userNickname = if (currentUser?.isAnonymous == false) {
         currentUser.email?.split("@")?.get(0) ?: "Unknown"
     } else {
         "Guest"
     }
-    val categories = CategoryProvider.categories
-    val followingCategories = remember { categories.filter { it.isFollowed } }
-    val suggestedCategories = remember { categories.filter { !it.isFollowed } }
+
+    val followedCategories = CategoryProvider.followedCategories
+    val suggestedCategories = CategoryProvider.suggestedCategories
 
     Box(
         modifier = Modifier
@@ -144,15 +149,15 @@ fun DrawerContent(
                         .fillMaxWidth()
                         .padding(8.dp)
                 ) {
-                    followingCategories.forEach { category ->
+                    followedCategories.forEach { category: Category ->
                         Text(
                             text = category.name,
-                            fontSize = 14.sp,
-                            color = Color.Gray,
                             modifier = Modifier.clickable {
-                                // TODO: Implement click logic for followed categories
-                                category.isFollowed = false
-                            }
+                                CategoryProvider.unfollowCategory(category)
+                                CategoryProvider.saveCategories(context)
+                            },
+                            fontSize = 14.sp,
+                            color = Color.Black
                         )
                     }
                 }
@@ -174,15 +179,15 @@ fun DrawerContent(
                         .fillMaxWidth()
                         .padding(8.dp)
                 ) {
-                    suggestedCategories.forEach { category ->
+                    suggestedCategories.forEach { category: Category ->
                         Text(
                             text = category.name,
-                            fontSize = 14.sp,
-                            color = Color.Gray,
                             modifier = Modifier.clickable {
-                                // TODO: Implement logic to follow this category
-                                category.isFollowed = true
-                            }
+                                CategoryProvider.followCategory(category)
+                                CategoryProvider.saveCategories(context)
+                            },
+                            fontSize = 14.sp,
+                            color = Color.Black
                         )
                     }
                 }
