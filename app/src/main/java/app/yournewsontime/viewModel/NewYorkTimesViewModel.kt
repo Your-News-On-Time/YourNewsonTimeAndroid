@@ -1,4 +1,4 @@
-package app.yournewsontime.viewmodel
+package app.yournewsontime.viewModel
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel

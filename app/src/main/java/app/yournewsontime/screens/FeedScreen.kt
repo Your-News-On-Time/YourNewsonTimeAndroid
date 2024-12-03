@@ -1,8 +1,6 @@
 package app.yournewsontime.screens
 
 import android.annotation.SuppressLint
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,19 +30,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import app.yournewsontime.data.repository.CategoryProvider
 import app.yournewsontime.data.repository.FirebaseAuthRepository
 import app.yournewsontime.navigation.AppScreens
 import app.yournewsontime.ui.components.AlertDialog
 import app.yournewsontime.ui.components.ArticleCard
 import app.yournewsontime.ui.components.DrawerContent
 import app.yournewsontime.ui.components.Footer
-import app.yournewsontime.viewmodel.NewYorkTimesViewModel
+import app.yournewsontime.viewModel.NewYorkTimesViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -145,12 +143,13 @@ fun FeedBodyContent(
     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
     val beginDate = LocalDate.now().minusDays(1).format(formatter)
     val endDate = LocalDate.now().format(formatter)
+    val followedCategoriesOnString = CategoryProvider.getFollowedCategoriesOnString()
     var errorMessage by remember { mutableStateOf<String?>(null) }
     val articles by viewModel.articles
     val error by viewModel.errorMessage
 
     LaunchedEffect(Unit) {
-        viewModel.fetchArticles("War", apiKey, beginDate, endDate)
+        viewModel.fetchArticles(followedCategoriesOnString, apiKey, beginDate, endDate)
     }
 
     Column(

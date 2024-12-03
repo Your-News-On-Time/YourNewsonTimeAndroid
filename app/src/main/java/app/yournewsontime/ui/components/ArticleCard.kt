@@ -23,6 +23,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import app.yournewsontime.data.model.Article
 import coil3.compose.rememberAsyncImagePainter
+import java.time.format.DateTimeFormatter
 
 
 @Composable
@@ -31,7 +32,11 @@ fun ArticleCard(article: Article, onClick: () -> Unit) {
         article.multimedia.firstOrNull()?.url?.let { "https://static01.nyt.com/$it" }
     val title = article.headline.main
 
-    val date = article.pub_date.split("T")[0]
+    val date = article.pub_date.split("T").firstOrNull()?.let {
+        DateTimeFormatter.ofPattern("dd/MM/yyyy").format(
+            DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(it)
+        )
+    } ?: "Unknown"
 
     Card(
         modifier = Modifier

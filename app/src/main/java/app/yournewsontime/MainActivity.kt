@@ -17,9 +17,9 @@ import app.yournewsontime.data.repository.api.NewYorkTimesApiService
 import app.yournewsontime.navigation.AppNavigation
 import app.yournewsontime.navigation.AppScreens
 import app.yournewsontime.ui.theme.YourNewsOnTimeTheme
-import app.yournewsontime.viewmodel.GoogleLoginViewModel
-import app.yournewsontime.viewmodel.NewYorkTimesViewModel
-import app.yournewsontime.viewmodel.NewYorkTimesViewModelFactory
+import app.yournewsontime.viewModel.GoogleLoginViewModel
+import app.yournewsontime.viewModel.NewYorkTimesViewModel
+import app.yournewsontime.viewModel.NewYorkTimesViewModelFactory
 
 class MainActivity : ComponentActivity() {
     private lateinit var authRepository: FirebaseAuthRepository

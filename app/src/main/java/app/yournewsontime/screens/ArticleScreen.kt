@@ -46,7 +46,7 @@ import androidx.navigation.NavController
 import app.yournewsontime.data.repository.FirebaseAuthRepository
 import app.yournewsontime.ui.components.DrawerContent
 import app.yournewsontime.ui.components.Footer
-import app.yournewsontime.viewmodel.NewYorkTimesViewModel
+import app.yournewsontime.viewModel.NewYorkTimesViewModel
 import coil3.compose.rememberAsyncImagePainter
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -179,7 +179,7 @@ fun ArticleScreen(
                             style = MaterialTheme.typography.bodySmall,
                             color = Color.Black
                         )
-                        
+
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()

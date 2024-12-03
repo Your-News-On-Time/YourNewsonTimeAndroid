@@ -1,4 +1,4 @@
-package app.yournewsontime.viewmodel
+package app.yournewsontime.viewModel
 
 import android.content.Context
 import android.content.Intent
