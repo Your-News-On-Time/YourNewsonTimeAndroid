@@ -1,4 +1,4 @@
-package app.yournewsontime.viewmodel
+package app.yournewsontime.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

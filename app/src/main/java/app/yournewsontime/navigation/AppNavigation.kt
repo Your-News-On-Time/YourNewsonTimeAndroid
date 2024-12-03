@@ -16,8 +16,8 @@ import app.yournewsontime.screens.ProfileScreen
 import app.yournewsontime.screens.RegisterScreen
 import app.yournewsontime.screens.SavedScreen
 import app.yournewsontime.screens.StartScreen
-import app.yournewsontime.viewmodel.GoogleLoginState
-import app.yournewsontime.viewmodel.NewYorkTimesViewModel
+import app.yournewsontime.viewModel.GoogleLoginState
+import app.yournewsontime.viewModel.NewYorkTimesViewModel
 
 @SuppressLint("NewApi")
 @Composable
