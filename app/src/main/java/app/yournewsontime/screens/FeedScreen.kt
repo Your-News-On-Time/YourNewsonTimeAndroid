@@ -61,6 +61,7 @@ fun FeedScreen(
             LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
         )
     }
+    var isMenuOpen by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         while (true) {
@@ -104,9 +105,15 @@ fun FeedScreen(
                     modifier = Modifier.fillMaxWidth(),
                     onMenuClick = {
                         scope.launch {
+                            if (drawerState.isClosed) {
+                                drawerState.open()
+                            } else {
+                                drawerState.close()
+                            }
                             drawerState.open()
                         }
-                    }
+                    },
+                    isMenuOpen = isMenuOpen
                 )
             }
         ) { padding ->

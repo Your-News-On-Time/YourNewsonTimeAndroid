@@ -27,6 +27,12 @@ import coil3.compose.rememberAsyncImagePainter
 
 @Composable
 fun ArticleCard(article: Article, onClick: () -> Unit) {
+    val imageUrl =
+        article.multimedia.firstOrNull()?.url?.let { "https://static01.nyt.com/$it" }
+    val title = article.headline.main
+
+    val date = article.pub_date.split("T")[0]
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -44,19 +50,18 @@ fun ArticleCard(article: Article, onClick: () -> Unit) {
                 modifier = Modifier.weight(1f)
             ) {
                 Text(
-                    text = article.headline.main,
+                    text = title ?: "Newspaper",
                     style = MaterialTheme.typography.titleMedium,
                     color = Color.White,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = article.pub_date ?: "Date & Hour of the article",
+                    text = date ?: "Date & Hour of the article",
                     style = MaterialTheme.typography.bodySmall,
                     color = Color.LightGray
                 )
-                val imageUrl =
-                    article.multimedia.firstOrNull()?.url?.let { "https://static01.nyt.com$it" }
+
 
                 if (imageUrl != null) {
                     Image(

@@ -92,11 +92,17 @@ fun AppNavigation(
 
 
         composable(route = AppScreens.ProfileScreen.route) {
-            ProfileScreen()
+            ProfileScreen(
+                navController = navController,
+                authRepository = authRepository
+            )
         }
 
         composable(route = AppScreens.SavedScreen.route) {
-            SavedScreen()
+            SavedScreen(
+                navController = navController,
+                authRepository = authRepository
+            )
         }
 
 

@@ -2,6 +2,8 @@ package app.yournewsontime.screens
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -11,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -28,7 +29,12 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -42,8 +48,13 @@ import app.yournewsontime.ui.components.DrawerContent
 import app.yournewsontime.ui.components.Footer
 import app.yournewsontime.viewmodel.NewYorkTimesViewModel
 import coil3.compose.rememberAsyncImagePainter
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
+
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ArticleScreen(
@@ -55,8 +66,30 @@ fun ArticleScreen(
 
     val articleData = viewModel.getArticleById("nyt://article/${articleId}")
     val scope = rememberCoroutineScope()
+    var dateNow by remember {
+        mutableStateOf(
+            LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+        )
+    }
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val context = LocalContext.current
+    val imageUrl = articleData.multimedia.firstOrNull()?.url?.let { "https://static01.nyt.com/$it" }
+    var isMenuOpen by remember { mutableStateOf(false) }
+
+
+    LaunchedEffect(drawerState.isOpen) {
+        isMenuOpen = drawerState.isOpen
+    }
+
+    LaunchedEffect(Unit) {
+        while (true) {
+            val newDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+            if (dateNow != newDate) {
+                dateNow = newDate
+            }
+            delay(60 * 1000L)
+        }
+    }
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
@@ -85,9 +118,15 @@ fun ArticleScreen(
                     modifier = Modifier.fillMaxWidth(),
                     onMenuClick = {
                         scope.launch {
+                            if (drawerState.isClosed) {
+                                drawerState.open()
+                            } else {
+                                drawerState.close()
+                            }
                             drawerState.open()
                         }
-                    }
+                    },
+                    isMenuOpen = isMenuOpen
                 )
             },
             content = { innerPadding ->
@@ -98,26 +137,31 @@ fun ArticleScreen(
                         .background(Color.White),
                     contentAlignment = Alignment.Center
                 ) {
-                    val imageUrl =
-                        articleData.multimedia.firstOrNull()?.url?.let { "https://static01.nyt.com$it" }
+
+
+                }
+                Spacer(modifier = Modifier.width(16.dp))
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp),
+                ) {
                     if (imageUrl != null) {
                         Image(
                             painter = rememberAsyncImagePainter(imageUrl),
                             contentDescription = null,
                             contentScale = ContentScale.Crop,
                             modifier = Modifier
-                                .size(150.dp)
+                                .fillMaxWidth()
+                                .height(350.dp)
                                 .clip(RoundedCornerShape(8.dp))
+                                .align(Alignment.CenterHorizontally)
+                        )
+                        Spacer(
+                            modifier = Modifier.height(20.dp)
                         )
 
-                    }
-                    Spacer(modifier = Modifier.width(16.dp))
-
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(8.dp),
-                    ) {
                         Text(
                             text = articleData.headline.main ?: "Newspaper",
                             style = MaterialTheme.typography.titleLarge,
