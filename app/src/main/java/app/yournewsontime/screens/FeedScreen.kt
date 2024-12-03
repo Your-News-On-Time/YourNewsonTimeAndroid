@@ -73,6 +73,10 @@ fun FeedScreen(
         }
     }
 
+    LaunchedEffect(drawerState.isOpen) {
+        isMenuOpen = drawerState.isOpen
+    }
+
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
