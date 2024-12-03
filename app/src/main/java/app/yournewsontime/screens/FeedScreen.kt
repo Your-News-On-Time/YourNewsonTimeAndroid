@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import app.yournewsontime.data.repository.CategoryProvider
 import app.yournewsontime.data.repository.FirebaseAuthRepository
 import app.yournewsontime.ui.components.AlertDialog
 import app.yournewsontime.ui.components.DrawerContent
@@ -148,13 +149,15 @@ fun FeedBodyContent(
     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
     val beginDate = LocalDate.now().minusDays(1).format(formatter)
     val endDate = LocalDate.now().format(formatter)
+    val followedCategories = CategoryProvider.getFollowedCategoriesOnString()
     val scope = rememberCoroutineScope()
+
     var errorMessage by remember { mutableStateOf<String?>(null) }
     val articles by viewModel.articles
     val error by viewModel.errorMessage
 
     LaunchedEffect(Unit) {
-        viewModel.fetchArticles("War", apiKey, beginDate, endDate)
+        viewModel.fetchArticles(followedCategories, apiKey, beginDate, endDate)
     }
 
     Column(
