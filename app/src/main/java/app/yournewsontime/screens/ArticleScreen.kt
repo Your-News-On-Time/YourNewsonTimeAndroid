@@ -110,6 +110,7 @@ fun ArticleScreen(
                         }
                     }
                 )
+
             },
             bottomBar = {
                 Footer(
@@ -154,9 +155,9 @@ fun ArticleScreen(
                             contentScale = ContentScale.Crop,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(350.dp)
-                                .clip(RoundedCornerShape(8.dp))
-                                .align(Alignment.CenterHorizontally)
+                                .height(380.dp)
+                                .padding(top = 65.dp)
+                                .clip(RoundedCornerShape(16.dp))
                         )
                         Spacer(
                             modifier = Modifier.height(20.dp)

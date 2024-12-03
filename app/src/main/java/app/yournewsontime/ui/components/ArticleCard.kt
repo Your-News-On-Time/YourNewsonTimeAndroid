@@ -1,5 +1,7 @@
 package app.yournewsontime.ui.components
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -26,6 +28,7 @@ import coil3.compose.rememberAsyncImagePainter
 import java.time.format.DateTimeFormatter
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ArticleCard(article: Article, onClick: () -> Unit) {
     val imageUrl =
@@ -58,7 +61,7 @@ fun ArticleCard(article: Article, onClick: () -> Unit) {
                     text = title ?: "Newspaper",
                     style = MaterialTheme.typography.titleMedium,
                     color = Color.White,
-                    maxLines = 2,
+                    maxLines = 4,
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
@@ -66,19 +69,16 @@ fun ArticleCard(article: Article, onClick: () -> Unit) {
                     style = MaterialTheme.typography.bodySmall,
                     color = Color.LightGray
                 )
-
-
-                if (imageUrl != null) {
-                    Image(
-                        painter = rememberAsyncImagePainter(imageUrl),
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .size(150.dp)
-                            .clip(RoundedCornerShape(8.dp))
-                    )
-
-                }
+            }
+            if (imageUrl != null) {
+                Image(
+                    painter = rememberAsyncImagePainter(imageUrl),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .size(160.dp)
+                        .clip(RoundedCornerShape(8.dp))
+                )
             }
         }
     }
