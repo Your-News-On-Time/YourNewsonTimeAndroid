@@ -77,4 +77,17 @@ object CategoryProvider {
         followedCategories.remove(category)
         suggestedCategories.add(category)
     }
+
+    fun clearCategories() {
+        followedCategories.clear()
+        suggestedCategories.clear()
+    }
+
+    fun getFollowedCategoriesOnString(): String {
+        return followedCategories.joinToString(",") { it.name }
+    }
+
+    fun getFollowedCategoriesOnList(): List<String> {
+        return followedCategories.map { it.name }
+    }
 }
