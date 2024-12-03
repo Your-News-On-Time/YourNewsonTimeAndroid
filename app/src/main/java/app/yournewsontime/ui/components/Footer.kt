@@ -59,7 +59,7 @@ fun Footer(
 
         Image(
             painter = painterResource(
-                id = if (navController.currentDestination?.route == "feed_screen") {
+                id = if (navController.currentDestination?.route == AppScreens.FeedScreen.route) {
                     R.drawable.today_icon
                 } else {
                     R.drawable.calendar_icon
