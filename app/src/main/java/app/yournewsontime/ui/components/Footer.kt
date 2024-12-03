@@ -32,7 +32,8 @@ fun Footer(
     navController: NavController,
     authRepository: FirebaseAuthRepository,
     modifier: Modifier = Modifier,
-    onMenuClick: () -> Unit
+    onMenuClick: () -> Unit,
+    isMenuOpen: Boolean
 ) {
     val scope = rememberCoroutineScope()
 
@@ -45,37 +46,57 @@ fun Footer(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
-            painter = painterResource(id = R.drawable.menu_icon),
-            contentDescription = "Menu",
-            modifier = Modifier.clickable {
-                onMenuClick()
-            }
+            painter = painterResource(
+                id = if (isMenuOpen) R.drawable.close_menu_icon else R.drawable.menu_icon
+            ),
+            contentDescription = if (isMenuOpen) "Close Menu" else "Open Menu",
+            modifier = Modifier
+                .clickable {
+                    onMenuClick()
+                }
+                .size(24.dp)
         )
 
         Image(
-            painter = painterResource(id = R.drawable.today_icon),
-            contentDescription = "Today",
-            modifier = Modifier.clickable {
-                scope.launch {
-                    if (navController.currentDestination?.route == "feed_screen") {
-                        // TODO: Implement logic to refresh the feed
-                    } else {
-                        navController.navigate(AppScreens.FeedScreen.route) {
-                            popUpTo(AppScreens.FeedScreen.route) { inclusive = true }
+            painter = painterResource(
+                id = if (navController.currentDestination?.route == AppScreens.FeedScreen.route) {
+                    R.drawable.today_icon
+                } else {
+                    R.drawable.calendar_icon
+                }
+            ),
+            contentDescription = "Feed Icon",
+            modifier = Modifier
+                .clickable {
+                    scope.launch {
+                        if (navController.currentDestination?.route == AppScreens.FeedScreen.route) {
+                            // TODO: Implement logic to refresh the feed
+                        } else {
+                            navController.navigate(AppScreens.FeedScreen.route) {
+                                popUpTo(AppScreens.FeedScreen.route) { inclusive = true }
+                            }
                         }
                     }
                 }
-            }
+                .size(24.dp)
         )
 
         Image(
-            painter = painterResource(id = R.drawable.bookmark_icon),
-            contentDescription = "Saved",
-            modifier = Modifier.clickable {
-                scope.launch {
-                    navController.navigate(AppScreens.SavedScreen.route)
+            painter = painterResource(
+                id = if (navController.currentDestination?.route == AppScreens.SavedScreen.route) {
+                    R.drawable.filled_bookmark_icon
+                } else {
+                    R.drawable.bookmark_icon
                 }
-            }
+            ),
+            contentDescription = "Saved Articles Icon",
+            modifier = Modifier
+                .clickable {
+                    scope.launch {
+                        navController.navigate(AppScreens.SavedScreen.route)
+                    }
+                }
+                .size(24.dp)
         )
 
         if (
@@ -101,12 +122,14 @@ fun Footer(
                 painter = painterResource(
                     id = R.drawable.account_icon
                 ),
-                contentDescription = "Profile",
-                modifier = Modifier.clickable {
-                    scope.launch {
-                        navController.navigate(AppScreens.ProfileScreen.route)
+                contentDescription = "Profile Icon",
+                modifier = Modifier
+                    .clickable {
+                        scope.launch {
+                            navController.navigate(AppScreens.ProfileScreen.route)
+                        }
                     }
-                }
+                    .size(24.dp)
             )
         }
     }
