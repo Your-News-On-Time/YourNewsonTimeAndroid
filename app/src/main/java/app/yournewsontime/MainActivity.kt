@@ -9,6 +9,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import app.yournewsontime.data.repository.AppPreferencesRepository
+import app.yournewsontime.data.repository.CategoryProvider
 import app.yournewsontime.data.repository.FirebaseAuthRepository
 import app.yournewsontime.data.repository.NewYorkTimesRepository
 import app.yournewsontime.data.repository.api.ApiClient
@@ -27,6 +28,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        CategoryProvider.initializeCategories(this)
         authRepository = FirebaseAuthRepository(context = this)
         appPreferencesRepository = AppPreferencesRepository(context = this)
 

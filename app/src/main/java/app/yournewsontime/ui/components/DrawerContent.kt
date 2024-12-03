@@ -1,10 +1,13 @@
 package app.yournewsontime.ui.components
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -12,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -20,24 +24,30 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import app.yournewsontime.R
+import app.yournewsontime.data.repository.Category
+import app.yournewsontime.data.repository.CategoryProvider
 import app.yournewsontime.data.repository.FirebaseAuthRepository
 import app.yournewsontime.navigation.AppScreens
 import app.yournewsontime.ui.theme.Branding_YourNewsOnTime
 import app.yournewsontime.ui.theme.interFontFamily
 
+@SuppressLint("MutableCollectionMutableState")
 @Composable
 fun DrawerContent(
     navController: NavController,
     authRepository: FirebaseAuthRepository,
     footerHeight: Dp = 56.dp,
 ) {
-    var showLogoutDialog by remember { mutableStateOf(false) }
+    val context = LocalContext.current
     val currentUser = authRepository.getCurrentUser()
     val userNickname = if (currentUser?.isAnonymous == false) {
         currentUser.email?.split("@")?.get(0) ?: "Unknown"
     } else {
         "Guest"
     }
+
+    val followedCategories = CategoryProvider.followedCategories
+    val suggestedCategories = CategoryProvider.suggestedCategories
 
     Box(
         modifier = Modifier
@@ -63,13 +73,15 @@ fun DrawerContent(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp),
-            horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.SpaceBetween
+            horizontalAlignment = Alignment.Start
         ) {
-            Column {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+            ) {
                 Text(
                     text = "Hello, $userNickname!",
-                    fontSize = 20.sp,
+                    fontSize = 18.sp,
                     fontFamily = interFontFamily,
                     fontWeight = FontWeight.Bold,
                     color = Branding_YourNewsOnTime,
@@ -81,8 +93,15 @@ fun DrawerContent(
                     text = "Feed",
                     icon = {
                         Image(
-                            painter = painterResource(id = R.drawable.today_icon),
+                            painter = painterResource(
+                                id = if (navController.currentDestination?.route == "feed_screen") {
+                                    R.drawable.today_icon
+                                } else {
+                                    R.drawable.calendar_icon
+                                }
+                            ),
                             contentDescription = "Today",
+                            modifier = Modifier.size(20.dp)
                         )
                     },
                     onClick = {
@@ -96,8 +115,15 @@ fun DrawerContent(
                     text = "Saved Articles",
                     icon = {
                         Image(
-                            painter = painterResource(id = R.drawable.bookmark_icon),
+                            painter = painterResource(
+                                id = if (navController.currentDestination?.route == AppScreens.SavedScreen.route) {
+                                    R.drawable.filled_bookmark_icon
+                                } else {
+                                    R.drawable.bookmark_icon
+                                }
+                            ),
                             contentDescription = "Saved",
+                            modifier = Modifier.size(20.dp)
                         )
                     },
                     onClick = {
@@ -117,7 +143,24 @@ fun DrawerContent(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                // TODO: Get the list of followed topics from the user's profile
+                Column(
+                    Modifier
+                        .verticalScroll(rememberScrollState())
+                        .fillMaxWidth()
+                        .padding(8.dp)
+                ) {
+                    followedCategories.forEach { category: Category ->
+                        Text(
+                            text = category.name,
+                            modifier = Modifier.clickable {
+                                CategoryProvider.unfollowCategory(category)
+                                CategoryProvider.saveCategories(context)
+                            },
+                            fontSize = 14.sp,
+                            color = Color.Black
+                        )
+                    }
+                }
 
                 Spacer(modifier = Modifier.height(16.dp))
 
@@ -130,7 +173,24 @@ fun DrawerContent(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                // TODO: Get the list of suggested topics from the categories list
+                Column(
+                    Modifier
+                        .verticalScroll(rememberScrollState())
+                        .fillMaxWidth()
+                        .padding(8.dp)
+                ) {
+                    suggestedCategories.forEach { category: Category ->
+                        Text(
+                            text = category.name,
+                            modifier = Modifier.clickable {
+                                CategoryProvider.followCategory(category)
+                                CategoryProvider.saveCategories(context)
+                            },
+                            fontSize = 14.sp,
+                            color = Color.Black
+                        )
+                    }
+                }
             }
 
             if (!authRepository.isUserAnonymous()) {
@@ -146,8 +206,8 @@ fun DrawerContent(
                         }
                         .padding(vertical = 16.dp),
                     fontSize = 14.sp,
-                    color = Color.Gray,
-                    textAlign = TextAlign.Start
+                    color = Color.Red.copy(alpha = 0.8f),
+                    textAlign = TextAlign.Start,
                 )
             } else {
                 Text(
@@ -161,7 +221,7 @@ fun DrawerContent(
                         }
                         .padding(vertical = 16.dp),
                     fontSize = 14.sp,
-                    color = Color.Gray,
+                    color = Branding_YourNewsOnTime.copy(alpha = 0.8f),
                     textAlign = TextAlign.Start
                 )
             }

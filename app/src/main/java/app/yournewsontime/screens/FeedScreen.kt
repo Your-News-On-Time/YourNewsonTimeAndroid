@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import app.yournewsontime.data.repository.CategoryProvider
 import app.yournewsontime.data.repository.FirebaseAuthRepository
 import app.yournewsontime.ui.components.AlertDialog
 import app.yournewsontime.ui.components.DrawerContent
@@ -61,6 +62,12 @@ fun FeedScreen(
         )
     }
 
+    var isMenuOpen by remember { mutableStateOf(false) }
+
+    LaunchedEffect(drawerState.isOpen) {
+        isMenuOpen = drawerState.isOpen
+    }
+
     LaunchedEffect(Unit) {
         while (true) {
             val newDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
@@ -74,7 +81,10 @@ fun FeedScreen(
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
-            DrawerContent(navController, authRepository)
+            DrawerContent(
+                navController,
+                authRepository
+            )
         },
         scrimColor = Color.Transparent
     ) {
@@ -93,7 +103,7 @@ fun FeedScreen(
                         scrolledContainerColor = Color.Transparent,
                         navigationIconContentColor = Color.Transparent,
                         actionIconContentColor = Color.Transparent
-                    ),
+                    )
                 )
             },
             bottomBar = {
@@ -103,9 +113,15 @@ fun FeedScreen(
                     modifier = Modifier.fillMaxWidth(),
                     onMenuClick = {
                         scope.launch {
+                            if (drawerState.isClosed) {
+                                drawerState.open()
+                            } else {
+                                drawerState.close()
+                            }
                             drawerState.open()
                         }
-                    }
+                    },
+                    isMenuOpen = isMenuOpen
                 )
             }
         ) { padding ->
@@ -133,13 +149,15 @@ fun FeedBodyContent(
     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
     val beginDate = LocalDate.now().minusDays(1).format(formatter)
     val endDate = LocalDate.now().format(formatter)
+    val followedCategories = CategoryProvider.getFollowedCategoriesOnString()
     val scope = rememberCoroutineScope()
+
     var errorMessage by remember { mutableStateOf<String?>(null) }
     val articles by viewModel.articles
     val error by viewModel.errorMessage
 
     LaunchedEffect(Unit) {
-        viewModel.fetchArticles("War", apiKey, beginDate, endDate)
+        viewModel.fetchArticles(followedCategories, apiKey, beginDate, endDate)
     }
 
     Column(
