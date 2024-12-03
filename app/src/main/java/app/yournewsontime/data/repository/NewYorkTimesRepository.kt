@@ -8,22 +8,29 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class NewYorkTimesRepository(private val apiService: NewYorkTimesApiService) {
-    fun searchArticles(category: String, apiKey: String, beginDate:String, endDate:String, callback: (List<Article>?, String?) -> Unit) {
-        apiService.searchArticles(category, apiKey,beginDate,endDate).enqueue(object : Callback<NewYorkTimesResponse> {
-            override fun onResponse(
-                call: Call<NewYorkTimesResponse>,
-                response: Response<NewYorkTimesResponse>
-            ) {
-                if (response.isSuccessful) {
-                    callback(response.body()?.response?.docs, null)
-                } else {
-                    callback(null, response.errorBody()?.string())
+    fun searchArticles(
+        category: String,
+        apiKey: String,
+        beginDate: String,
+        endDate: String,
+        callback: (List<Article>?, String?) -> Unit
+    ) {
+        apiService.searchArticles(category, apiKey, beginDate, endDate)
+            .enqueue(object : Callback<NewYorkTimesResponse> {
+                override fun onResponse(
+                    call: Call<NewYorkTimesResponse>,
+                    response: Response<NewYorkTimesResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        callback(response.body()?.response?.docs, null)
+                    } else {
+                        callback(null, response.errorBody()?.string())
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<NewYorkTimesResponse>, t: Throwable) {
-                callback(null, t.localizedMessage)
-            }
-        })
+                override fun onFailure(call: Call<NewYorkTimesResponse>, t: Throwable) {
+                    callback(null, t.localizedMessage)
+                }
+            })
     }
 }

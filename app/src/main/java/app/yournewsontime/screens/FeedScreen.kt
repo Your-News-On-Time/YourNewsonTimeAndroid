@@ -33,10 +33,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import app.yournewsontime.data.repository.FirebaseAuthRepository
+import app.yournewsontime.navigation.AppScreens
 import app.yournewsontime.ui.components.AlertDialog
+import app.yournewsontime.ui.components.ArticleCard
 import app.yournewsontime.ui.components.DrawerContent
 import app.yournewsontime.ui.components.Footer
-import app.yournewsontime.ui.view.main.ArticleItem
 import app.yournewsontime.viewmodel.NewYorkTimesViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -121,7 +122,7 @@ fun FeedScreen(
 
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
+@SuppressLint("NewApi")
 @Composable
 fun FeedBodyContent(
     navController: NavController,
@@ -133,7 +134,6 @@ fun FeedBodyContent(
     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
     val beginDate = LocalDate.now().minusDays(1).format(formatter)
     val endDate = LocalDate.now().format(formatter)
-    val scope = rememberCoroutineScope()
     var errorMessage by remember { mutableStateOf<String?>(null) }
     val articles by viewModel.articles
     val error by viewModel.errorMessage
@@ -159,10 +159,21 @@ fun FeedBodyContent(
                     contentPadding = PaddingValues(bottom = 10.dp)
                 ) {
                     items(articles) { article ->
-                        ArticleItem(
-                            article,
-                            navController
+
+                        ArticleCard(
+                            article = article,
+                            onClick = {
+                                println(article._id.split("/").last())
+                                navController.navigate(
+                                    AppScreens.ArticleScreen.route + "/${
+                                        article._id.split(
+                                            "/"
+                                        ).last()
+                                    }"
+                                )
+                            }
                         )
+
                     }
                 }
             }
@@ -173,6 +184,5 @@ fun FeedBodyContent(
             errorMessage = null
         }
     }
-
 }
 
