@@ -1,9 +1,13 @@
 package app.yournewsontime.screens
 
+import android.content.Context
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -24,6 +28,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,10 +39,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import app.yournewsontime.R
 import app.yournewsontime.data.repository.FirebaseAuthRepository
@@ -54,6 +65,7 @@ fun ProfileScreen(
     navController: NavController,
     authRepository: FirebaseAuthRepository
 ) {
+    val context = LocalContext.current
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
@@ -110,10 +122,11 @@ fun ProfileScreen(
                 )
             }
         ) { padding ->
-            ProfileBodyContent(
-                navController,
-                authRepository,
-                padding
+            GyroProfileCard(
+                context = context,
+                lifecycleOwner = LocalContext.current as LifecycleOwner,
+                authRepository = authRepository,
+                padding = padding
             )
         }
     }
@@ -121,26 +134,32 @@ fun ProfileScreen(
 
 @Composable
 fun ProfileBodyContent(
-    navController: NavController,
     authRepository: FirebaseAuthRepository,
-    padding: PaddingValues
+    padding: PaddingValues,
+    rotationX: Float,
+    rotationY: Float
 ) {
     val currentUser = authRepository.getCurrentUser()
+    val density = LocalDensity.current.density
 
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(padding)
             .padding(16.dp),
-        verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth(0.9f)
                 .padding(16.dp)
-                .background(Branding_YourNewsOnTime, shape = RoundedCornerShape(8.dp)),
-            contentAlignment = Alignment.Center
+                .graphicsLayer(
+                    rotationX = rotationX,
+                    rotationY = rotationY,
+                    cameraDistance = 16f * density
+                )
+                .clip(RoundedCornerShape(8.dp))
+                .background(Branding_YourNewsOnTime)
         ) {
             Column(
                 modifier = Modifier.padding(16.dp),
@@ -242,4 +261,51 @@ fun ProfileBodyContent(
             }
         }
     }
+}
+
+@Composable
+fun GyroProfileCard(
+    context: Context,
+    lifecycleOwner: LifecycleOwner,
+    authRepository: FirebaseAuthRepository,
+    padding: PaddingValues
+) {
+    val sensorManager =
+        remember { context.getSystemService(Context.SENSOR_SERVICE) as SensorManager }
+    val rotationX = remember { mutableStateOf(0f) }
+    val rotationY = remember { mutableStateOf(0f) }
+
+    DisposableEffect(lifecycleOwner) {
+        val sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)
+        val listener = object : SensorEventListener {
+            override fun onSensorChanged(event: SensorEvent) {
+                val values = event.values
+                rotationX.value = values[0] * 30
+                rotationY.value = values[1] * 30
+            }
+
+            override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
+        }
+
+        sensorManager.registerListener(listener, sensor, SensorManager.SENSOR_DELAY_UI)
+
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_PAUSE || event == Lifecycle.Event.ON_STOP) {
+                sensorManager.unregisterListener(listener)
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+
+        onDispose {
+            sensorManager.unregisterListener(listener)
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
+    }
+
+    ProfileBodyContent(
+        authRepository = authRepository,
+        padding = padding,
+        rotationX = rotationX.value,
+        rotationY = rotationY.value
+    )
 }
