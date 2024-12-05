@@ -24,6 +24,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.rememberDrawerState
@@ -52,6 +53,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import app.yournewsontime.R
 import app.yournewsontime.data.repository.FirebaseAuthRepository
+import app.yournewsontime.navigation.AppScreens
 import app.yournewsontime.ui.components.DrawerContent
 import app.yournewsontime.ui.components.Footer
 import app.yournewsontime.ui.theme.Branding_YourNewsOnTime
@@ -123,6 +125,7 @@ fun ProfileScreen(
             }
         ) { padding ->
             ProfileBodyContent(
+                navController = navController,
                 authRepository = authRepository,
                 padding = padding,
                 context = context,
@@ -133,6 +136,7 @@ fun ProfileScreen(
 
 @Composable
 fun ProfileBodyContent(
+    navController: NavController,
     authRepository: FirebaseAuthRepository,
     padding: PaddingValues,
     context: Context,
@@ -149,6 +153,20 @@ fun ProfileBodyContent(
             lifecycleOwner = context as LifecycleOwner,
             authRepository = authRepository,
         )
+        if (authRepository.isUserLoggedIn() && !authRepository.isUserAnonymous()) {
+            TextButton(
+                modifier = Modifier.padding(top = 20.dp),
+                onClick = {
+                    navController.navigate(AppScreens.ProfileEditScreen.route)
+                }
+            ) {
+                Text(
+                    text = "Edit Profile",
+                    color = Color.Black.copy(alpha = 0.6f),
+                    fontSize = 16.sp
+                )
+            }
+        }
     }
 }
 
@@ -216,7 +234,8 @@ fun PressCard(
                 cameraDistance = 16f * density
             )
             .clip(RoundedCornerShape(8.dp))
-            .background(Branding_YourNewsOnTime)
+            .background(Branding_YourNewsOnTime),
+        contentAlignment = Alignment.Center
     ) {
         Column(
             modifier = Modifier.padding(16.dp),
