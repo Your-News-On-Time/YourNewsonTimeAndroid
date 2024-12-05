@@ -122,11 +122,10 @@ fun ProfileScreen(
                 )
             }
         ) { padding ->
-            GyroProfileCard(
-                context = context,
-                lifecycleOwner = LocalContext.current as LifecycleOwner,
+            ProfileBodyContent(
                 authRepository = authRepository,
-                padding = padding
+                padding = padding,
+                context = context,
             )
         }
     }
@@ -136,12 +135,8 @@ fun ProfileScreen(
 fun ProfileBodyContent(
     authRepository: FirebaseAuthRepository,
     padding: PaddingValues,
-    rotationX: Float,
-    rotationY: Float
+    context: Context,
 ) {
-    val currentUser = authRepository.getCurrentUser()
-    val density = LocalDensity.current.density
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -149,117 +144,11 @@ fun ProfileBodyContent(
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth(0.9f)
-                .padding(16.dp)
-                .graphicsLayer(
-                    rotationX = rotationX,
-                    rotationY = rotationY,
-                    cameraDistance = 16f * density
-                )
-                .clip(RoundedCornerShape(8.dp))
-                .background(Branding_YourNewsOnTime)
-        ) {
-            Column(
-                modifier = Modifier.padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Spacer(modifier = Modifier.height(18.dp))
-
-                Box(
-                    modifier = Modifier
-                        .height(15.dp)
-                        .width(70.dp)
-                        .clip(CircleShape)
-                        .background(Color.White)
-                )
-
-                Spacer(modifier = Modifier.height(18.dp))
-
-                Text(
-                    text = "PRESS",
-                    color = Color.Black,
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = interFontFamily,
-                    fontSize = 60.sp
-                )
-
-                Spacer(modifier = Modifier.height(20.dp))
-
-                if (
-                    authRepository.isUserLoggedIn() &&
-                    !authRepository.isUserAnonymous() &&
-                    currentUser?.photoUrl != null
-                ) {
-                    AsyncImage(
-                        model = currentUser.photoUrl,
-                        contentDescription = "Profile Picture of ${currentUser.displayName}",
-                        modifier = Modifier
-                            .size(150.dp)
-                            .clip(CircleShape)
-                            .border(2.dp, Color.White, CircleShape)
-                    )
-                } else {
-                    Image(
-                        painter = painterResource(
-                            id = R.drawable.filled_account_icon
-                        ),
-                        contentDescription = "Profile Icon",
-                        modifier = Modifier
-                            .size(150.dp)
-                            .clip(CircleShape)
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(15.dp))
-
-                Text(
-                    text = if (authRepository.isUserAnonymous()) "Guest" else currentUser?.displayName
-                        ?: "Unknown",
-                    color = Color.Black,
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = interFontFamily,
-                    fontSize = 45.sp
-                )
-
-                Spacer(modifier = Modifier.height(10.dp))
-
-                Text(
-                    text = if (authRepository.isUserAnonymous()) "guest@guest.guest" else currentUser?.email
-                        ?: "No email",
-                    color = Color.Black,
-                    fontSize = 25.sp
-                )
-
-                Spacer(modifier = Modifier.height(20.dp))
-
-                if (
-                    authRepository.isUserLoggedIn() &&
-                    !authRepository.isUserAnonymous()
-                ) {
-                    if (currentUser?.photoUrl != null) {
-                        Text(
-                            text = "Google",
-                            color = Color.White,
-                            fontSize = 16.sp
-                        )
-                    } else {
-                        Text(
-                            text = "Email & Password",
-                            color = Color.White,
-                            fontSize = 16.sp
-                        )
-                    }
-                } else {
-                    Text(
-                        text = "Guest",
-                        color = Color.White,
-                        fontSize = 16.sp
-                    )
-                }
-            }
-        }
+        GyroProfileCard(
+            context = context,
+            lifecycleOwner = context as LifecycleOwner,
+            authRepository = authRepository,
+        )
     }
 }
 
@@ -268,7 +157,6 @@ fun GyroProfileCard(
     context: Context,
     lifecycleOwner: LifecycleOwner,
     authRepository: FirebaseAuthRepository,
-    padding: PaddingValues
 ) {
     val sensorManager =
         remember { context.getSystemService(Context.SENSOR_SERVICE) as SensorManager }
@@ -281,7 +169,7 @@ fun GyroProfileCard(
             override fun onSensorChanged(event: SensorEvent) {
                 val values = event.values
                 rotationX.value = values[0] * 30
-                rotationY.value = values[1] * 30
+                rotationY.value = values[1] * -30
             }
 
             override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
@@ -302,10 +190,131 @@ fun GyroProfileCard(
         }
     }
 
-    ProfileBodyContent(
+    PressCard(
         authRepository = authRepository,
-        padding = padding,
         rotationX = rotationX.value,
         rotationY = rotationY.value
     )
+}
+
+@Composable
+fun PressCard(
+    authRepository: FirebaseAuthRepository,
+    rotationX: Float,
+    rotationY: Float
+) {
+    val currentUser = authRepository.getCurrentUser()
+    val density = LocalDensity.current.density
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth(0.9f)
+            .padding(16.dp)
+            .graphicsLayer(
+                rotationX = rotationX,
+                rotationY = rotationY,
+                cameraDistance = 16f * density
+            )
+            .clip(RoundedCornerShape(8.dp))
+            .background(Branding_YourNewsOnTime)
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = Modifier.height(18.dp))
+
+            Box(
+                modifier = Modifier
+                    .height(15.dp)
+                    .width(70.dp)
+                    .clip(CircleShape)
+                    .background(Color.White)
+            )
+
+            Spacer(modifier = Modifier.height(18.dp))
+
+            Text(
+                text = "PRESS",
+                color = Color.Black,
+                fontWeight = FontWeight.Bold,
+                fontFamily = interFontFamily,
+                fontSize = 60.sp
+            )
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            if (
+                authRepository.isUserLoggedIn() &&
+                !authRepository.isUserAnonymous() &&
+                currentUser?.photoUrl != null
+            ) {
+                AsyncImage(
+                    model = currentUser.photoUrl,
+                    contentDescription = "Profile Picture of ${currentUser.displayName}",
+                    modifier = Modifier
+                        .size(150.dp)
+                        .clip(CircleShape)
+                        .border(2.dp, Color.White, CircleShape)
+                )
+            } else {
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.filled_account_icon
+                    ),
+                    contentDescription = "Profile Icon",
+                    modifier = Modifier
+                        .size(150.dp)
+                        .clip(CircleShape)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(15.dp))
+
+            Text(
+                text = if (authRepository.isUserAnonymous()) "Guest" else currentUser?.displayName
+                    ?: "Unknown",
+                color = Color.Black,
+                fontWeight = FontWeight.Bold,
+                fontFamily = interFontFamily,
+                fontSize = 45.sp
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            Text(
+                text = if (authRepository.isUserAnonymous()) "guest@guest.guest" else currentUser?.email
+                    ?: "No email",
+                color = Color.Black,
+                fontSize = 25.sp
+            )
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            if (
+                authRepository.isUserLoggedIn() &&
+                !authRepository.isUserAnonymous()
+            ) {
+                if (currentUser?.photoUrl != null) {
+                    Text(
+                        text = "Google",
+                        color = Color.White,
+                        fontSize = 16.sp
+                    )
+                } else {
+                    Text(
+                        text = "Email & Password",
+                        color = Color.White,
+                        fontSize = 16.sp
+                    )
+                }
+            } else {
+                Text(
+                    text = "Guest",
+                    color = Color.White,
+                    fontSize = 16.sp
+                )
+            }
+        }
+    }
 }
