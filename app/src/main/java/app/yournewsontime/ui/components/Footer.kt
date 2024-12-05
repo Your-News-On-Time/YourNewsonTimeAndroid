@@ -120,7 +120,11 @@ fun Footer(
         } else {
             Image(
                 painter = painterResource(
-                    id = R.drawable.account_icon
+                    id = if (navController.currentDestination?.route == AppScreens.ProfileScreen.route) {
+                        R.drawable.filled_account_icon
+                    } else {
+                        R.drawable.account_icon
+                    }
                 ),
                 contentDescription = "Profile Icon",
                 modifier = Modifier
