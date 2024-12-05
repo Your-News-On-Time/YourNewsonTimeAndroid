@@ -25,7 +25,7 @@ class NewYorkTimesViewModel(private val repository: NewYorkTimesRepository) : Vi
                     if (error != null) {
                         errorMessage.value = error
                     } else {
-                        articles.value = result ?: emptyList()
+                        articles.value = result?.sortedByDescending { it.pub_date } ?: emptyList()
                     }
                 }
             }
