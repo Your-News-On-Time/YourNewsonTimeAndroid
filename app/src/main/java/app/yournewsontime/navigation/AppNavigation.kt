@@ -12,6 +12,7 @@ import app.yournewsontime.data.repository.FirebaseAuthRepository
 import app.yournewsontime.screens.ArticleScreen
 import app.yournewsontime.screens.FeedScreen
 import app.yournewsontime.screens.LoginScreen
+import app.yournewsontime.screens.ProfileEditScreen
 import app.yournewsontime.screens.ProfileScreen
 import app.yournewsontime.screens.RegisterScreen
 import app.yournewsontime.screens.SavedScreen
@@ -90,9 +91,15 @@ fun AppNavigation(
 
         }
 
-
         composable(route = AppScreens.ProfileScreen.route) {
             ProfileScreen(
+                navController = navController,
+                authRepository = authRepository
+            )
+        }
+
+        composable(route = AppScreens.ProfileEditScreen.route) {
+            ProfileEditScreen(
                 navController = navController,
                 authRepository = authRepository
             )
@@ -104,7 +111,5 @@ fun AppNavigation(
                 authRepository = authRepository
             )
         }
-
-
     }
 }

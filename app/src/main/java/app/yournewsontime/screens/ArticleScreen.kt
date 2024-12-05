@@ -105,7 +105,7 @@ fun ArticleScreen(
                         IconButton(onClick = { navController.popBackStack() }) {
                             Icon(
                                 imageVector = Icons.Default.ArrowBack,
-                                contentDescription = "Volver"
+                                contentDescription = "Back"
                             )
                         }
                     }
