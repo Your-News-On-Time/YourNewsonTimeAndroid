@@ -223,20 +223,20 @@ fun ProfileBodyContent(
                         Text(
                             text = "Google",
                             color = Color.White,
-                            fontSize = 20.sp
+                            fontSize = 16.sp
                         )
                     } else {
                         Text(
                             text = "Email & Password",
                             color = Color.White,
-                            fontSize = 20.sp
+                            fontSize = 16.sp
                         )
                     }
                 } else {
                     Text(
                         text = "Guest",
                         color = Color.White,
-                        fontSize = 20.sp
+                        fontSize = 16.sp
                     )
                 }
             }
