@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -26,6 +27,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -147,6 +149,7 @@ fun FeedBodyContent(
     var errorMessage by remember { mutableStateOf<String?>(null) }
     val articles by viewModel.articles
     val error by viewModel.errorMessage
+    val isLoading by viewModel.isLoading
 
     LaunchedEffect(Unit) {
         viewModel.fetchArticles(followedCategoriesOnString, apiKey, beginDate, endDate)
@@ -161,37 +164,41 @@ fun FeedBodyContent(
         Box(
             modifier = Modifier.fillMaxSize()
         ) {
-            if (error != null) {
-                Text("Error: $error", color = MaterialTheme.colorScheme.error)
+            if (isLoading) {
+                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             } else {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(bottom = 10.dp)
-                ) {
-                    items(articles) { article ->
+                if (error != null) {
+                    Text("Error: $error", color = MaterialTheme.colorScheme.error)
+                } else {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(bottom = 10.dp)
+                    ) {
+                        items(articles) { article ->
 
-                        ArticleCard(
-                            article = article,
-                            onClick = {
-                                println(article._id.split("/").last())
-                                navController.navigate(
-                                    AppScreens.ArticleScreen.route + "/${
-                                        article._id.split(
-                                            "/"
-                                        ).last()
-                                    }"
-                                )
-                            }
-                        )
+                            ArticleCard(
+                                article = article,
+                                onClick = {
+                                    println(article._id.split("/").last())
+                                    navController.navigate(
+                                        AppScreens.ArticleScreen.route + "/${
+                                            article._id.split(
+                                                "/"
+                                            ).last()
+                                        }"
+                                    )
+                                }
+                            )
 
+                        }
                     }
                 }
             }
-        }
 
-        errorMessage?.let {
-            AlertDialog(message = it)
-            errorMessage = null
+            errorMessage?.let {
+                AlertDialog(message = it)
+                errorMessage = null
+            }
         }
     }
 }

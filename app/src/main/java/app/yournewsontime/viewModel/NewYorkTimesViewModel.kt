@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 class NewYorkTimesViewModel(private val repository: NewYorkTimesRepository) : ViewModel() {
     val articles = mutableStateOf<List<Article>>(emptyList())
     val errorMessage = mutableStateOf<String?>(null)
+    val isLoading = mutableStateOf(false)
 
     fun fetchArticles(
         category: String,
@@ -18,7 +19,7 @@ class NewYorkTimesViewModel(private val repository: NewYorkTimesRepository) : Vi
         beginDate: String? = null,
         endDate: String? = null
     ) {
-
+        isLoading.value = true
         viewModelScope.launch(Dispatchers.IO) {
             if (beginDate != null && endDate != null) {
                 repository.searchArticles(category, apiKey, beginDate, endDate) { result, error ->
@@ -27,6 +28,7 @@ class NewYorkTimesViewModel(private val repository: NewYorkTimesRepository) : Vi
                     } else {
                         articles.value = result?.sortedByDescending { it.pub_date } ?: emptyList()
                     }
+                    isLoading.value = false
                 }
             }
         }
