@@ -30,6 +30,7 @@ import app.yournewsontime.data.repository.FirebaseAuthRepository
 import app.yournewsontime.navigation.AppScreens
 import app.yournewsontime.ui.theme.Branding_YourNewsOnTime
 import app.yournewsontime.ui.theme.interFontFamily
+import app.yournewsontime.viewModel.NewYorkTimesViewModel
 
 @SuppressLint("MutableCollectionMutableState")
 @Composable
@@ -37,6 +38,10 @@ fun DrawerContent(
     navController: NavController,
     authRepository: FirebaseAuthRepository,
     footerHeight: Dp = 56.dp,
+    viewModel: NewYorkTimesViewModel? = null,
+    apiKey: String? = null,
+    beginDate: String? = null,
+    endDate: String? = null
 ) {
     val context = LocalContext.current
     val currentUser = authRepository.getCurrentUser()
@@ -153,7 +158,13 @@ fun DrawerContent(
                         Text(
                             text = category.name,
                             modifier = Modifier.clickable {
-                                CategoryProvider.unfollowCategory(category)
+                                CategoryProvider.unfollowCategory(
+                                    category,
+                                    viewModel,
+                                    apiKey,
+                                    beginDate,
+                                    endDate
+                                )
                                 CategoryProvider.saveCategories(context)
                             },
                             fontSize = 14.sp,
@@ -183,7 +194,13 @@ fun DrawerContent(
                         Text(
                             text = category.name,
                             modifier = Modifier.clickable {
-                                CategoryProvider.followCategory(category)
+                                CategoryProvider.followCategory(
+                                    category,
+                                    viewModel,
+                                    apiKey,
+                                    beginDate,
+                                    endDate
+                                )
                                 CategoryProvider.saveCategories(context)
                             },
                             fontSize = 14.sp,

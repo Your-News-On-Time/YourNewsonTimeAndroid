@@ -3,6 +3,7 @@ package app.yournewsontime.data.repository
 import android.content.Context
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
+import app.yournewsontime.viewModel.NewYorkTimesViewModel
 
 data class Category(val name: String) {
     var isFollowed: Boolean = false
@@ -66,16 +67,38 @@ object CategoryProvider {
         editor.apply()
     }
 
-    fun followCategory(category: Category) {
+    fun followCategory(
+        category: Category,
+        viewModel: NewYorkTimesViewModel? = null,
+        apiKey: String? = null,
+        beginDate: String? = null,
+        endDate: String? = null
+    ) {
         category.isFollowed = true
         followedCategories.add(category)
         suggestedCategories.remove(category)
+        followedCategories.sortBy { it.name }
+        suggestedCategories.sortBy { it.name }
+        if (viewModel != null && apiKey != null && beginDate != null && endDate != null) {
+            viewModel.fetchArticles(getFollowedCategoriesOnString(), apiKey, beginDate, endDate)
+        }
     }
 
-    fun unfollowCategory(category: Category) {
+    fun unfollowCategory(
+        category: Category,
+        viewModel: NewYorkTimesViewModel? = null,
+        apiKey: String? = null,
+        beginDate: String? = null,
+        endDate: String? = null
+    ) {
         category.isFollowed = false
         followedCategories.remove(category)
         suggestedCategories.add(category)
+        followedCategories.sortBy { it.name }
+        suggestedCategories.sortBy { it.name }
+        if (viewModel != null && apiKey != null && beginDate != null && endDate != null) {
+            viewModel.fetchArticles(getFollowedCategoriesOnString(), apiKey, beginDate, endDate)
+        }
     }
 
     fun clearCategories() {
@@ -84,6 +107,9 @@ object CategoryProvider {
     }
 
     fun getFollowedCategoriesOnString(): String {
+        if (followedCategories.size > 2) {
+            return followedCategories.shuffled().take(2).joinToString(",") { it.name }
+        }
         return followedCategories.joinToString(",") { it.name }
     }
 

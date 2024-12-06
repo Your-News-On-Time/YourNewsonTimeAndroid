@@ -80,7 +80,15 @@ fun FeedScreen(
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
-            DrawerContent(navController, authRepository)
+            DrawerContent(
+                navController = navController,
+                authRepository = authRepository,
+                viewModel = viewModel,
+                apiKey = apiKey,
+                beginDate = LocalDate.now().minusDays(1)
+                    .format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                endDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+            )
         },
         scrimColor = Color.Transparent
     ) {
