@@ -12,6 +12,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -28,6 +29,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarColors
@@ -47,9 +49,11 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import app.yournewsontime.data.repository.AppPreferencesRepository
 import app.yournewsontime.data.repository.FirebaseAuthRepository
 import app.yournewsontime.ui.components.DrawerContent
 import app.yournewsontime.ui.components.Footer
+import app.yournewsontime.ui.components.Splitter
 import coil3.compose.rememberAsyncImagePainter
 import kotlinx.coroutines.launch
 
@@ -142,11 +146,14 @@ fun ProfileEditBodyContent(
     context: Context,
     padding: PaddingValues
 ) {
+    val appPreferencesRepository = AppPreferencesRepository(context)
     val scope = rememberCoroutineScope()
     val currentUser = authRepository.getCurrentUser()
     var profileImageUri by remember { mutableStateOf<String?>(null) }
     var profileImageBitmap by remember { mutableStateOf<Bitmap?>(null) }
     var showImagePickerDialog by remember { mutableStateOf(false) }
+    val isBiometricEnabled =
+        remember { mutableStateOf(appPreferencesRepository.isBiometricEnabled()) }
 
     LaunchedEffect(currentUser?.photoUrl) {
         profileImageUri = currentUser?.photoUrl?.toString()
@@ -217,6 +224,29 @@ fun ProfileEditBodyContent(
             text = currentUser?.email ?: "No email available",
             color = Color.Black
         )
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Splitter()
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(text = "Enable Biometric Authentication")
+            Spacer(modifier = Modifier.weight(1f))
+            Switch(
+                checked = isBiometricEnabled.value,
+                onCheckedChange = { enabled ->
+                    isBiometricEnabled.value = enabled
+                    appPreferencesRepository.setBiometricEnabled(enabled)
+                }
+            )
+        }
     }
 }
 
