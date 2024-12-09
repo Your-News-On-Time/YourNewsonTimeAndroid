@@ -13,8 +13,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
@@ -53,7 +54,6 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -63,7 +63,6 @@ fun ArticleScreen(
     articleId: String,
     viewModel: NewYorkTimesViewModel
 ) {
-
     val articleData = viewModel.getArticleById("nyt://article/${articleId}")
     val scope = rememberCoroutineScope()
     var dateNow by remember {
@@ -75,7 +74,6 @@ fun ArticleScreen(
     val context = LocalContext.current
     val imageUrl = articleData.multimedia.firstOrNull()?.url?.let { "https://static01.nyt.com/$it" }
     var isMenuOpen by remember { mutableStateOf(false) }
-
 
     LaunchedEffect(drawerState.isOpen) {
         isMenuOpen = drawerState.isOpen
@@ -90,6 +88,7 @@ fun ArticleScreen(
             delay(60 * 1000L)
         }
     }
+
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
@@ -110,7 +109,6 @@ fun ArticleScreen(
                         }
                     }
                 )
-
             },
             bottomBar = {
                 Footer(
@@ -135,74 +133,64 @@ fun ArticleScreen(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(innerPadding)
-                        .background(Color.White),
+                        .background(Color.White)
+                        .verticalScroll(rememberScrollState()),
                     contentAlignment = Alignment.Center
                 ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp),
+                    ) {
+                        if (imageUrl != null) {
+                            Image(
+                                painter = rememberAsyncImagePainter(imageUrl),
+                                contentDescription = null,
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(380.dp)
+                                    .padding(top = 65.dp)
+                                    .clip(RoundedCornerShape(16.dp))
+                            )
+                            Spacer(modifier = Modifier.height(20.dp))
 
+                            Text(
+                                text = articleData.headline.main ?: "Newspaper",
+                                style = MaterialTheme.typography.titleLarge,
+                                color = Color.Black
+                            )
+                            Spacer(modifier = Modifier.height(20.dp))
+                            Text(
+                                text = articleData.snippet ?: "Date & Hour of the article",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = Color.Black
+                            )
+                            Spacer(modifier = Modifier.height(10.dp))
+                            Text(
+                                text = articleData.lead_paragraph ?: "Date & Hour of the article",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = Color.Black
+                            )
 
-                }
-                Spacer(modifier = Modifier.width(16.dp))
-
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp),
-                ) {
-                    if (imageUrl != null) {
-                        Image(
-                            painter = rememberAsyncImagePainter(imageUrl),
-                            contentDescription = null,
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(380.dp)
-                                .padding(top = 65.dp)
-                                .clip(RoundedCornerShape(16.dp))
-                        )
-                        Spacer(
-                            modifier = Modifier.height(20.dp)
-                        )
-
-                        Text(
-                            text = articleData.headline.main ?: "Newspaper",
-                            style = MaterialTheme.typography.titleLarge,
-                            color = Color.Black
-                        )
-                        Spacer(modifier = Modifier.height(20.dp))
-                        Text(
-                            text = articleData.snippet ?: "Date & Hour of the article",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = Color.Black
-                        )
-                        Spacer(modifier = Modifier.height(10.dp))
-                        Text(
-                            text = articleData.lead_paragraph ?: "Date & Hour of the article",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = Color.Black
-                        )
-
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Button(onClick = {
-                                val intent =
-                                    Intent(Intent.ACTION_VIEW, Uri.parse(articleData.web_url))
-                                context.startActivity(intent)
-                            }) {
-                                Text("Open article")
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Button(onClick = {
+                                    val intent =
+                                        Intent(Intent.ACTION_VIEW, Uri.parse(articleData.web_url))
+                                    context.startActivity(intent)
+                                }) {
+                                    Text("Open article")
+                                }
                             }
                         }
                     }
-
-
                 }
-
-
             }
-
         )
     }
 }
