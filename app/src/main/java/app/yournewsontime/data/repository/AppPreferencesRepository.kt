@@ -16,4 +16,12 @@ class AppPreferencesRepository(context: Context) {
     fun setFirstLaunch(isFirst: Boolean) {
         prefs.edit().putBoolean("is_first_launch", isFirst).apply()
     }
+
+    fun isBiometricEnabled(): Boolean {
+        return prefs.getBoolean("biometric_enabled", false)
+    }
+
+    fun setBiometricEnabled(enabled: Boolean) {
+        prefs.edit().putBoolean("biometric_enabled", enabled).apply()
+    }
 }
