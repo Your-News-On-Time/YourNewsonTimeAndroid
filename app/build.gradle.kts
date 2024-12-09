@@ -79,6 +79,7 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.coil.compose.v304)
     implementation(libs.coil.network.okhttp)
+    implementation(libs.androidx.biometric)
 
     testImplementation(libs.junit)
 
