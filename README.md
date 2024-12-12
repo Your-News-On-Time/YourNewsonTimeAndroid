@@ -1,9 +1,5 @@
 # Your News on Time
 
-Feel free to check the website [here](#).
-
-You can download the APK from the [releases](https://github.com/Your-News-On-Time/YourNewsonTime/releases/tag/v0.1.0-beta.1) section too.
-
 ## Project Overview
 
 "Your News on Time" is a comprehensive news application designed to provide users with the latest news articles from various categories. The application integrates with the New York Times API to fetch and display news articles. It also includes features such as user authentication, profile management, and the ability to follow specific news categories.
@@ -123,6 +119,10 @@ The UI is built using Jetpack Compose, which allows for a declarative approach t
 - [Retrofit](https://square.github.io/retrofit/)
 - [Coil](https://coil-kt.github.io/coil/)
 - [Biometric](https://developer.android.com/jetpack/androidx/releases/biometric)
+
+## Try It Out
+
+Download the APK from the [releases](https://github.com/Your-News-On-Time/YourNewsonTime/releases/tag/v0.1.0-beta.1) section and install it on your Android device to explore the app.
 
 ## License
 
