@@ -1,5 +1,11 @@
 # Your News on Time
 
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/Your-News-On-Time/YourNewsonTime/total) ![GitHub Repo stars](https://img.shields.io/github/stars/Your-News-On-Time/YourNewsonTime)
+
+![GitHub top language](https://img.shields.io/github/languages/top/Your-News-On-Time/YourNewsonTime) ![GitHub License](https://img.shields.io/github/license/Your-News-On-Time/YourNewsonTime)
+
+![GitHub Release](https://img.shields.io/github/v/release/Your-News-On-Time/YourNewsonTime?include_prereleases) ![GitHub Release Date](https://img.shields.io/github/release-date-pre/Your-News-On-Time/YourNewsonTime)
+
 ## Project Overview
 
 "Your News on Time" is a comprehensive news application designed to provide users with the latest news articles from various categories. The application integrates with the New York Times API to fetch and display news articles. It also includes features such as user authentication, profile management, and the ability to follow specific news categories.
