@@ -21,18 +21,14 @@ The application is designed to be user-friendly and intuitive, with a clean and 
 > [!WARNING]
 > The following mockups illustrate old designs of the application, because the final design was created during the development process.
 
-1. **Welcome Screen**:
-  ![Welcome Screen](./docs/mockups/Welcome.png)
-2. **Log in/Sign up modal**:
-  ![Log in/Sign up modal](./docs/mockups/LoginSignup.png)
-3. **Register Screen**:
-  ![Register Screen](./docs/mockups/Register.png)
-4. **Home Screen**:
-  ![Home Screen](./docs/mockups/Home.png)
-5. **Side Menu**:
-  ![Side Screen](./docs/mockups/Menu.png)
-6. **Article Screen**:
-  ![Article Screen](./docs/mockups/Article.png)
+| # | Screen | Mockup |
+| --- | --- | --- |
+| 1 | Welcome | ![Welcome Screen](./docs/mockups/Welcome.png) |
+| 2 | Log in/Sign up modal | ![Log in/Sign up modal](./docs/mockups/LoginSignup.png) |
+| 3 | Register | ![Register Screen](./docs/mockups/Register.png) |
+| 4 | Home | ![Home Screen](./docs/mockups/Home.png) |
+| 5 | Side Menu | ![Side Screen](./docs/mockups/Menu.png) |
+| 6 | Article | ![Article Screen](./docs/mockups/Article.png) |
 
 ## Project Structure
 
