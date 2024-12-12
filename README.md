@@ -4,6 +4,32 @@
 
 "Your News on Time" is a comprehensive news application designed to provide users with the latest news articles from various categories. The application integrates with the New York Times API to fetch and display news articles. It also includes features such as user authentication, profile management, and the ability to follow specific news categories.
 
+## Objectives
+
+Create a news application that allows users to access the latest news articles from the New York Times API.
+
+## Design
+
+The application is designed to be user-friendly and intuitive, with a clean and modern interface. The app follows the Material Design guidelines and uses a consistent color scheme and typography throughout. The navigation is simple and straightforward, with a bottom navigation bar and a navigation drawer for easy access to different screens.
+
+### Mockups
+
+> [!WARNING]
+> The following mockups illustrate old designs of the application, because the final design was created during the development process.
+
+1. **Welcome Screen**:
+  ![Welcome Screen](./docs/mockups/Welcome.png)
+2. **Log in/Sign up modal**:
+  ![Log in/Sign up modal](./docs/mockups/LoginSignup.png)
+3. **Register Screen**:
+  ![Register Screen](./docs/mockups/Register.png)
+4. **Home Screen**:
+  ![Home Screen](./docs/mockups/Home.png)
+5. **Side Menu**:
+  ![Side Screen](./docs/mockups/Menu.png)
+6. **Article Screen**:
+  ![Article Screen](./docs/mockups/Article.png)
+
 ## Project Structure
 
 The project is organized into several key components:
@@ -104,7 +130,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-<div>
-	<p align="center">Crafted with ❤️ by <a href="https://github.com/juancarlosacostaperaba">Juan Carlos Acosta Perabá</a> y <a href="https://github.com/nuhacet66">Nuhacet Travieso del Rosario</a></p>
-</div>
-
+Crafted with ❤️ by [Juan Carlos 🤟](https://github.com/juancarlosacostaperaba) and [Nuhacet](https://github.com/nuhacet66).
