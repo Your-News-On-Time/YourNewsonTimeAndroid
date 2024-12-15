@@ -1,6 +1,7 @@
 # Your News on Time
 
 [![GitHub License](https://img.shields.io/github/license/Your-News-On-Time/YourNewsonTime)](LICENSE) ![GitHub top language](https://img.shields.io/github/languages/top/Your-News-On-Time/YourNewsonTime) [![GitHub Repo stars](https://img.shields.io/github/stars/Your-News-On-Time/YourNewsonTime)](https://github.com/Your-News-On-Time/YourNewsonTime)
+
 [![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/Your-News-On-Time/YourNewsonTime/total) ![GitHub Release](https://img.shields.io/github/v/release/Your-News-On-Time/YourNewsonTime?include_prereleases) ![GitHub Release Date](https://img.shields.io/github/release-date-pre/Your-News-On-Time/YourNewsonTime)](https://github.com/Your-News-On-Time/YourNewsonTime/releases/tag/v0.1.0-beta.1)
 
 ## Project Overview
