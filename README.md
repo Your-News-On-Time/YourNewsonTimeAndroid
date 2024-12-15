@@ -6,7 +6,7 @@
 
 ## Project Overview
 
-"Your News on Time" is a comprehensive news application designed to provide users with the latest news articles from various categories. The application integrates with the New York Times API to fetch and display news articles. It also includes features such as user authentication, profile management, and the ability to follow specific news categories.
+"Your News on Time" is a comprehensive news application designed to provide users with the latest news articles from various categories. The application integrates with the New York Times API to fetch and display news articles. It also includes features such as user authentication and the ability to follow specific news categories.
 
 ## Objectives
 
