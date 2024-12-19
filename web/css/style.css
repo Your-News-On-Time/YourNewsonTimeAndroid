@@ -588,3 +588,40 @@ header {
 		margin-top: 2rem;
 	}
 }
+
+.gh-shake {
+	display: inline-block;
+}
+
+.gh-shake span {
+	display: inline-block;
+	transition: transform 0.3s;
+}
+
+.gh-shake:hover span {
+	animation: shake 0.5s;
+}
+
+@keyframes shake {
+	0% {
+		transform: rotate(0deg);
+	}
+	10% {
+		transform: rotate(10deg);
+	}
+	20% {
+		transform: rotate(-10deg);
+	}
+	30% {
+		transform: rotate(10deg);
+	}
+	40% {
+		transform: rotate(-10deg);
+	}
+	50% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(0deg);
+	}
+}
