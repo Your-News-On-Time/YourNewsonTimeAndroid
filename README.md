@@ -126,7 +126,26 @@ The UI is built using Jetpack Compose, which allows for a declarative approach t
 
 ## Try It Out
 
-Download the APK from the [releases](https://github.com/Your-News-On-Time/YourNewsonTime/releases/tag/v0.1.0-beta.1) section and install it on your Android device to explore the app.
+### APK
+
+Download the APK from
+the [releases](https://github.com/Your-News-On-Time/YourNewsonTime/releases/tag/v0.1.0-beta.1)
+section and install it on your Android device to explore the app.
+
+### Build from Source
+
+To build the project from source, follow these steps:
+
+1. Clone the repository (`git clone https://github.com/Your-News-On-Time/YourNewsonTime.git`)
+2. Open the project in Android Studio.
+3. Put your `FireBase web client id` and your `New York Times API key` in the `local.properties`
+   file as indicated in the [`local.properties.copy`](local.properties.copy) file.
+4. Build and run the project on an Android device or emulator.
+
+## Contributing
+
+Contributions are welcome! Please read the [contributing guidelines](CONTRIBUTING.md) before getting
+started.
 
 ## License
 
