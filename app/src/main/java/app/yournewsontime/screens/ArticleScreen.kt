@@ -6,35 +6,12 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.Button
-import androidx.compose.material3.DrawerValue
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalNavigationDrawer
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.rememberDrawerState
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -48,11 +25,12 @@ import app.yournewsontime.ui.components.DrawerContent
 import app.yournewsontime.ui.components.Footer
 import app.yournewsontime.viewModel.NewYorkTimesViewModel
 import coil3.compose.rememberAsyncImagePainter
+import com.google.gson.Gson
+import app.yournewsontime.data.model.getMultimediaList
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
@@ -63,19 +41,32 @@ fun ArticleScreen(
     articleId: String,
     viewModel: NewYorkTimesViewModel
 ) {
+    val articleData = viewModel.getArticleById(Uri.decode(articleId))
 
-    val articleData = viewModel.getArticleById("nyt://article/${articleId}")
+    if (articleData == null) {
+        Text("Artículo no encontrado")
+        return
+    }
+
     val scope = rememberCoroutineScope()
+    val context = LocalContext.current
+    val gson = remember { Gson() }
+
+    val imageUrl = articleData.getMultimediaList(gson)
+        .firstOrNull { it.type == "image" && !it.url.isNullOrBlank() && it.url.endsWith(".jpg") }
+        ?.url
+        ?.let { url ->
+            if (url.startsWith("http")) url else "https://static01.nyt.com/$url"
+        }
+
     var dateNow by remember {
         mutableStateOf(
             LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
         )
     }
-    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    val context = LocalContext.current
-    val imageUrl = articleData.multimedia.firstOrNull()?.url?.let { "https://static01.nyt.com/$it" }
-    var isMenuOpen by remember { mutableStateOf(false) }
 
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    var isMenuOpen by remember { mutableStateOf(false) }
 
     LaunchedEffect(drawerState.isOpen) {
         isMenuOpen = drawerState.isOpen
@@ -90,6 +81,7 @@ fun ArticleScreen(
             delay(60 * 1000L)
         }
     }
+
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
@@ -110,7 +102,6 @@ fun ArticleScreen(
                         }
                     }
                 )
-
             },
             bottomBar = {
                 Footer(
@@ -124,33 +115,23 @@ fun ArticleScreen(
                             } else {
                                 drawerState.close()
                             }
-                            drawerState.open()
                         }
                     },
                     isMenuOpen = isMenuOpen
                 )
             },
             content = { innerPadding ->
-                Box(
+                Column(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(innerPadding)
-                        .background(Color.White),
-                    contentAlignment = Alignment.Center
+                        .background(Color.White)
+                        .padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-
-
-                }
-                Spacer(modifier = Modifier.width(16.dp))
-
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp),
-                ) {
-                    if (imageUrl != null) {
+                    imageUrl?.let {
                         Image(
-                            painter = rememberAsyncImagePainter(imageUrl),
+                            painter = rememberAsyncImagePainter(it),
                             contentDescription = null,
                             contentScale = ContentScale.Crop,
                             modifier = Modifier
@@ -159,50 +140,44 @@ fun ArticleScreen(
                                 .padding(top = 65.dp)
                                 .clip(RoundedCornerShape(16.dp))
                         )
-                        Spacer(
-                            modifier = Modifier.height(20.dp)
-                        )
 
-                        Text(
-                            text = articleData.headline.main ?: "Newspaper",
-                            style = MaterialTheme.typography.titleLarge,
-                            color = Color.Black
-                        )
                         Spacer(modifier = Modifier.height(20.dp))
-                        Text(
-                            text = articleData.snippet ?: "Date & Hour of the article",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = Color.Black
-                        )
-                        Spacer(modifier = Modifier.height(10.dp))
-                        Text(
-                            text = articleData.lead_paragraph ?: "Date & Hour of the article",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = Color.Black
-                        )
-
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Button(onClick = {
-                                val intent =
-                                    Intent(Intent.ACTION_VIEW, Uri.parse(articleData.web_url))
-                                context.startActivity(intent)
-                            }) {
-                                Text("Open article")
-                            }
-                        }
                     }
 
+                    Text(
+                        text = articleData.headline?.main ?: "Sin título",
+                        style = MaterialTheme.typography.titleLarge,
+                        color = Color.Black
+                    )
 
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    Text(
+                        text = articleData.snippet ?: "Sin resumen disponible",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = Color.Black
+                    )
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    Text(
+                        text = articleData.lead_paragraph ?: "Contenido no disponible",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = Color.Black
+                    )
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    Button(
+                        onClick = {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(articleData.web_url))
+                            context.startActivity(intent)
+                        }
+                    ) {
+                        Text("Open article")
+                    }
                 }
-
-
             }
-
         )
     }
 }

@@ -26,7 +26,7 @@ class NewYorkTimesViewModel(private val repository: NewYorkTimesRepository) : Vi
                     if (error != null) {
                         errorMessage.value = error
                     } else {
-                        articles.value = result?.sortedByDescending { it.pub_date } ?: emptyList()
+                        articles.value = result?.sortedByDescending { it.pub_date ?: "" } ?: emptyList()
                     }
                     isLoading.value = false
                 }
@@ -34,7 +34,12 @@ class NewYorkTimesViewModel(private val repository: NewYorkTimesRepository) : Vi
         }
     }
 
-    fun getArticleById(articleId: String): Article {
-        return articles.value.first { it._id == articleId }
+    fun getArticleById(articleId: String): Article? {
+        return try {
+            articles.value.firstOrNull { it._id == articleId }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
     }
 }

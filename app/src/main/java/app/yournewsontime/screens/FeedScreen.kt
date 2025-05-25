@@ -44,6 +44,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import android.net.Uri
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -142,7 +144,7 @@ fun FeedBodyContent(
     apiKey: String,
     padding: PaddingValues
 ) {
-    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+    val formatter = DateTimeFormatter.ofPattern("yyyyMMdd")
     val beginDate = LocalDate.now().minusDays(1).format(formatter)
     val endDate = LocalDate.now().format(formatter)
     val followedCategoriesOnString = CategoryProvider.getFollowedCategoriesOnString()
@@ -179,14 +181,8 @@ fun FeedBodyContent(
                             ArticleCard(
                                 article = article,
                                 onClick = {
-                                    println(article._id.split("/").last())
-                                    navController.navigate(
-                                        AppScreens.ArticleScreen.route + "/${
-                                            article._id.split(
-                                                "/"
-                                            ).last()
-                                        }"
-                                    )
+                                    println(article._id?.split("/")?.last() ?: "id-desconocido")
+                                    navController.navigate(AppScreens.ArticleScreen.route + "/${Uri.encode(article._id ?: "")}")
                                 }
                             )
 

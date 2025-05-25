@@ -5,11 +5,7 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -24,18 +20,29 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import app.yournewsontime.data.model.Article
+import app.yournewsontime.data.model.getMultimediaList
 import coil3.compose.rememberAsyncImagePainter
+import com.google.gson.Gson
 import java.time.format.DateTimeFormatter
-
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ArticleCard(article: Article, onClick: () -> Unit) {
-    val imageUrl =
-        article.multimedia.firstOrNull()?.url?.let { "https://static01.nyt.com/$it" }
-    val title = article.headline.main
+    val gson = Gson()
+    val multimediaList = article.getMultimediaList(gson)
 
-    val date = article.pub_date.split("T").firstOrNull()?.let {
+    multimediaList.forEachIndexed { index, item ->
+        println("🔍 Multimedia[$index] → url = ${item.url}, type = ${item.type}")
+    }
+
+    val imageUrl = multimediaList
+        .firstOrNull { !it.url.isNullOrBlank() && it.url!!.endsWith(".jpg") }
+        ?.url
+        ?.let { "https://static01.nyt.com/$it" }
+
+    println("🖼️ Mostrando imagen: $imageUrl")
+
+    val date = article.pub_date?.split("T")?.firstOrNull()?.let {
         DateTimeFormatter.ofPattern("dd/MM/yyyy").format(
             DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(it)
         )
@@ -58,21 +65,22 @@ fun ArticleCard(article: Article, onClick: () -> Unit) {
                 modifier = Modifier.weight(1f)
             ) {
                 Text(
-                    text = title ?: "Newspaper",
+                    text = article.headline?.main ?: "Sin título",
                     style = MaterialTheme.typography.titleMedium,
                     color = Color.White,
                     maxLines = 4,
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = date ?: "Date & Hour of the article",
+                    text = date,
                     style = MaterialTheme.typography.bodySmall,
                     color = Color.LightGray
                 )
             }
-            if (imageUrl != null) {
+
+            imageUrl?.let {
                 Image(
-                    painter = rememberAsyncImagePainter(imageUrl),
+                    painter = rememberAsyncImagePainter(it),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
